@@ -189,6 +189,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CalenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +199,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.component.js" />
+    <Content Include="app\app.module.js" />
+    <Content Include="app\calendar\calendar.component.css" />
+    <Content Include="app\calendar\calendar.component.html" />
+    <Content Include="app\main.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -215,6 +221,10 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="package.json" />
+    <Content Include="app\app.component.js.map" />
+    <Content Include="app\app.module.js.map" />
+    <Content Include="app\main.js.map" />
+    <Content Include="app\package-lock.json" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -246,6 +256,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Calender\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -259,6 +270,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\calendar\calendar.component.spec.ts" />
+    <TypeScriptCompile Include="app\calendar\calendar.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
   </ItemGroup>
   <ItemGroup>
