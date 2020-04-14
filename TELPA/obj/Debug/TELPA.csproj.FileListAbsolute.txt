@@ -155,3 +155,4 @@ C:\Users\Paulius\Desktop\TELPA\TELPA\bin\System.Web.Mvc.xml
 C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.csproj.CopyComplete
 C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.dll
 C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.pdb
+C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.csprojAssemblyReference.cache
