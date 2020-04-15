@@ -22,7 +22,7 @@ var AppModule = /** @class */ (function () {
                 app_component_1.AppComponent,
                 calendar_component_1.CalendarComponent
             ],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [app_component_1.AppComponent, calendar_component_1.CalendarComponent]
         })
     ], AppModule);
     return AppModule;

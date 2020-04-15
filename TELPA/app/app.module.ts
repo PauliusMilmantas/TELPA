@@ -10,9 +10,10 @@ import { CalendarComponent } from './calendar/calendar.component';
         BrowserModule
    ],
     declarations: [
-        AppComponent,
         CalendarComponent
     ],
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [
+     CalendarComponent 
+    ]
 })
 export class AppModule { }
