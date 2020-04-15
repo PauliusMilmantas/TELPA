@@ -1,6 +1,12 @@
 # TELPA
 Komandinis PSK projektas. 
 
+Frontend paleidimas:
+```
+cd frontend
+ng serve --open
+```
+
 Užduotys pateiktos čia: https://github.com/PauliusMilmantas/TELPA/projects
 
 UML pateiktas: UML\
