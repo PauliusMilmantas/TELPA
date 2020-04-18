@@ -74,10 +74,6 @@ C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.csproj.CopyComplete
 C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.dll
 C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.pdb
 C:\Users\Paulius\Desktop\TELPA\TELPA\obj\Debug\TELPA.csprojAssemblyReference.cache
-D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.DependencyInjection.xml
-D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Logging.xml
-D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Options.xml
-D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Newtonsoft.Json.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\TELPA.dll.config
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\TELPA.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\TELPA.pdb
@@ -133,9 +129,13 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Caching.Memo
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Configuration.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Configuration.Abstractions.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Configuration.Binder.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.DependencyInjection.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Logging.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Logging.Abstractions.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Options.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Primitives.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Newtonsoft.Json.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Buffers.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Collections.Immutable.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Diagnostics.DiagnosticSource.xml
@@ -150,8 +150,8 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.WebPages.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.WebPages.Deployment.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.WebPages.Razor.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.Mvc.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csprojAssemblyReference.cache
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CoreCompileInputs.cache
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CopyComplete
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.pdb
-D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csprojAssemblyReference.cache
