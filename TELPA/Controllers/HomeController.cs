@@ -13,8 +13,8 @@ namespace TELPA.Controllers
         public ActionResult Index()
         {
             User user = new User();
-            user.name = "Petras";
-            user.last_name = "Petraitis";
+            user.name = "Jonas";
+            user.last_name = "Jonskis";
 
             db.Users.Add(user);
             db.SaveChanges();
