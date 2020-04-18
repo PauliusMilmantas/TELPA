@@ -13,8 +13,9 @@ namespace TELPA.Controllers
         public ActionResult Index()
         {
             User user = new User();
-            user.name = "Jonas";
-            user.last_name = "Jonskis";
+            user.name = "Testas";
+            user.last_name = "Testauskas";
+            user.objective = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             db.Users.Add(user);
             db.SaveChanges();

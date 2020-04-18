@@ -154,3 +154,4 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CoreCompileInp
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CopyComplete
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.pdb
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csprojAssemblyReference.cache
