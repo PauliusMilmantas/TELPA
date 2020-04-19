@@ -20,10 +20,11 @@ namespace TELPA.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public virtual DbSet<Employee> employees { get; set; }
+
         public ApplicationDbContext()
             : base("TELPA_DB", throwIfV1Schema: false)
-        {
-        }
+        { }
 
         public static ApplicationDbContext Create()
         {

@@ -9,9 +9,9 @@ namespace TELPA.Models.Entities
     public class Team
     {
         [Key]
-        public int team_id { get; set; }
+        public int tem_id { get; set; }
         public string team_name { get; set; }
         public string team_description { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Employee> employees { get; set; }
     }
 }

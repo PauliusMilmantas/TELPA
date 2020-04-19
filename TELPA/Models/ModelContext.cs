@@ -8,11 +8,11 @@ namespace TELPA.Models
 {
     public class ModelContext : DbContext
     {
+        public virtual DbSet<Employee> employees { get; set; }
+
         public ModelContext()
             : base("name=TELPA_DB")
         { }
-
-        public virtual DbSet<User> Users { get; set; }
 
     }
 }

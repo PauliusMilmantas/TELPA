@@ -19,7 +19,7 @@ namespace TELPA.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController() {}
+        public AccountController() { }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -33,9 +33,9 @@ namespace TELPA.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -119,7 +119,7 @@ namespace TELPA.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -154,14 +154,15 @@ namespace TELPA.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    CreateDefaultAchievementEntries(user.Id);
+                    CreateEmployeeByUser(user.Id, user.UserName);
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -171,28 +172,16 @@ namespace TELPA.Controllers
             return View(model);
         }
 
-        private void CreateDefaultAchievementEntries(string userID)
+        private void CreateEmployeeByUser(string userId, string username)
         {
-            CreateNewAchievementEntry("Text Searcher", userID);
-            CreateNewAchievementEntry("Image Searcher", userID);
-            CreateNewAchievementEntry("Commenter", userID);
-            CreateNewAchievementEntry("Wanted Plates Finder", userID);
-            CreateNewAchievementEntry("Wanted Images Finder", userID);
-            CreateNewAchievementEntry("Overall Achiever", userID);
-        }
-        private void CreateNewAchievementEntry(string groupName, string userID)
-        {
-            // ApplicationDbContext db = ApplicationDbContext.Create();
-            // Achievement ad = new Achievement();
+            ApplicationDbContext db = ApplicationDbContext.Create();
 
-            // ad.UserId = userID;
-            // ad.GroupName = groupName;
-            // ad.Tier = 0;
-            // ad.Name = "Unranked";
-            // ad.Description = "";
+            Employee emp = new Employee();
+            emp.emp_usr_id = userId;
+            emp.display_name = username;
 
-            // db.Achievements.Add(ad);
-            // db.SaveChanges();
+            db.employees.Add(emp);
+            db.SaveChanges();
         }
 
         //
