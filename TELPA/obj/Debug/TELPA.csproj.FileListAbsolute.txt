@@ -82,6 +82,7 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\EntityFramework.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\EntityFramework.SqlServer.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Core.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Owin.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Bcl.HashCode.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -97,8 +98,14 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Logging.Abst
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Logging.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Options.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Primitives.dll
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.dll
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Security.dll
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Security.OAuth.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Web.Infrastructure.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Newtonsoft.Json.dll
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Owin.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Buffers.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Collections.Immutable.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.ComponentModel.Annotations.dll
@@ -120,6 +127,7 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\EntityFramework.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\EntityFramework.SqlServer.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Core.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Owin.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Bcl.AsyncInterfaces.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Bcl.HashCode.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.EntityFrameworkCore.xml
@@ -135,6 +143,11 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Logging.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Logging.Abstractions.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Options.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Extensions.Primitives.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Security.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\Newtonsoft.Json.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Buffers.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Collections.Immutable.xml
@@ -150,7 +163,6 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.WebPages.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.WebPages.Deployment.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.WebPages.Razor.xml
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\bin\System.Web.Mvc.xml
-D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csprojAssemblyReference.cache
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CoreCompileInputs.cache
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CopyComplete
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.dll

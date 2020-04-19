@@ -4,7 +4,9 @@ TELPA/TELPA/bin/TELPA.pdb
 TELPA/TELPA/obj/Debug/TELPA.csproj.FileListAbsolute.txt
 TELPA/TELPA/obj/Debug/TELPA.dll
 TELPA/TELPA/obj/Debug/TELPA.pdb
+TELPA/TELPA/obj/Debug/
 
+git rm -r --cached TELPA/TELPA/obj/Debug/
 git rm --cached TELPA/.vs/TELPA/v16/.suo
 git rm --cached TELPA/TELPA/bin/TELPA.dll
 git rm --cached TELPA/TELPA/bin/TELPA.pdb

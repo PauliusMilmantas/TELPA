@@ -14,6 +14,5 @@ namespace TELPA.Models
 
         public virtual DbSet<User> Users { get; set; }
 
-
     }
 }
