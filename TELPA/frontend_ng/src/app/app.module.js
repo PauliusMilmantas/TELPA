@@ -11,6 +11,9 @@ var core_1 = require("@angular/core");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var calendar_component_1 = require("./calendar/calendar.component");
+var day_component_1 = require("./day/day.component");
+var event_component_1 = require("./event/event.component");
+var hour_component_1 = require("./hour/hour.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -18,7 +21,10 @@ var AppModule = /** @class */ (function () {
         core_1.NgModule({
             declarations: [
                 app_component_1.AppComponent,
-                calendar_component_1.CalendarComponent
+                calendar_component_1.CalendarComponent,
+                day_component_1.DayComponent,
+                event_component_1.EventComponent,
+                hour_component_1.HourComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,

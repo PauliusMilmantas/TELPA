@@ -1,14 +1,66 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
+
+<style>
+    .right_panel {
+        border-left: 2px solid green;
+        height: 100%;
+    }
+
+    .event {
+        border-left: 2px solid blue;
+        padding-left: 2px;
+        margin-bottom: 5px;
+        font-size: 16pt;
+    }
+
+    .pending {
+        border-left: 2px solid blue;
+    }
+
+    .canceled {
+        border-left: 2px solid red;
+        text-decoration: line-through
+    }
+
+    .confirmed {
+        border-left: 2px solid green;
+    }
+</style>
+
+<br>
+<br>
+<br>
 <br>
 
-<div class="Container">
+<div class="container">
     <div class="row">
-        <div class="col-xs col-sm-8 col-lg-6 align-self-center">
-            <img src="@ViewBag.ImageData" class="img-responsive">
+        <div class="col-xl-4 left_panel">
+            <div class="col-md-4">
+                <my-app>Loading AppComponent content here ...</my-app>
+                <br>
+                <app-calendar>Loading calendar content here...</app-calendar>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+        <div class="col-md-4 right_panel">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-primary">New event</button>
+            </div>
+            <br><br><br>
+            <div class="event confirmed">
+                <i>04.20: </i>Meeting
+            </div>
+            <div class="event pending">
+                <i>04.20: </i>Meeting
+            </div>
+            <div class="event canceled">
+                <i>04.20: </i>Meeting
+            </div>
+            <div class="event confirmed">
+                <i>04.20: </i>Meeting
+            </div>
         </div>
     </div>
 </div>
-
-<my-app>Loading AppComponent content here ...</my-app>
-<br>
-<app-calendar>Loading calendar content here...</app-calendar>
