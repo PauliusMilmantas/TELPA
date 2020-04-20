@@ -167,3 +167,13 @@ D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CoreCompileInp
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.csproj.CopyComplete
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.dll
 D:\Desktop\Arno\Programming\C#\TELPA\TELPA\obj\Debug\TELPA.pdb
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.Owin.dll
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.Owin.xml
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Paulius\Desktop\TELPA\TELPA\bin\Microsoft.AspNet.Identity.Owin.xml

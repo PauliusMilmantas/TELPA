@@ -1,6 +1,159 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
+
+<style>
+    .right_panel {
+        border-left: 2px solid green;
+        height: 100%;
+    }
+
+    .event {
+        border-left: 2px solid blue;
+        padding-left: 2px;
+        margin-bottom: 5px;
+        font-size: 16pt;
+    }
+
+    .event:hover {
+        -webkit-box-shadow: -1px 1px 1px 1px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 1px 1px 1px rgba(0,0,0,0.75);
+        box-shadow: -1px 1px 1px 1px rgba(0,0,0,0.75);
+    }
+
+    .event .time {
+        font-style: italic;
+    }
+
+    .event .title {
+        font-weight: bold; 
+    }
+
+    .event .actions {
+        padding-top: 10px;
+        float: right;
+    }
+
+    .pending {
+        border-left: 2px solid blue;
+    }
+
+    .canceled {
+        border-left: 2px solid red;
+        text-decoration: line-through
+    }
+
+    .confirmed {
+        border-left: 2px solid green;
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+        .modal .content {
+            position: relative;
+            padding: 10px;
+            width: 400px;
+            height: 300px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: rgba(112, 128, 175, 0.2) 0px 16px 24px 0px;
+            transform: scale(0);
+            transition: transform 300ms cubic-bezier(0.57, 0.21, 0.69, 1.25);
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            border-radius: 8px;
+            background-color: #7080af;
+            clip-path: polygon(0 10%, 10% 0, 50% 40%, 89% 0, 100% 10%, 60% 50%, 100% 90%, 90% 100%, 50% 60%, 10% 100%, 0 89%, 40% 50%);
+        }
+
+    .modal.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal.open .content {
+        transform: scale(1);
+    }
+</style>
+
+<!-- Modular window to show event -->
+<div class="modal">
+    <div class="content">
+        <div class="close"></div>
+        <h1> Hello, World!</h1>
+        <p>Content</p>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
 <br>
 
-<my-app>Loading AppComponent content here ...</my-app>
-<br>
-<app-calendar>Loading calendar content here...</app-calendar>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-4 left_panel">
+            <div class="col-md-4">
+                <my-app>Loading AppComponent content here ...</my-app>
+                <br>
+                <app-calendar>Loading calendar content here...</app-calendar>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+        <div class="col-md-4 right_panel">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-primary">New event</button>
+            </div>
+            <br><br><br>
+            <div class="event confirmed">
+                <div class="title">Meeting #0001</div>
+                <div class="time">2020.04.20 15:20 Tuesday</div>
+            </div>
+            <div class="event pending">
+                <div class="title">Meeting #0002</div>
+                <div class="time">2020.04.20 15:20 Tuesday</div>
+            </div>
+            <div class="event canceled">
+                <div class="title">Meeting #0003</div>
+                <div class="time">2020.04.20 15:20 Tuesday</div>
+            </div>
+            <div class="event canceled">
+                <div class="title">Meeting #0004</div>
+                <div class="time">2020.04.20 15:20 Tuesday</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".event").click(function () {
+        $('.modal').addClass('open');
+
+        if ( $( '.modal' ).hasClass('open') ) {
+          $('.container').addClass('blur');
+        } 
+    });
+
+    $('.close').click(function() {
+      $('.modal').removeClass('open');
+      $('.cont').removeClass('blur');
+    });
+</script>
