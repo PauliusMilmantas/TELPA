@@ -10,12 +10,9 @@ namespace TELPA.Controllers
     public class HomeController : Controller
     {
         ModelContext db = new ModelContext();
-        private readonly string telpaLogo = "/Content/Images/telpa-logo.jpg";
 
         public ActionResult Index()
         {
-            ViewBag.ImageData = telpaLogo;
-
             Employee emp = new Employee();
             emp.display_name = "Testas";
             emp.last_name = "Testauskas";
