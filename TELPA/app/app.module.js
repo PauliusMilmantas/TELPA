@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-var app_component_1 = require("./app.component");
 var calendar_component_1 = require("./calendar/calendar.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -19,10 +18,11 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule
             ],
             declarations: [
-                app_component_1.AppComponent,
                 calendar_component_1.CalendarComponent
             ],
-            bootstrap: [app_component_1.AppComponent, calendar_component_1.CalendarComponent]
+            bootstrap: [
+                calendar_component_1.CalendarComponent
+            ]
         })
     ], AppModule);
     return AppModule;

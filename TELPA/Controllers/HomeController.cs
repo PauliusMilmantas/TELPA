@@ -10,28 +10,29 @@ namespace TELPA.Controllers
     public class HomeController : Controller
     {
         ModelContext db = new ModelContext();
+        private readonly string telpaLogo = "/Content/Images/telpa-logo.jpg";
+
         public ActionResult Index()
         {
-            User user = new User();
-            user.name = "Petras";
-            user.last_name = "Petraitis";
+            ViewBag.ImageData = telpaLogo;
 
-            db.Users.Add(user);
+            Employee emp = new Employee();
+            emp.display_name = "Testas";
+            emp.last_name = "Testauskas";
+            emp.objective = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            db.employees.Add(emp);
             db.SaveChanges();
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

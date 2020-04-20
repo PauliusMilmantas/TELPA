@@ -21,9 +21,15 @@ namespace TELPA
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/charts").Include(
+                      "~/Scripts/chart.bundle.min.js").Include(
+                      "~/Scripts/chart-renderer.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/maps").Include(
+                      "~/Scripts/map-renderer.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-flatly.css",
                       "~/Content/site.css"));
         }
     }
