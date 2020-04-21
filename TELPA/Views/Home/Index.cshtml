@@ -93,15 +93,17 @@
 </style>
 
 <!-- Modular window to show event -->
-<div class="modal">
+<div class="modal text-center">
     <div class="content">
         <div class="close"></div>
         <div class="titledd">
         <h1> Hello, World!</h1>
         </div>
+        <br>
         <div class="timedd"> 
 
         </div>
+        <br>
         <div class="contentdd">
         <p>Content</p>
         </div>
@@ -135,16 +137,16 @@
                 <div class="time" id="time-0001">2020.04.20 15:20 Tuesday</div>
             </div>
             <div class="event pending" id="0002">
-                <div class="title"id="title-0002">Meeting #0002</div>
-                <div class="time"id="time-0002">2020.04.20 15:20 Tuesday</div>
+                <div class="title" id="title-0002">Meeting #0002</div>
+                <div class="time" id="time-0002">2020.04.20 15:20 Tuesday</div>
             </div>
             <div class="event canceled" id="0003">
-                <div class="title"id="title-0003">Meeting #0003</div>
-                <div class="time"id="time-0003">2020.04.20 15:20 Tuesday</div>
+                <div class="title" id="title-0003">Meeting #0003</div>
+                <div class="time" id="time-0003">2020.04.20 15:20 Tuesday</div>
             </div>
             <div class="event canceled" id="0004">
-                <div class="title"id="title-0004">Meeting #0004</div>
-                <div class="time"id="time-0004">2020.04.20 15:20 Tuesday</div>
+                <div class="title" id="title-0004">Meeting #0004</div>
+                <div class="time" id="time-0004">2020.04.20 15:20 Tuesday</div>
             </div>
         </div>
     </div>
@@ -162,11 +164,11 @@
             );
         } else if (parent_status == "pending") {
             $(".modal").find(".content").find(".contentdd").html(
-                '<button type="button" class="btn btn-success">Accept</button>' +
+                '<button type="button" class="btn btn-success">Accept</button><br><br>' +
                 '<button type="button" class="btn btn-dark">Cancel</button>'
             );
         } else {
-            $(".modal").find(".content").find(".contentdd").html('');
+            $(".modal").find(".content").find(".contentdd").html('');   
         }
 
         //Parsing title
