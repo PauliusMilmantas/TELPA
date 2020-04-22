@@ -227,7 +227,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Employee.cs" />
+    <Compile Include="Models\Entities\Event.cs" />
     <Compile Include="Models\Entities\Team.cs" />
+    <Compile Include="Models\Entities\Topic.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModelContext.cs" />
