@@ -10,16 +10,15 @@ ng serve --open
 Užduotys pateiktos čia: https://github.com/PauliusMilmantas/TELPA/projects
 
 UML pateiktas:
-'''
 UML\
-'''
 
 ![alt text](https://raw.githubusercontent.com/PauliusMilmantas/TELPA/master/UML/Model.jpg)
 
 Tvarkaraštis:
 ![alt text](https://raw.githubusercontent.com/PauliusMilmantas/TELPA/master/Dokumentai/Planas.png)
 
+Sistemos vertė
+![alt text](https://github.com/PauliusMilmantas/TELPA/blob/master/Dokumentai/SistemosVerte.png)
+
 Siųsti dokumentai folderyje:
-'''
 Dokumentai\
-'''
