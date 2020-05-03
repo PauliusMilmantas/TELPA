@@ -1,0 +1,9 @@
+C:\Projects\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.deps.json
+C:\Projects\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
+C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfoInputs.cache
+C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfo.cs
+C:\Projects\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
+C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.csprojAssemblyReference.cache
+C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.csproj.CoreCompileInputs.cache
+C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
+C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb

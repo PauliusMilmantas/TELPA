@@ -1,18 +1,11 @@
 # TELPA
-Komandinis PSK projektas. 
+Komandinis PSK projektas.
 
-Frontend paleidimas: (Skirtas testavimui. Kai baigiamas front-end koks komponentas, jis perkeliamas į asp kodą. Projekto paleidimui tai nereikalinga)
-```
-cd frontend
-ng serve --open
-```
+Aplanke „Dokumentai“ yra sistemos elgsenos ir architektūros aprašai, „UML“ - esybių diagramos.
+
+Norint sunaikinti duomenų bazę prieš perkuriant, naudotis straipsniu https://danielhillebrand.com/2017/09/how-to-reset-a-sql-server-localdb-instance-in-visual-studio/ . Duomenų bazės failai dažniausiai būna „C:/Users/<Naudotojas>“.
 
 Užduotys pateiktos čia: https://github.com/PauliusMilmantas/TELPA/projects
-
-UML pateiktas:
-UML\
-
-![alt text](https://raw.githubusercontent.com/PauliusMilmantas/TELPA/master/UML/Model.jpg)
 
 Tvarkaraštis:
 ![alt text](https://raw.githubusercontent.com/PauliusMilmantas/TELPA/master/Dokumentai/Planas.png)
@@ -20,5 +13,5 @@ Tvarkaraštis:
 Sistemos vertė
 ![alt text](https://github.com/PauliusMilmantas/TELPA/blob/master/Dokumentai/SistemosVerte.png)
 
-Siųsti dokumentai folderyje:
-Dokumentai\
+Siųsti dokumentai aplanke:
+Dokumentai
