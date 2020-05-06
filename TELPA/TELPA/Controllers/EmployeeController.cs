@@ -10,12 +10,13 @@ namespace TELPA.Controllers
 {
     public class EmployeeController : Controller
     {
+        // GET: /Employee/
         public ActionResult Index()
         {
             IEnumerable<Employee> employees = null;
 
             using (var client = new HttpClient()) {
-                client.BaseAddress = new Uri("https://localhost:44399/api/");
+                client.BaseAddress = new Uri(Constants.Config.localAddress);
 
                 var responseTask = client.GetAsync("employee");
                 responseTask.Wait();
