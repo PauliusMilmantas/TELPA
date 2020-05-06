@@ -19,11 +19,43 @@ namespace TELPA.Controllers
             this.db = db;
         }
 
+        //===========================//
+        //=======Calendar part
+        //===========================//
+
         [System.Web.Http.HttpGet]
-        public String ViewDays()
+        public IHttpActionResult ViewDays()
         {
-            return "Hello world";
+            IList<LearningDay> days = null;
+
+            days = db.LearningDays.ToList<LearningDay>();
+
+            if (days.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(days);
         }
+
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult ViewLearnedTopics()
+        {
+            IList<LearnedTopic> topics = null;
+
+            topics = db.LearnedTopics.ToList<LearnedTopic>();
+
+            if (topics.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(topics);
+        }
+
+        //===========================//
+        //=======Employee part
+        //===========================//
 
         [System.Web.Http.HttpGet]
         public IHttpActionResult ViewEmployees() {
@@ -35,14 +67,7 @@ namespace TELPA.Controllers
                 return NotFound();
             }
 
-            Console.WriteLine(emploees.Count);
-
             return Ok(emploees);
-        }
-
-        [System.Web.Http.HttpGet]
-        public String ViewLearningDayTopic() {
-            return "123";
         }
     }
 }
