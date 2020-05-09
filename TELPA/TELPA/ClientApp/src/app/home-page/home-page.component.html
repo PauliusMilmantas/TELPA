@@ -1,0 +1,113 @@
+<!-- Modular window to show event -->
+<div class="modal text-center">
+  <div class="content">
+    <div class="close"></div>
+    <div class="titledd">
+      <h1> Hello, World!</h1>
+    </div>
+    <br>
+    <div class="timedd">
+
+    </div>
+    <br>
+    <div class="contentdd">
+      <p>Content</p>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xl-4 left_panel">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4">
+
+      </div>
+    </div>
+    <div class="col-md-4 right_panel">
+      <div class="col-md-8">
+        <button type="button" class="btn btn-primary">New event</button>
+      </div>
+      <br><br><br>
+      <div class="event confirmed" id="0001">
+        <div class="title" id="title-0001">Meeting #0001</div>
+        <div class="time" id="time-0001">2020.04.20 15:20 Tuesday</div>
+      </div>
+      <div class="event pending" id="0002">
+        <div class="title" id="title-0002">Meeting #0002</div>
+        <div class="time" id="time-0002">2020.04.20 15:20 Tuesday</div>
+      </div>
+      <div class="event canceled" id="0003">
+        <div class="title" id="title-0003">Meeting #0003</div>
+        <div class="time" id="time-0003">2020.04.20 15:20 Tuesday</div>
+      </div>
+      <div class="event canceled" id="0004">
+        <div class="title" id="title-0004">Meeting #0004</div>
+        <div class="time" id="time-0004">2020.04.20 15:20 Tuesday</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".event").on('click', event => {
+    parent_id = $("#" + event.target.id).parent().attr('id');
+
+    //Options
+    parent_status = $("#" + parent_id).attr('class').split(" ")[1];
+    if (parent_status == "confirmed") {
+      $(".modal").find(".content").find(".contentdd").html(
+        '<button type="button" class="btn btn-dark">Cancel</button>'
+      );
+    } else if (parent_status == "pending") {
+      $(".modal").find(".content").find(".contentdd").html(
+        '<button type="button" class="btn btn-success">Accept</button><br><br>' +
+        '<button type="button" class="btn btn-dark">Cancel</button>'
+      );
+    } else {
+      $(".modal").find(".content").find(".contentdd").html('');
+    }
+
+    //Parsing title
+    parent_title = $("#" + parent_id).find(".title")[0];
+    strt = parent_title.outerHTML.indexOf(">");
+    end = parent_title.outerHTML.indexOf("</div>");
+    parent_title = parent_title.outerHTML.substring(strt + 1, end);
+
+    $(".modal").find(".content").find(".titledd").html(
+      "<h2>" +
+      parent_title +
+      "</h2>"
+    );
+
+    //Parsing date
+    parent_time = $("#" + parent_id).find(".time")[0];
+    strt = parent_time.outerHTML.indexOf(">");
+    end = parent_time.outerHTML.indexOf("</div>");
+    parent_time = parent_time.outerHTML.substring(strt + 1, end);
+
+    $(".modal").find(".content").find(".timedd").html(
+      "<i>" +
+      parent_time +
+      "</i>"
+    );
+
+    $('.modal').addClass('open');
+
+    if ($('.modal').hasClass('open')) {
+      $('.container').addClass('blur');
+    }
+  });
+
+  $('.close').click(function () {
+    $('.modal').removeClass('open');
+    $('.cont').removeClass('blur');
+  });
+</script>

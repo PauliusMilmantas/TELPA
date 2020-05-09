@@ -13,6 +13,8 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { FrontPageComponent } from './front-page/front-page.component';
+import { CalendarWindowComponent } from './calendar-window/calendar-window.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FrontPageComponent } from './front-page/front-page.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    FrontPageComponent
+    FrontPageComponent,
+    CalendarWindowComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +36,8 @@ import { FrontPageComponent } from './front-page/front-page.component';
       { path: '', component: FrontPageComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'calendar', component: CalendarWindowComponent },
+      { path: 'homepage', component: HomePageComponent }
     ])
   ],
   providers: [
