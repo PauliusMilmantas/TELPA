@@ -14,7 +14,7 @@ namespace TELPA.Controllers
         public ActionResult Index()
         {
             IEnumerable<Employee> employees = null;
-
+             
             using (var client = new HttpClient()) {
                 client.BaseAddress = new Uri(Constants.Config.localAddress);
 
