@@ -9,13 +9,17 @@ export class AppComponent {
   title = 'app';
 
   constructor(private router: Router) {
-
+    console.log(this.router);
   }
 
   enableNavBar() {
-    return (
+    if (
       this.router.url === '/login' ||
-      this.router.url === 'index'
-    );
+      this.router.url === '/'
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
