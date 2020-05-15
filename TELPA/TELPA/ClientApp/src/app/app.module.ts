@@ -37,13 +37,13 @@ import { LoginFormComponent } from './login-form/login-form.component';
     FormsModule,
     ApiAuthorizationModule,
     RouterModule.forRoot([
-      { path: '', component: FrontPageComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'calendar', component: CalendarWindowComponent },
-      { path: 'homepage', component: HomePageComponent },
-      { path: 'register', component: RegistrationFormComponent },
-      { path: 'login', component: LoginFormComponent }
+          { path: '', component: FrontPageComponent },
+          { path: 'counter', component: CounterComponent },
+          { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+          { path: 'calendar', component: CalendarWindowComponent },
+          { path: 'homepage', component: HomePageComponent },
+          { path: 'register', component: RegistrationFormComponent },
+          { path: 'login', component: LoginFormComponent }
     ])
   ],
   providers: [
