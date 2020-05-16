@@ -15,6 +15,8 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { FrontPageComponent } from './front-page/front-page.component';
 import { CalendarWindowComponent } from './calendar-window/calendar-window.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { HomePageComponent } from './home-page/home-page.component';
     FetchDataComponent,
     FrontPageComponent,
     CalendarWindowComponent,
-    HomePageComponent
+    HomePageComponent,
+    RegistrationFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,11 +37,13 @@ import { HomePageComponent } from './home-page/home-page.component';
     FormsModule,
     ApiAuthorizationModule,
     RouterModule.forRoot([
-      { path: '', component: FrontPageComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'calendar', component: CalendarWindowComponent },
-      { path: 'homepage', component: HomePageComponent }
+          { path: '', component: FrontPageComponent },
+          { path: 'counter', component: CounterComponent },
+          { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+          { path: 'calendar', component: CalendarWindowComponent },
+          { path: 'homepage', component: HomePageComponent },
+          { path: 'register', component: RegistrationFormComponent },
+          { path: 'login', component: LoginFormComponent }
     ])
   ],
   providers: [
