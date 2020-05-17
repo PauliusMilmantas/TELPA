@@ -8,9 +8,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'app';
 
-  constructor(private router: Router) {
-    console.log(this.router);
-  }
+  constructor(private router: Router) {  }
 
   enableNavBar() {
     if (
