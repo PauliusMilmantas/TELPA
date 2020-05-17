@@ -3,6 +3,7 @@ $(".event").on('click', event => {
   console.log("test");
 
 
+
   parent_id = $("#" + event.target.id).parent().attr('id');
 
   //Options
