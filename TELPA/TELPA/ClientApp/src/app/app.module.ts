@@ -17,6 +17,8 @@ import { CalendarWindowComponent } from './calendar-window/calendar-window.compo
 import { HomePageComponent } from './home-page/home-page.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { LearningDaysComponent } from './learning-days/learning-days.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { LoginFormComponent } from './login-form/login-form.component';
     CalendarWindowComponent,
     HomePageComponent,
     RegistrationFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    CalendarComponent,
+    LearningDaysComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
