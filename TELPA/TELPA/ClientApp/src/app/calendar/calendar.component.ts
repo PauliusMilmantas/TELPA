@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarDataList } from './data/mock_data';
 
 @Component({
   selector: 'app-calendar',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
+  calendarDataList = CalendarDataList;
+
   constructor() { }
 
   ngOnInit() {
   }
-
 }
