@@ -83,14 +83,14 @@ body {
   padding: 0 40px;
 }
 
-  .weeks div {
-    display: flex;
-    font-size: 1.2em;
-    font-weight: 300;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    width: 100%;
-  }
+.weeks div {
+  display: flex;
+  font-size: 1.2em;
+  font-weight: 300;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+}
 
 .last-month {
   opacity: .3;
@@ -100,28 +100,28 @@ body {
   padding: 10px;
 }
 
-  .weeks span.active {
-    background: #f78536;
-    border-radius: 50%;
-  }
+.weeks span.active {
+  background: #f78536;
+  border-radius: 50%;
+}
 
-  .weeks span:not(.last-month):hover {
-    cursor: pointer;
-    font-weight: 600;
-  }
+.weeks span:not(.last-month):hover {
+  cursor: pointer;
+  font-weight: 600;
+}
 
 .event {
   position: relative;
 }
 
-  .event:after {
-    content: '•';
-    color: #f78536;
-    font-size: 1.4em;
-    position: absolute;
-    right: -4px;
-    top: -4px;
-  }
+.event:after {
+  content: '•';
+  color: #f78536;
+  font-size: 1.4em;
+  position: absolute;
+  right: -4px;
+  top: -4px;
+}
 
 /* Back - Event form */
 
