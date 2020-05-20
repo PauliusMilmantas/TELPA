@@ -20,6 +20,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { LearningDaysComponent } from './learning-days/learning-days.component';
+import { AddSubjectComponent } from './add-subject/add-subject.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LearningDaysComponent } from './learning-days/learning-days.component';
     RegistrationFormComponent,
     LoginFormComponent,
     CalendarComponent,
-    LearningDaysComponent
+    LearningDaysComponent,
+    AddSubjectComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
