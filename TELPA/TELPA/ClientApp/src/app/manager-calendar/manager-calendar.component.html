@@ -1,0 +1,95 @@
+<div class="calendar">
+  <div class="front">
+    <div class="current-date">
+      <h1>Friday 15th</h1>
+      <h1><button type="button" class="calendarbtn" (click)="click_left($event)"><</button></h1>
+      <h1><button type="button" class="calendarbtn" (click)="click_right($event)">></button></h1>
+      <h1>{{current_month_name}} 2020</h1>
+    </div>
+
+    <div class="current-month">
+      <ul class="week-days">
+        <li>MON</li>
+        <li>TUE</li>
+        <li>WED</li>
+        <li>THU</li>
+        <li>FRI</li>
+        <li>SAT</li>
+        <li>SUN</li>
+      </ul>
+
+      <div class="weeks">
+        <div class="first">
+          <ng-container *ngFor="let CalendarData of first_week">
+            <ng-container *ngIf="CalendarData.today == true">
+              <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+            </ng-container>
+            <ng-container *ngIf="CalendarData.today == false">
+              <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+            </ng-container>
+            <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
+          </ng-container>
+        </div>
+
+        <div class="second">
+          <span *ngFor="let CalendarData of second_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+        </div>
+        <div class="third">
+          <span *ngFor="let CalendarData of third_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+        </div>
+
+        <div class="fourth">
+          <span *ngFor="let CalendarData of fourth_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+        </div>
+
+        <div class="fifth">
+          <ng-container *ngFor="let CalendarData of fifth_week">
+            <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+            <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="back">
+    <input placeholder="What's the event?">
+    <div class="info">
+      <div class="date">
+        <p class="info-date">
+          Date: <span>Jan 15th, 2016</span>
+        </p>
+        <p class="info-time">
+          Time: <span>6:35 PM</span>
+        </p>
+      </div>
+      <div class="address">
+        <p>
+          Address: <span>129 W 81st St, New York, NY</span>
+        </p>
+      </div>
+      <div class="observations">
+        <p>
+          Observations: <span>Be there 15 minutes earlier</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="save">
+        Save <i class="ion-checkmark"></i>
+      </button>
+      <button class="dismiss">
+        Dismiss <i class="ion-android-close"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL WINDOWS -->
+<jw-modal id="custom-modal-1">
+  <h1>Learning day</h1>
+  <i>{{date_string}}</i>
+  <br /><br /><br /><br />
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-1');">Close</button>
+</jw-modal>

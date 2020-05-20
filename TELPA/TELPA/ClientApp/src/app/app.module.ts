@@ -21,6 +21,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { LearningDaysComponent } from './learning-days/learning-days.component';
 import { AddSubjectComponent } from './add-subject/add-subject.component';
+import { ManagerCalendarComponent } from './manager-calendar/manager-calendar.component';
+import { ManagerHomePageComponent } from './manager-home-page/manager-home-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { AddSubjectComponent } from './add-subject/add-subject.component';
     LoginFormComponent,
     CalendarComponent,
     LearningDaysComponent,
-    AddSubjectComponent
+    AddSubjectComponent,
+    ManagerCalendarComponent,
+    ManagerHomePageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -51,7 +55,8 @@ import { AddSubjectComponent } from './add-subject/add-subject.component';
           { path: 'calendar', component: CalendarWindowComponent },
           { path: 'homepage', component: HomePageComponent },
           { path: 'register', component: RegistrationFormComponent },
-          { path: 'login', component: LoginFormComponent }
+          { path: 'login', component: LoginFormComponent },
+          { path: 'manager', component: ManagerHomePageComponent }
     ])
   ],
   providers: [
