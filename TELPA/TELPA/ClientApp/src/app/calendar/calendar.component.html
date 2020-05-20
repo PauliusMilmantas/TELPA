@@ -1,8 +1,3 @@
-<!--
-<li *ngFor="let clData of calendarDataList">
-  <span class="badge">{{clData.day}}</span> {{clData.week_id}}
-</li>
--->
 <div class="calendar">
   <div class="front">
     <div class="current-date">
@@ -26,25 +21,25 @@
       <div class="weeks">
         <div class="first">
           <ng-container *ngFor="let CalendarData of first_week">
-            <span *ngIf="CalendarData.last_month == false">{{CalendarData.day}}</span>
+            <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
             <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
           </ng-container>
         </div>
 
         <div class="second">
-          <span *ngFor="let CalendarData of second_week">{{CalendarData.day}}</span>
+          <span *ngFor="let CalendarData of second_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
         </div>
         <div class="third">
-          <span *ngFor="let CalendarData of third_week">{{CalendarData.day}}</span>
+          <span *ngFor="let CalendarData of third_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
         </div>
 
         <div class="fourth">
-          <span *ngFor="let CalendarData of fourth_week">{{CalendarData.day}}</span>
+          <span *ngFor="let CalendarData of fourth_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
         </div>
 
         <div class="fifth">
           <ng-container *ngFor="let CalendarData of fifth_week">
-            <span *ngIf="CalendarData.last_month == false">{{CalendarData.day}}</span>
+            <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', 'CalendarData.day')">{{CalendarData.day}}</span>
             <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
           </ng-container>
         </div>
@@ -84,5 +79,12 @@
       </button>
     </div>
   </div>
-
 </div>
+
+<!-- MODAL WINDOWS -->
+<jw-modal id="custom-modal-1">
+  <h1>Learning day</h1>
+  <i>{{date_string}}</i>
+  <br /><br /><br /><br />
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-1');">Close</button>
+</jw-modal>

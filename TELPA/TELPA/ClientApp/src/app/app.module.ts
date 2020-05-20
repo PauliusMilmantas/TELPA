@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ModalModule } from './__modal';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -40,6 +41,7 @@ import { LearningDaysComponent } from './learning-days/learning-days.component';
     HttpClientModule,
     FormsModule,
     ApiAuthorizationModule,
+    ModalModule,
     RouterModule.forRoot([
           { path: '', component: FrontPageComponent },
           { path: 'counter', component: CounterComponent },

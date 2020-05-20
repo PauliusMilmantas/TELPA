@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarDataList } from './data/mock_data';
-
+import { ModalService } from '../__modal';
 
 @Component({
   selector: 'app-calendar',
@@ -20,10 +20,14 @@ export class CalendarComponent implements OnInit {
   fourth_week = [];
   fifth_week = [];
 
+  //For calendar frontend
   month_id = 5;
   current_month_name = "";
 
-  constructor() { }
+  //For modular window
+  date_string = ""
+
+  constructor(private modalService: ModalService) { }
 
   ngOnInit() {
     this.get_month_name(this.month_id);
@@ -164,5 +168,16 @@ export class CalendarComponent implements OnInit {
         this.first_week.unshift({ month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true })
       }
     }
+  }
+
+  //Modal window control
+  openModal(id: string, day: string) {
+    this.date_string = (this.second_week[0].year).concat("-").concat(this.month_id.toString()).concat("-").concat(day);
+
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }
