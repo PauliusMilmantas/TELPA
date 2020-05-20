@@ -4,21 +4,13 @@
 <br>
 <br>
 <br>
-<div class="event confirmed" id="0001">
-  <div class="title" id="title">Learning CUDA</div>
-  <div class="time" id="time">2020.04.20 15:20 Tuesday</div>
-</div>
-<div class="event confirmed" id="0001">
-  <div class="title" id="title">Learning CUDA</div>
-  <div class="time" id="time">2020.04.20 15:20 Tuesday</div>
-</div>
-<div class="event confirmed" id="0001">
-  <div class="title" id="title">Learning CUDA</div>
-  <div class="time" id="time">2020.04.20 15:20 Tuesday</div>
-</div>
-<div class="event confirmed" id="0001">
-  <div class="title" id="title">Learning CUDA</div>
-  <div class="time" id="time">2020.04.20 15:20 Tuesday</div>
-</div>
-<h1><button type="button" class="calendarbtn"><</button></h1>
-<h1><button type="button" class="calendarbtn">></button></h1>
+
+<ng-container *ngFor="let LearningDay of learningDays">
+  <div class="event confirmed" *ngIf="LearningDay != null">
+    <div class="title" id="title">{{LearningDay.topic}}</div>
+    <div class="time" id="time">{{LearningDay.date}}</div>
+  </div>
+</ng-container>
+<h1><button type="button" class="calendarbtn" (click)="changePageLeft()"><</button></h1>
+<h3 class="calendarbtn"> {{pageCounter}} </h3>
+<h1><button type="button" class="calendarbtn" (click)="changePageRight()" style="margin-left: 20px;">></button></h1>
