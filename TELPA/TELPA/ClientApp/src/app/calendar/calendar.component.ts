@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarDataList } from './data/mock_data';
+import { CalendarData } from './data/data';
 import { ModalService } from '../__modal';
 
 @Component({
@@ -75,6 +76,7 @@ export class CalendarComponent implements OnInit {
     }
   }
 
+  // Left and right buttons
   click_left(event) {
     if(this.month_id != 2) {
       this.month_id -= 1;
@@ -91,6 +93,7 @@ export class CalendarComponent implements OnInit {
     }
   }
 
+  //Loading frondend data
   getMonthData(month_id) {
     this.last_month = []
 
@@ -162,18 +165,14 @@ export class CalendarComponent implements OnInit {
 
     //Filling in days
     //If it's the last days
-    for (var r = 0; r < 3; r++) {
-      for (var i = 0; i < 7 - this.fifth_week.length; i++) {
-        this.fifth_week.push({ month_id: this.third_week[0].month_id, year: this.third_week[0].year, day: i + 1, week_id: 5, last_month: true, today: false, has_tasks: false });
-      }
+    for (var i = 0; i < 7 - this.fifth_week.length + i; i++) {
+      this.fifth_week.push({ month_id: this.third_week[0].month_id, year: this.third_week[0].year, day: i + 1, week_id: 5, last_month: true, today: false, has_tasks: false });
     }
 
-    //First week
-    for (var r = 0; r < 3; r++) {
-      for (var i = 0; i < (7 - this.first_week.length); i++) {
-        current_row = this.last_month[this.last_month.length - i - 1]
-        this.first_week.unshift({ month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true, today: false, has_tasks: false })
-      }
+    for (var k = 0; k < (7 - this.first_week.length + k); k++) {
+      current_row = this.last_month[this.last_month.length - k - 1];
+      let current_object: CalendarData = { month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true, today: false, has_tasks: false };
+      this.first_week.unshift(current_object);  
     }
   }
 
