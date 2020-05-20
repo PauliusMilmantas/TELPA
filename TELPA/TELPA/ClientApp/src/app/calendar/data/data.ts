@@ -3,4 +3,5 @@ export interface CalendarData {
   year: string;
   day: number;
   week_id: number;
+  last_month: false;
 }
