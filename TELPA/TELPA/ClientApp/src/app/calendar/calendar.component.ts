@@ -20,23 +20,89 @@ export class CalendarComponent implements OnInit {
   fourth_week = [];
   fifth_week = [];
 
+  month_id = 5;
+  current_month_name = "";
+
   constructor() { }
 
   ngOnInit() {
-    this.getMonthData();
+    this.get_month_name(this.month_id);
+    this.getMonthData(this.month_id);
   }
 
-  getMonthData() {
-    var month_id = 2;
+  get_month_name(month_id) {
+    switch (month_id) {
+      case 1:
+        this.current_month_name = "January";
+        break;
+      case 2:
+        this.current_month_name = "February";
+        break;
+      case 3:
+        this.current_month_name = "March";
+        break;
+      case 4:
+        this.current_month_name = "April";
+        break;
+      case 5:
+        this.current_month_name = "May";
+        break;
+      case 6:
+        this.current_month_name = "June";
+        break;
+      case 7:
+        this.current_month_name = "July";
+        break;
+      case 8:
+        this.current_month_name = "August";
+        break;
+      case 9:
+        this.current_month_name = "September";
+        break;
+      case 10:
+        this.current_month_name = "October";
+        break;
+      case 11:
+        this.current_month_name = "November";
+        break;
+      case 12:
+        this.current_month_name = "December";
+        break;
+    }
+  }
+
+  click_left(event) {
+    if(this.month_id != 2) {
+      this.month_id -= 1;
+      this.get_month_name(this.month_id);
+      this.getMonthData(this.month_id);
+    }
+  }
+
+  click_right(event) {
+    if (this.month_id != 6) {
+      this.month_id += 1;
+      this.get_month_name(this.month_id);
+      this.getMonthData(this.month_id);
+    }
+  }
+
+  getMonthData(month_id) {
+    this.last_month = []
+
+    this.first_week = [];
+    this.second_week = [];
+    this.third_week = [];
+    this.fourth_week = [];
+    this.fifth_week = [];
 
     var prev_week = 0;
     for (let row in this.calendarDataList) {
       var current_row = this.calendarDataList[row];
 
-      if (month_id != 1) {
+      if (this.month_id != 1) {
         if (current_row.year == "2020" && current_row.month_id == (month_id - 1)) {
           this.last_month.push(current_row);
-          console.log("PUSHED");
         }
       }
 

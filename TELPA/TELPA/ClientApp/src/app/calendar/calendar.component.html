@@ -7,9 +7,9 @@
   <div class="front">
     <div class="current-date">
       <h1>Friday 15th</h1>
-      <h1><button type="button" class="calendarbtn"><</button></h1>
-      <h1><button type="button" class="calendarbtn">></button></h1>
-      <h1>March 2020</h1>
+      <h1><button type="button" class="calendarbtn" (click)="click_left($event)"><</button></h1>
+      <h1><button type="button" class="calendarbtn" (click)="click_right($event)">></button></h1>
+      <h1>{{current_month_name}} 2020</h1>
     </div>
 
     <div class="current-month">
