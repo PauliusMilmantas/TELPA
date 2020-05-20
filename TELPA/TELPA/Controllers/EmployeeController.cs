@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -8,6 +11,7 @@ namespace TELPA.Controllers
     public class EmployeeController : Controller
     {
         private ApplicationDbContext db;
+
         public EmployeeController(ApplicationDbContext db)
         {
             this.db = db;
@@ -16,31 +20,90 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("System online");
+            return Ok("EmployeeController online");
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("get/{id}")]
         public IActionResult getEmployee(string id)
         {
-            return Json(db.Employees.Find(id));
+            Employee employee = db.Employees.Find(id);
+
+            if (employee != null)
+            {
+                return Json(employee);
+            }
+            else
+            {
+                return NotFound("GET: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/all")]
+        public IActionResult getEmployees()
+        {
+            IList<Employee> employees = db.Employees.ToList<Employee>();
+
+            if (employees.Count != 0)
+            {
+                return Json(employees);
+            }
+            else
+            {
+                return NotFound("No employees found.");
+            }
         }
 
         [HttpPost("create")]
         public IActionResult createEmployee(Employee employee)
         {
-            this.db.Employees.Add(employee);
-            this.db.SaveChanges();
-            return Ok("Employee created");
+            if (employee != null)
+            {
+                db.Employees.Add(employee);
+                db.SaveChanges();
+                return Ok("Employee created");
+            }
+            else
+            {
+                return NotFound("CREATE: Employee was not found");
+            }
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public IActionResult updateEmployee(Employee employee)
         {
-            this.db.Employees.Update(employee);
-            this.db.SaveChanges();
-            return Ok("Employee updated");
+            if (employee != null)
+            {
+                db.Employees.Update(employee);
+                db.SaveChanges();
+                return Ok("Employee updated");
+            }
+            else
+            {
+                return NotFound("UPDATE: Employee was not found");
+            }
         }
+
+        [HttpGet]
+        [Route("delete/{id}")]
+        public IActionResult deleteEmployee(string id)
+        {
+            try
+            {
+                Employee employee = db.Employees.Find(id);
+                db.Employees.Remove(employee);
+                db.SaveChanges();
+                return Ok("Employee deleted");
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound("DELETE: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+
+
 
         [HttpGet("test/1")]
         public IActionResult testCreate()
@@ -56,14 +119,11 @@ namespace TELPA.Controllers
         [HttpGet("test/2")]
         public IActionResult testUpdate()
         {
-            Employee emp = this.db.Employees.Find("2");
-            emp.Role = "New role";
+            Employee emp = db.Employees.Find("2");
             emp.Name = emp.Name + "2";
             
             return updateEmployee(emp);
         }
-
-
 
         /*public ActionResult Index()
         {
@@ -92,6 +152,5 @@ namespace TELPA.Controllers
 
             return View(employees);
         }*/
-
     }
 }
