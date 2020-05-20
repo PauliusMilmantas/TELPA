@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Paulius\\Desktop\\telpa\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
+    "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Paulius\\Desktop\\telpa\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
+    "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Paulius\\Desktop\\telpa\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "projectUniqueName": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
         "projectName": "TELPA.Extensions.Logic",
-        "projectPath": "C:\\Users\\Paulius\\Desktop\\telpa\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
-        "packagesPath": "C:\\Users\\Paulius\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Paulius\\Desktop\\telpa\\TELPA\\TELPA.Extensions.Logic\\obj\\",
+        "projectPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "packagesPath": "C:\\Users\\Evaldas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Paulius\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Evaldas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -62,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

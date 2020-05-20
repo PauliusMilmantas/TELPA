@@ -34,6 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\employee-management\data\data.ts" />
+    <None Remove="ClientApp\src\app\employee-management\data\mock_employee_data.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TELPA.Extensions.Logic\TELPA.Extensions.Logic.csproj">
       <Private>true</Private>
       <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
@@ -42,6 +47,11 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\calendar\data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\employee-management\data\data.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\employee-management\data\mock_employee_data.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
