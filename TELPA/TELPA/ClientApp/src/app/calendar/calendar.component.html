@@ -21,7 +21,12 @@
       <div class="weeks">
         <div class="first">
           <ng-container *ngFor="let CalendarData of first_week">
-            <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+            <ng-container *ngIf="CalendarData.today == true">
+              <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+            </ng-container>
+            <ng-container *ngIf="CalendarData.today == false">
+              <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+            </ng-container>
             <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
           </ng-container>
         </div>

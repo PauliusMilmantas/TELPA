@@ -100,6 +100,13 @@ export class CalendarComponent implements OnInit {
     this.fourth_week = [];
     this.fifth_week = [];
 
+    //Setting today date
+    for (let row in this.calendarDataList) {
+      if (this.calendarDataList[row].day == 2 && this.calendarDataList[row].month_id == 5) {
+        this.calendarDataList[row] = { month_id: 5, year: "2020", day: 2, week_id: 1, "last_month": false, today: true, has_tasks: false };
+      }
+    }
+
     var prev_week = 0;
     for (let row in this.calendarDataList) {
       var current_row = this.calendarDataList[row];
@@ -157,7 +164,7 @@ export class CalendarComponent implements OnInit {
     //If it's the last days
     for (var r = 0; r < 3; r++) {
       for (var i = 0; i < 7 - this.fifth_week.length; i++) {
-        this.fifth_week.push({ month_id: this.third_week[0].month_id, year: this.third_week[0].year, day: i + 1, week_id: 5, last_month: true });
+        this.fifth_week.push({ month_id: this.third_week[0].month_id, year: this.third_week[0].year, day: i + 1, week_id: 5, last_month: true, today: false, has_tasks: false });
       }
     }
 
@@ -165,7 +172,7 @@ export class CalendarComponent implements OnInit {
     for (var r = 0; r < 3; r++) {
       for (var i = 0; i < (7 - this.first_week.length); i++) {
         current_row = this.last_month[this.last_month.length - i - 1]
-        this.first_week.unshift({ month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true })
+        this.first_week.unshift({ month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true, today: false, has_tasks: false })
       }
     }
   }
