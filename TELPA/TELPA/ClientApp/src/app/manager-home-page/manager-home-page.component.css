@@ -110,3 +110,10 @@ body {
   width: 100%;
   background-color: #4a4a4a;
 }
+
+.selectionfe {
+  padding: 50px;
+  padding-bottom: 100px;
+  background-color: #b2d1ba;
+  text-align: center;
+}

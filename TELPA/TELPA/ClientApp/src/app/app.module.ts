@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ModalModule } from './__modal';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -17,6 +18,11 @@ import { CalendarWindowComponent } from './calendar-window/calendar-window.compo
 import { HomePageComponent } from './home-page/home-page.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { LearningDaysComponent } from './learning-days/learning-days.component';
+import { AddSubjectComponent } from './add-subject/add-subject.component';
+import { ManagerCalendarComponent } from './manager-calendar/manager-calendar.component';
+import { ManagerHomePageComponent } from './manager-home-page/manager-home-page.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +35,19 @@ import { LoginFormComponent } from './login-form/login-form.component';
     CalendarWindowComponent,
     HomePageComponent,
     RegistrationFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    CalendarComponent,
+    LearningDaysComponent,
+    AddSubjectComponent,
+    ManagerCalendarComponent,
+    ManagerHomePageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ApiAuthorizationModule,
+    ModalModule,
     RouterModule.forRoot([
           { path: '', component: FrontPageComponent },
           { path: 'counter', component: CounterComponent },
@@ -43,7 +55,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
           { path: 'calendar', component: CalendarWindowComponent },
           { path: 'homepage', component: HomePageComponent },
           { path: 'register', component: RegistrationFormComponent },
-          { path: 'login', component: LoginFormComponent }
+          { path: 'login', component: LoginFormComponent },
+          { path: 'manager', component: ManagerHomePageComponent }
     ])
   ],
   providers: [

@@ -2,7 +2,7 @@
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: 	#98c6d3;
 }
 
 code {
@@ -17,4 +17,5 @@ code {
 
 body {
   margin-top: 80px;
+  background-color: #e6eaf0;
 }
