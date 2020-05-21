@@ -6,8 +6,8 @@
     <form (ngSubmit)="onSubmit()" #addSubject="ngForm">
 
       <div class="form-group">
-        <label for="subjectParent">Subject Parent</label>
-        <select class="form-control" id="subjectParent" required>
+        <label for="parent">Subject Parent</label>
+        <select class="form-control" id="parent" required>
           <option>Math</option>
           <option>Math</option>
           <option>Math</option>
@@ -18,22 +18,21 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" required
-               [(ngModel)]="subjectToAdd.name" name="name"
-                #name="ngModel"/>
+               [(ngModel)]="subjectToAdd.name" name="name" #name="ngModel" />
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" required
-               [(ngModel)]="subjectToAdd.description" name="description"
-                #description="ngModel"/>
+        <input type="text" class="form-control" id="description"
+               [(ngModel)]="subjectToAdd.description" name="description" #description="ngModel" />
       </div>
 
+
       <div class="form-group">
-        <label for="links">Links</label>
-        <input type="url" class="form-control" id="links" required
-               [(ngModel)]="subjectToAdd.links" name="links"
-                #links="ngModel"/>
+        <label for="link">Links</label>
+        <div *ngFor="let link of linksToAdd; let i = index; trackBy: trackByFn">
+          <input [hidden]="isEmpty[i]" type="url" class="form-control" (change)="onLinkChange($event.target.value, i)"/>
+        </div>
       </div>
 
       <button type="submit" class="btn btn-success" [disabled]="!addSubject.form.valid">Submit</button>
