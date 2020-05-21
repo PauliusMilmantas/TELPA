@@ -44,6 +44,12 @@
 <jw-modal id="selectTeam">
   Select team from the list:
   <br />
+  <select name="team">
+    <option value="alfredas">alfredas</option>
+    <option value="minedas">minedas</option>
+    <option value="joachimas">joachimas</option>
+  </select>
+  <br/><br/><br/>
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Close</button>
 </jw-modal>
 
@@ -58,6 +64,6 @@
   Leader id:
   <input class="form-control" type="text" id="newAttributeLeaderId" [(ngModel)]="newAttribute.leader_id" name="newAttributeLeaderId" />
 
-  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('selectTeam');">Add employee</button>
-  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Cancel</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee');">Add employee</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('addEmployee');">Cancel</button>
 </jw-modal>

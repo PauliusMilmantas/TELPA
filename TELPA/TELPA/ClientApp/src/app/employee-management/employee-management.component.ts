@@ -12,6 +12,7 @@ import { ModalService } from '../__modal';
 export class EmployeeManagementComponent implements OnInit {
 
   columns: string[];
+  employeeToAdd = new EmployeeData(45, '', '', '', 78);
   private fieldArray: Array<any> = [];
   private newAttribute: any = {};
 
@@ -41,9 +42,10 @@ export class EmployeeManagementComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  addFieldValue() {
+  addFieldValue(id: string) {
     this.fieldArray.push(this.newAttribute)
     this.newAttribute = {};
+    this.modalService.close(id);
   }
 
   deleteFieldValue(index) {
