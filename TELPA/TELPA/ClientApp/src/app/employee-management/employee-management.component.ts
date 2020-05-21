@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeDataList } from './data/mock_employee_data';
 import { EmployeeData } from './data/data';
-import { EmployeeServiceService } from './service/employee-service.service';
 import { Observable } from 'rxjs';
+import { ModalService } from '../__modal';
 
 
 @Component({
@@ -15,12 +15,12 @@ export class EmployeeManagementComponent implements OnInit {
   characters: Observable<EmployeeData[]>;
   columns: string[];
 
-  constructor(private atService: EmployeeServiceService) { }
+  constructor(private modalService: ModalService) { }
 
   ngOnInit() {
-    this.columns = this.atService.getColumns();
+    //this.columns = this.atService.getColumns();
 
-    this.characters = this.atService.getEmployees();
+    //this.characters = this.atService.getEmployees();
   }
 
   selectTeamBtnClick(event) {
@@ -31,5 +31,14 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
+  //Modal window control
+  openModal(id: string) {
+
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
 }
 
