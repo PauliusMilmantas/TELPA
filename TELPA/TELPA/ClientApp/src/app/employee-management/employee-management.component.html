@@ -10,6 +10,7 @@
         <th>Email</th>
         <th>Role</th>
         <th>Assigned by</th>
+        <th>delete</th>
       </tr>
 
       <tr>
@@ -17,39 +18,23 @@
         <td>e@ga</td>
         <td>miserable dude</td>
         <td>mikas</td>
+        <td></td>
       </tr>
       <tr *ngFor="let field of fieldArray; let i = index">
         <td>
-          <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.name}}" />
+        <ng-container [(ngModel)]="field.name" class="form-control" type="text">{{field.name}}</ng-container> 
         </td>
         <td>
-          <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.email}}" />
+        <ng-container [(ngModel)]="field.email" class="form-control" type="text">{{field.email}}</ng-container>
         </td>
         <td>
-          <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.role}}" />
+        <ng-container [(ngModel)]="field.role" class="form-control" type="text">{{field.role}}</ng-container> 
         </td>
         <td>
-          <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.leader_id}}" />
+        <ng-container [(ngModel)]="field.leader_id" class="form-control" type="text">{{field.leader_id}}</ng-container> 
         </td>
         <td>
           <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.name" name="newAttributeName" />
-        </td>
-        <td>
-          <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.email" name="newAttributeEmail" />
-        </td>
-        <td>
-          <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.role" name="newAttributeRole" />
-        </td>
-        <td>
-          <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.leader_id" name="newAttributeLeaderId" />
-        </td>
-        <td>
-          <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
         </td>
       </tr>
     </table>
@@ -63,8 +48,16 @@
 </jw-modal>
 
 <jw-modal id="addEmployee">
-  Insert employee first and last names:<br />
+  Employee information:
+  First and Last name: <br />
+  <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name" name="newAttributeName" />
+  Email:<br/>
+  <input class="form-control" type="text" id="newAttributeEmail" [(ngModel)]="newAttribute.email" name="newAttributeEmail" />
+  Role: <br/>
+  <input class="form-control" type="text" id="newAttributeRole" [(ngModel)]="newAttribute.role" name="newAttributeRole" />
+  Leader id:
+  <input class="form-control" type="text" id="newAttributeLeaderId" [(ngModel)]="newAttribute.leader_id" name="newAttributeLeaderId" />
 
-  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Add employee</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('selectTeam');">Add employee</button>
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Cancel</button>
 </jw-modal>

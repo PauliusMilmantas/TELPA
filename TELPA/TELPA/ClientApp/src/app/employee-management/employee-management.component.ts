@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeDataList } from './data/mock_employee_data';
 import { EmployeeData } from './data/data';
-import { Observable } from 'rxjs';
 import { ModalService } from '../__modal';
 
 
@@ -12,8 +11,9 @@ import { ModalService } from '../__modal';
 })
 export class EmployeeManagementComponent implements OnInit {
 
-  characters: Observable<EmployeeData[]>;
   columns: string[];
+  private fieldArray: Array<any> = [];
+  private newAttribute: any = {};
 
   constructor(private modalService: ModalService) { }
 
@@ -39,6 +39,15 @@ export class EmployeeManagementComponent implements OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+
+  addFieldValue() {
+    this.fieldArray.push(this.newAttribute)
+    this.newAttribute = {};
+  }
+
+  deleteFieldValue(index) {
+    this.fieldArray.splice(index, 1);
   }
 }
 
