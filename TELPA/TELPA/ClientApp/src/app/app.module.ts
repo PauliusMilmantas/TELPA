@@ -56,7 +56,8 @@ import { ManagerHomePageComponent } from './manager-home-page/manager-home-page.
           { path: 'homepage', component: HomePageComponent },
           { path: 'register', component: RegistrationFormComponent },
           { path: 'login', component: LoginFormComponent },
-          { path: 'manager', component: ManagerHomePageComponent }
+          { path: 'manager', component: ManagerHomePageComponent },
+          { path: 'add-subject', component: AddSubjectComponent }
     ])
   ],
   providers: [
