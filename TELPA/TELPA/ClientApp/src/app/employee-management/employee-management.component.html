@@ -1,12 +1,11 @@
 <div class="employee-managemenmt">
   <div class="front">
     <div class="buttons">
-      <h1>Select team</h1>
       <h1><button type="button" value="Select Team" class="select-team-btn" (click)="selectTeamBtnClick($event)" ></button></h1>
       <h1><button type="button" value="Add employee" class="add-employee-btn" (click)="addEmployeeBtnClick($event)"></button></h1>
     </div>
     <table class="employee-table">
-      <tr class="column-names">
+      <tr>
         <th>Name</th>
         <th>Email</th>
         <th>Role</th>
@@ -17,6 +16,12 @@
         <td>{{x.email}}</td>
         <td>{{x.role}}</td>
         <td>{{x.leader_id}}</td>
+      </tr>
+      <tr>
+        <td>efkas</td>
+        <td>e@ga</td>
+        <td>role</td>
+        <td>tadas</td>
       </tr>
     </table>
   </div>

@@ -14,4 +14,13 @@ export class EmployeeManagementComponent implements OnInit {
   ngOnInit() {
   }
 
+  selectTeamBtnClick(event) {
+
+  }
+
+  addEmployeeBtnClick(event) {
+
+  }
+
 }
+
