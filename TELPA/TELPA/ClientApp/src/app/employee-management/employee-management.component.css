@@ -16,23 +16,22 @@ td {
 .buttons {
   font-family: Arial;
   font-size: 17px;
-  text-align: center;
-  color: #ffffff;
-  font-display: auto;
   border-bottom: 1px solid rgba(73, 114, 133, .6);
   display: flex;
   justify-content: space-between;
   padding: 30px 40px;
+  color: #000000;
 }
 .select-team-btn {
   background-color: darkgreen;
   border-radius: 14px;
   border: 1px solid #18ab29;
+  display: inline-block;
   cursor: pointer;
-  color: #ffffff;
+  color: #000000;
   font-family: Arial;
   font-size: 17px;
-  padding: 16px 31px;
+  padding: 16px 60px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #2f6627;
 }
@@ -41,14 +40,14 @@ td {
   background-color: darkgreen;
   border-radius: 14px;
   border: 1px solid #18ab29;
+  display: inline-block;
   cursor: pointer;
-  color: #ffffff;
+  color: #000000;
   font-family: Arial;
   font-size: 17px;
-  padding: 16px 31px;
+  padding: 16px 60px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #2f6627;
-  font-display: auto;
 }
 
 .employee-table {
