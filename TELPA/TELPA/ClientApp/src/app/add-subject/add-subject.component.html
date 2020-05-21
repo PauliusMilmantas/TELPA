@@ -1,4 +1,44 @@
 <div style="color: black;">
-  <h1>Add Subject</h1>
+  <div class="container">
+
+    <h1>Add Subject</h1>
+
+    <form (ngSubmit)="onSubmit()" #addSubject="ngForm">
+
+      <div class="form-group">
+        <label for="subjectParent">Subject Parent</label>
+        <select class="form-control" id="subjectParent" required>
+          <option>Math</option>
+          <option>Math</option>
+          <option>Math</option>
+          <option>Math</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" required
+               [(ngModel)]="subjectToAdd.name" name="name"
+                #name="ngModel"/>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" required
+               [(ngModel)]="subjectToAdd.description" name="description"
+                #description="ngModel"/>
+      </div>
+
+      <div class="form-group">
+        <label for="links">Links</label>
+        <input type="url" class="form-control" id="links" required
+               [(ngModel)]="subjectToAdd.links" name="links"
+                #links="ngModel"/>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!addSubject.form.valid">Submit</button>
+
+    </form>
+  </div>
 </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { SubjectData } from './data/data';
 @Component({
   selector: 'app-add-subject',
   templateUrl: './add-subject.component.html',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddSubjectComponent implements OnInit {
 
+  subjectToAdd = new SubjectData(1, 2, '', '', ['', '']);
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  onSubmit() {  }
+
 
 }
