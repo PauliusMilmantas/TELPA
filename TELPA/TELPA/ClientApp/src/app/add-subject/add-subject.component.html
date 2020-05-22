@@ -30,7 +30,7 @@
 
       <div class="form-group">
         <label for="link">Links</label>
-        <div *ngFor="let link of linksToAdd; let i = index; trackBy: trackByFn">
+        <div *ngFor="let link of subjectToAdd.links; let i = index; trackBy: trackByFn">
           <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (change)="onLinkChange($event.target.value, i)"/>
         </div>
       </div>

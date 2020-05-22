@@ -7,8 +7,7 @@ import { SubjectData } from './data/data';
 })
 export class AddSubjectComponent implements OnInit {
 
-  subjectToAdd = new SubjectData(1, 2, '', '', []);
-  linksToAdd = [''];
+  subjectToAdd = new SubjectData(1, 2, '', '', ['']);
   isEmpty = [false];
 
   constructor() { }
@@ -19,12 +18,12 @@ export class AddSubjectComponent implements OnInit {
   onSubmit() {  }
 
   onLinkChange(value, place) {
-    this.linksToAdd[place] = value;
-    if (place == (this.linksToAdd.length - 1) && this.linksToAdd[place].length != 0) {
-      this.linksToAdd.push('');
+    this.subjectToAdd.links[place] = value;
+    if (place == (this.subjectToAdd.links.length - 1) && this.subjectToAdd.links[place].length != 0) {
+      this.subjectToAdd.links.push('');
       this.isEmpty.push(false);
     }
-    else if (place != (this.linksToAdd.length - 1) && this.linksToAdd[place].length == 0) {
+    else if (place != (this.subjectToAdd.links.length - 1) && this.subjectToAdd.links[place].length == 0) {
       this.isEmpty[place] = true;
     }
   }
