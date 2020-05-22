@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingDayList } from './data/mock_data';
 import { LearningDay } from './data/TrainingDay';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-learning-days',
@@ -9,7 +11,10 @@ import { LearningDay } from './data/TrainingDay';
 })
 export class LearningDaysComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  // Was page refreshed?
+  refreshed = false;
 
   // Loading static data
   learningDaysAll = TrainingDayList;
@@ -21,13 +26,39 @@ export class LearningDaysComponent implements OnInit {
   learningDays = [];
 
   ngOnInit() {
-    console.log(TrainingDayList);
-    this.getDataForFE(1);
+    console.log("Init");
+    this.getBackendData();
   }
 
+  // Requesting data from API
+  getBackendData() {
+    var baseURL = location.origin;
+    this.learningDaysAll = [];
+    this.httpClient.get(baseURL + '/api/learningDayTopic/get/all').subscribe(
+      data => {
+        for (var i = 0; i < Object.keys(data).length; i++) {
+          var date = data[i]['learningDayDate'];
+          this.httpClient.get(baseURL + '/api/topic/get/' + data[i]['topicId']).subscribe(topic => {
+            this.learningDaysAll.push(
+              {
+                'date': date,
+                'topic': topic["name"]
+              }
+            );
+          });
+        }
+      }
+    ).add(() => {
+      this.getDataForFE(1);
+      if (this.learningDaysAll.length == 0) {
+        this.ngOnInit();
+      }
+    });
+  }
+
+  // Parsing data from API
   getDataForFE(pageNumber) {
     this.learningDays = [];
-
     for (var i = 4 * (pageNumber - 1); i < 3 * pageNumber + 1; i++) {
       if (i <= this.learningDaysAll.length) {
         this.learningDays.push(this.learningDaysAll[i]);
@@ -35,6 +66,7 @@ export class LearningDaysComponent implements OnInit {
     }
   }
 
+  //Control buttons
   changePageLeft() {
     if (this.pageCounter >= 2) {
       this.pageCounter -= 1;
