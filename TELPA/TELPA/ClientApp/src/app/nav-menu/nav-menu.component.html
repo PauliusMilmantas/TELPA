@@ -32,8 +32,12 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/add-subject']">Add Subject</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Subject</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/add-subject']">Add</a>
+              <a class="dropdown-item" [routerLink]="['/edit-subject']">Edit</a>
+            </div>
           </li>
         </ul>
         <app-login-menu></app-login-menu>
