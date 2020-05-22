@@ -10,12 +10,14 @@ namespace TELPA.Models
     public class LearningDay : IVersionedEntity
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public DateTime Date { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(MAX)")]
         public string Comment { get; set; }
         [Required]
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         [ConcurrencyCheck]
         public long Version { get; set; }
 

@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
+    "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
   },
   "projects": {
-    "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
+    "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "projectUniqueName": "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
         "projectName": "TELPA.Extensions.Logic",
-        "projectPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
-        "packagesPath": "C:\\Users\\arnas\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
+        "projectPath": "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "packagesPath": "C:\\Users\\maciu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\arnas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maciu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

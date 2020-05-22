@@ -9,9 +9,9 @@ namespace TELPA.Models
     public class LearningDayTopic : IVersionedEntity
     {
         [Required]
-        public DateTime LearningDayDate { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string LearningDayEmployeeId { get; set; }
+        public int LearningDayId { get; set; }
         [Required]
         public int TopicId { get; set; }
         [ConcurrencyCheck]
