@@ -7,14 +7,6 @@ C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extension
 C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.csproj.CoreCompileInputs.cache
 C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
 C:\Projects\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.deps.json
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.csprojAssemblyReference.cache
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfoInputs.cache
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfo.cs
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
-C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
 D:\Desktop\Arno\Programming\Java\PSK\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.deps.json
 D:\Desktop\Arno\Programming\Java\PSK\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
 D:\Desktop\Arno\Programming\Java\PSK\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
@@ -33,3 +25,10 @@ C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\n
 C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfo.cs
 C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
 C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
+C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.deps.json
+C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
+C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
+C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfoInputs.cache
+C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfo.cs
+C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
+C:\Users\Paulius\Desktop\telpa\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
