@@ -1,1 +1,47 @@
-<p>edit-subject works!</p>
+<div style="color: black;">
+  <div class="container">
+
+    <h1>Edit Subject</h1>
+
+    <div class="background-box">
+      <label for="parent">Select Subject</label>
+      <select class="form-control" id="parent" required (change)="onSubjectChange($event.target.value)">
+        <option>(None)</option>
+        <option>Math</option>
+        <option>Math</option>
+        <option>Math</option>
+      </select>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #addSubject="ngForm" class="background-box" [hidden]="hideForm">
+
+      <div class="form-group">
+
+      </div>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" required
+               [(ngModel)]="subjectToAdd.name" name="name" #name="ngModel" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description"
+                  [(ngModel)]="subjectToAdd.description" name="description" #description="ngModel"></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label for="link">Links</label>
+        <div *ngFor="let link of subjectToAdd.links; let i = index; trackBy: trackByFn">
+          <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (change)="onLinkChange($event.target.value, i)" />
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!addSubject.form.valid">Submit</button>
+
+    </form>
+  </div>
+</div>
+
