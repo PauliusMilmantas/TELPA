@@ -13,9 +13,6 @@ export class LearningDaysComponent implements OnInit {
 
   constructor(private httpClient: HttpClient) { }
 
-  // Was page refreshed?
-  refreshed = false;
-
   // Loading static data
   learningDaysAll = TrainingDayList;
 
@@ -36,6 +33,7 @@ export class LearningDaysComponent implements OnInit {
     this.learningDaysAll = [];
     this.httpClient.get(baseURL + '/api/learningDayTopic/get/all').subscribe(
       data => {
+        console.log(data);
         for (var i = 0; i < Object.keys(data).length; i++) {
           var date = data[i]['learningDayDate'];
           this.httpClient.get(baseURL + '/api/topic/get/' + data[i]['topicId']).subscribe(topic => {
@@ -49,9 +47,10 @@ export class LearningDaysComponent implements OnInit {
         }
       }
     ).add(() => {
-      this.getDataForFE(1);
       if (this.learningDaysAll.length == 0) {
         this.ngOnInit();
+      } else {
+        this.getDataForFE(1);
       }
     });
   }
