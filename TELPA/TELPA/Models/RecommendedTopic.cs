@@ -9,9 +9,11 @@ namespace TELPA.Models
     public class RecommendedTopic : IVersionedEntity
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public int TopicId { get; set; }
         [Required]
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         [ConcurrencyCheck]
         public long Version { get; set; }
 

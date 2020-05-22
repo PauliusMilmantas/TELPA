@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace TELPA.Data
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Invite> Invites { get; set; }
@@ -24,8 +24,7 @@ namespace TELPA.Data
         public DbSet<Limit> Limits { get; set; }
 
         public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
+            DbContextOptions options) : base(options)
         {
         }
 
@@ -45,29 +44,23 @@ namespace TELPA.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasIndex(e => e.NormalizedEmail)
-                .HasName("EmailIndex")
-                .IsUnique();
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOne(e => e.Employee)
-                .WithOne(e => e.User)
-                .HasForeignKey<ApplicationUser>(e => e.EmployeeId);
-
             modelBuilder.Entity<Employee>()
-                .HasKey(e => e.UserId);
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<Employee>()
+                .HasIndex(e => e.Email)
+                .IsUnique();
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
             modelBuilder.Entity<Employee>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
             modelBuilder.Entity<Employee>()
-                .HasOne(e => e.User)
-                .WithOne(e => e.Employee)
-                .HasForeignKey<Employee>(e => e.UserId);
-            modelBuilder.Entity<Employee>()
                 .HasOne(e => e.Leader)
                 .WithMany(e => e.Subordinates)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasForeignKey(e => e.LeaderId);
+                .HasForeignKey(e => e.LeaderId)
+                .IsRequired(false);
 
             modelBuilder.Entity<Invite>()
                 .HasKey(e => e.Id);
@@ -94,10 +87,17 @@ namespace TELPA.Data
                 .HasOne(e => e.ParentTopic)
                 .WithMany(e => e.Subtopics)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasForeignKey(e => e.ParentTopicId);
+                .HasForeignKey(e => e.ParentTopicId)
+                .IsRequired(false);
 
             modelBuilder.Entity<TopicLink>()
-                .HasKey(e => e.TopicId);
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<TopicLink>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TopicLink>()
+                .HasIndex(e => e.TopicId)
+                .IsUnique();
             modelBuilder.Entity<TopicLink>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
@@ -107,7 +107,13 @@ namespace TELPA.Data
                 .HasForeignKey(e => e.TopicId);
 
             modelBuilder.Entity<LearnedTopic>()
-                .HasKey(e => new { e.TopicId, e.EmployeeId });
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<LearnedTopic>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<LearnedTopic>()
+                .HasIndex(e => new { e.TopicId, e.EmployeeId })
+                .IsUnique();
             modelBuilder.Entity<LearnedTopic>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
@@ -121,7 +127,13 @@ namespace TELPA.Data
                 .HasForeignKey(e => e.EmployeeId);
 
             modelBuilder.Entity<RecommendedTopic>()
-                .HasKey(e => new { e.TopicId, e.EmployeeId });
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<RecommendedTopic>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<RecommendedTopic>()
+                .HasIndex(e => new { e.TopicId, e.EmployeeId })
+                .IsUnique();
             modelBuilder.Entity<RecommendedTopic>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
@@ -135,7 +147,13 @@ namespace TELPA.Data
                 .HasForeignKey(e => e.EmployeeId);
 
             modelBuilder.Entity<LearningDay>()
-                .HasKey(e => new { e.Date, e.EmployeeId });
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<LearningDay>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<LearningDay>()
+                .HasIndex(e => new { e.Date, e.EmployeeId })
+                .IsUnique();
             modelBuilder.Entity<LearningDay>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
@@ -145,31 +163,49 @@ namespace TELPA.Data
                 .HasForeignKey(e => e.EmployeeId);
 
             modelBuilder.Entity<LearningDayTopic>()
-                .HasKey(e => new { e.LearningDayDate, e.LearningDayEmployeeId, e.TopicId });
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<LearningDayTopic>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<LearningDayTopic>()
+                .HasIndex(e => new { e.LearningDayId, e.TopicId })
+                .IsUnique();
             modelBuilder.Entity<LearningDayTopic>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
             modelBuilder.Entity<LearningDayTopic>()
                 .HasOne(e => e.LearningDay)
                 .WithMany(e => e.LearningDayTopics)
-                .HasForeignKey(e => new { e.LearningDayDate, e.LearningDayEmployeeId});
+                .HasForeignKey(e => e.LearningDayId);
             modelBuilder.Entity<LearningDayTopic>()
                 .HasOne(e => e.Topic)
                 .WithMany(e => e.LearningDayTopics)
                 .HasForeignKey(e => e.TopicId);
 
             modelBuilder.Entity<LearningDayLink>()
-                .HasKey(e => new { e.LearningDayDate, e.LearningDayEmployeeId });
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<LearningDayLink>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<LearningDayLink>()
+                .HasIndex(e => e.LearningDayId)
+                .IsUnique();
             modelBuilder.Entity<LearningDayLink>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
             modelBuilder.Entity<LearningDayLink>()
                 .HasOne(e => e.LearningDay)
                 .WithMany(e => e.LearningDayLinks)
-                .HasForeignKey(e => new { e.LearningDayDate, e.LearningDayEmployeeId });
+                .HasForeignKey(e => e.LearningDayId);
 
             modelBuilder.Entity<Limit>()
-                .HasKey(e => new { e.EmployeeId, e.StartDate, e.EndDate });
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<Limit>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Limit>()
+                .HasIndex(e => new { e.EmployeeId, e.StartDate, e.EndDate })
+                .IsUnique();
             modelBuilder.Entity<Limit>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);

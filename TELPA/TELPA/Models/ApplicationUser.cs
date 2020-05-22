@@ -9,8 +9,5 @@ namespace TELPA.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required]
-        public string EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
     }
 }
