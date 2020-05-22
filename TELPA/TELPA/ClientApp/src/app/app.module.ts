@@ -24,6 +24,7 @@ import { AddSubjectComponent } from './add-subject/add-subject.component';
 import { ManagerCalendarComponent } from './manager-calendar/manager-calendar.component';
 import { ManagerHomePageComponent } from './manager-home-page/manager-home-page.component';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
+import { RecommendationsComponent } from './recommendations/recommendations.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
     AddSubjectComponent,
     ManagerCalendarComponent,
     ManagerHomePageComponent,
-    EditSubjectComponent
+    EditSubjectComponent,
+    RecommendationsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -60,7 +62,8 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
           { path: 'login', component: LoginFormComponent },
           { path: 'manager', component: ManagerHomePageComponent },
           { path: 'add-subject', component: AddSubjectComponent },
-          { path: 'edit-subject', component: EditSubjectComponent }
+          { path: 'edit-subject', component: EditSubjectComponent },
+          { path: 'recommendations', component: RecommendationsComponent }
 
     ])
   ],

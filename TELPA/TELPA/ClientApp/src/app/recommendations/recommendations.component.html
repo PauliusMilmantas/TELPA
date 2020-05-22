@@ -1,0 +1,16 @@
+<div style="color: black;">
+  <div class="container">
+    <h1>Manage Recommendations</h1>
+
+    <div class="background-box">
+      <label for="for-who">For Who</label>
+      <select class="form-control" id="for-who" required (change)="onForWhoChange($event.target.value)">
+        <option>Myself</option>
+        <option>Bob</option>
+        <option>Rob</option>
+        <option>Tod</option>
+      </select>
+    </div>
+  </div>
+</div>
+
