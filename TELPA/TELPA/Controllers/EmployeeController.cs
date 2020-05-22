@@ -25,7 +25,7 @@ namespace TELPA.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
-        public IActionResult getEmployee(string id)
+        public IActionResult getEmployee(int id)
         {
             Employee employee = db.Employees.Find(id);
 
@@ -87,7 +87,7 @@ namespace TELPA.Controllers
 
         [HttpGet]
         [Route("delete/{id}")]
-        public IActionResult deleteEmployee(string id)
+        public IActionResult deleteEmployee(int id)
         {
             try
             {
@@ -109,9 +109,9 @@ namespace TELPA.Controllers
         public IActionResult testCreate()
         {
             Employee emp = new Employee();
-            emp.UserId = "3";
+            emp.Email = "ignas@email.com";
+            emp.PasswordHash = "hash(abc123)";
             emp.Name = "Ignas";
-            emp.Version = 0;
 
             return createEmployee(emp);
         }

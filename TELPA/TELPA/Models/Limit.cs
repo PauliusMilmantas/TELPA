@@ -9,7 +9,9 @@ namespace TELPA.Models
     public class Limit : IVersionedEntity
     {
         [Required]
-        public string EmployeeId { get; set; }
+        public int Id { get; set; }
+        [Required]
+        public int EmployeeId { get; set; }
         [Required]
         public string StartDate { get; set; }
         [Required]

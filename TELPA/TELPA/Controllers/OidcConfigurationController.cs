@@ -4,23 +4,23 @@ using Microsoft.Extensions.Logging;
 
 namespace TELPA.Controllers
 {
-    public class OidcConfigurationController : Controller
-    {
-        private readonly ILogger<OidcConfigurationController> logger;
+    //public class OidcConfigurationController : Controller
+    //{
+    //    private readonly ILogger<OidcConfigurationController> logger;
 
-        public OidcConfigurationController(IClientRequestParametersProvider clientRequestParametersProvider, ILogger<OidcConfigurationController> _logger)
-        {
-            ClientRequestParametersProvider = clientRequestParametersProvider;
-            logger = _logger;
-        }
+    //    public OidcConfigurationController(IClientRequestParametersProvider clientRequestParametersProvider, ILogger<OidcConfigurationController> _logger)
+    //    {
+    //        ClientRequestParametersProvider = clientRequestParametersProvider;
+    //        logger = _logger;
+    //    }
 
-        public IClientRequestParametersProvider ClientRequestParametersProvider { get; }
+    //    public IClientRequestParametersProvider ClientRequestParametersProvider { get; }
 
-        [HttpGet("_configuration/{clientId}")]
-        public IActionResult GetClientRequestParameters([FromRoute]string clientId)
-        {
-            var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
-            return Ok(parameters);
-        }
-    }
+    //    [HttpGet("_configuration/{clientId}")]
+    //    public IActionResult GetClientRequestParameters([FromRoute]string clientId)
+    //    {
+    //        var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
+    //        return Ok(parameters);
+    //    }
+    //}
 }
