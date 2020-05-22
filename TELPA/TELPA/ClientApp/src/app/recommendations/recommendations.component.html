@@ -3,13 +3,40 @@
     <h1>Manage Recommendations</h1>
 
     <div class="background-box">
-      <label for="for-who">For Who</label>
-      <select class="form-control" id="for-who" required (change)="onForWhoChange($event.target.value)">
-        <option>Myself</option>
-        <option>Bob</option>
-        <option>Rob</option>
-        <option>Tod</option>
-      </select>
+      <div class="form-group">
+        <label for="for-who">For Who</label>
+        <select class="form-control" id="for-who" required (change)="onForWhoChange($event.target.value)">
+          <option>Myself</option>
+          <option>Bob</option>
+          <option>Rob</option>
+          <option>Tod</option>
+        </select>
+      </div>
+
+      <div class="dual-list">
+        <div class="form-group">
+          <label for="available">Available</label>
+          <select class="custom-select" id="available" size="10">
+            <option value="1">Math</option>
+            <option value="2">C++</option>
+            <option value="3">Java</option>
+          </select>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-success">Add</button>
+          <button class="btn btn-danger">Remove</button>
+        </div>
+
+        <div class="form-group">
+          <label for="recommended">Recommended</label>
+          <select class="custom-select" size="10" id="recommended">
+            <option value="1">Python</option>
+            <option value="2">Logic</option>
+            <option value="3">Probabilities</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 </div>
