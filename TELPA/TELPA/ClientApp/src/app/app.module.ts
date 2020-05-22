@@ -58,7 +58,7 @@ import { ManagerHomePageComponent } from './manager-home-page/manager-home-page.
           { path: 'homepage', component: HomePageComponent },
           { path: 'register', component: RegistrationFormComponent },
           { path: 'login', component: LoginFormComponent },
-          { path: 'employee-management', component: EmployeeManagementComponent }
+          { path: 'employee-management', component: EmployeeManagementComponent },
           { path: 'manager', component: ManagerHomePageComponent }
     ])
   ],
