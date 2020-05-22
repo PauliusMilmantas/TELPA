@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1ERd0R4H9LtesdSmu+nIqTrx2CTxgEqcalcwz2M9dxobtZAlLmDik+znG6VAy5JvW+wpNuI5EzK524g414tgqQ==",
+  "dgSpecHash": "FPrX4PuMZX0ZKF1bpFD5kR5+uXQmbaUp5Saq1R5AE/3pI9/fTSlyDgBdNVmaBPSwTPVhwDlQaQ9c1ue4CyVgjQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\grici\\Source\\Repos\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+  "projectFilePath": "C:\\Users\\grici\\Documents\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\grici\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\grici\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

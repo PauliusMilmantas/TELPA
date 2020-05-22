@@ -3877,11 +3877,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\grici\\Source\\Repos\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+      "projectUniqueName": "C:\\Users\\grici\\Documents\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
       "projectName": "TELPA.Extensions.Logic",
-      "projectPath": "C:\\Users\\grici\\Source\\Repos\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+      "projectPath": "C:\\Users\\grici\\Documents\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
       "packagesPath": "C:\\Users\\grici\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\grici\\Source\\Repos\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
+      "outputPath": "C:\\Users\\grici\\Documents\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\grici\\AppData\\Roaming\\NuGet\\NuGet.Config",
