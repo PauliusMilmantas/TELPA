@@ -24,3 +24,4 @@ C:\Users\Evaldas\Documents\GitHub\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\n
 C:\Users\Evaldas\Documents\GitHub\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfo.cs
 C:\Users\Evaldas\Documents\GitHub\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
 C:\Users\Evaldas\Documents\GitHub\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
+

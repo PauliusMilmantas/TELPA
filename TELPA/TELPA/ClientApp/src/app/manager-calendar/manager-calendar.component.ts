@@ -4,11 +4,11 @@ import { CalendarData } from './data/data';
 import { ModalService } from '../__modal';
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  selector: 'app-manager-calendar',
+  templateUrl: './manager-calendar.component.html',
+  styleUrls: ['./manager-calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
+export class ManagerCalendarComponent implements OnInit {
 
   // Data about all months (static)
   calendarDataList = CalendarDataList;
@@ -78,7 +78,7 @@ export class CalendarComponent implements OnInit {
 
   // Left and right buttons
   click_left(event) {
-    if(this.month_id != 2) {
+    if (this.month_id != 2) {
       this.month_id -= 1;
       this.get_month_name(this.month_id);
       this.getMonthData(this.month_id);
@@ -172,7 +172,7 @@ export class CalendarComponent implements OnInit {
     for (var k = 0; k < (7 - this.first_week.length + k); k++) {
       current_row = this.last_month[this.last_month.length - k - 1];
       let current_object: CalendarData = { month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true, today: false, has_tasks: false };
-      this.first_week.unshift(current_object);  
+      this.first_week.unshift(current_object);
     }
   }
 

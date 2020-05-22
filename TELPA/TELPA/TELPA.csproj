@@ -28,8 +28,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Controllers\Contracts\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Controllers\Contracts\**" />
+    <EmbeddedResource Remove="Controllers\Contracts\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="Controllers\Contracts\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
