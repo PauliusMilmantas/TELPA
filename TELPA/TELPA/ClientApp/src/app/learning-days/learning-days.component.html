@@ -26,14 +26,17 @@
 
 <jw-modal id="custom-modal-4" style="text-align: center">
 
-  <label for="selectTopic">Select topic</label>
+  <label for="selectTopic">Select topic</label><br />
   <select id="selectTopic">
     <option *ngFor="let topic of topics">{{topic.name}}</option>
   </select>
 
-  <input [matDatepicker]="myDatepicker">
-  <mat-datepicker #myDatepicker></mat-datepicker>
+  <br /><br />
+  <label for="dayS">Select date</label><br /> 
+  <input type="date" id="dayS" name="birthday">
 
+  <br /><br />
+  <input type="submit">
 
   <br /><br /><br /><br />
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-4');">Close</button>
