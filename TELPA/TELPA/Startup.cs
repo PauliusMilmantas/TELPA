@@ -16,6 +16,7 @@ using System;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using System.IO;
 using System.Linq;
+using TELPA.Components;
 
 namespace TELPA
 {
@@ -43,6 +44,9 @@ namespace TELPA
 
             //services.AddAuthentication()
             //    .AddIdentityServerJwt();
+
+            services.AddSingleton<ISessionService, SessionService>();
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
 
             //Assembly[] assemblies = new Assembly[] { Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "TELPA.Extensions.Logic.dll") };
             Assembly[] assemblies =
@@ -97,6 +101,15 @@ namespace TELPA
             }
 
             app.UseRouting();
+
+            app.Use((context, next) =>
+            {
+                if (context.Request.Headers.ContainsKey("X-SessionToken"))
+                {
+                    context.Response.Headers["X-SessionToken"] = context.Request.Headers["X-SessionToken"];
+                }
+                return next.Invoke();
+            });
 
             app.UseAuthentication();
             //app.UseIdentityServer();

@@ -110,7 +110,7 @@ namespace TELPA.Controllers
         {
             Employee emp = new Employee();
             emp.Email = "ignas@email.com";
-            emp.PasswordHash = "hash(abc123)";
+            emp.SetPasswordHash("abc123");
             emp.Name = "Ignas";
 
             return createEmployee(emp);
