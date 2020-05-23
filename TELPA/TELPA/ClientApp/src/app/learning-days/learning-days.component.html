@@ -1,5 +1,5 @@
 <div class="col-md-8">
-  <button type="button" class="btn btn-primary nwBtn">Register learning day</button>
+  <button type="button" class="btn btn-primary nwBtn" (click)="registerForm('custom-modal-4')">Register learning day</button>
 </div>
 <br>
 <br>
@@ -15,11 +15,26 @@
 <h3 class="calendarbtn"> {{pageCounter}} </h3>
 <h1><button type="button" class="calendarbtn" (click)="changePageRight()" style="margin-left: 20px;">></button></h1>
 
-<jw-modal id="custom-modal-3">
+<jw-modal id="custom-modal-3" style="text-align: center">
   <h1>{{topicName}}</h1>
   <i>{{dayDate}}</i>
   <h3>{{topicDescription}}</h3>
   <h3>{{comment}}</h3>
   <br /><br /><br /><br />
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-3');">Close</button>
+</jw-modal>
+
+<jw-modal id="custom-modal-4" style="text-align: center">
+
+  <label for="selectTopic">Select topic</label>
+  <select id="selectTopic">
+    <option *ngFor="let topic of topics">{{topic.name}}</option>
+  </select>
+
+  <input [matDatepicker]="myDatepicker">
+  <mat-datepicker #myDatepicker></mat-datepicker>
+
+
+  <br /><br /><br /><br />
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-4');">Close</button>
 </jw-modal>

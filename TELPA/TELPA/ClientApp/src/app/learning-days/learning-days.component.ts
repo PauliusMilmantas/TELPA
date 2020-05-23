@@ -32,7 +32,7 @@ export class LearningDaysComponent implements OnInit {
     topicName;
 
     //Parsed arrays
-    dayDates = [];
+    C = [];
     topicNames = [];
 
     //Thread status
@@ -42,11 +42,15 @@ export class LearningDaysComponent implements OnInit {
   // Loading static data
   learningDaysAll = TrainingDayList;
 
+  dayDates = [];
+
   // Front end
   pageCounter = 1;
 
   // Data to be displayed
   learningDays = [];
+
+  topics = [];
 
   ngOnInit() {
     this.getBackendData();
@@ -156,5 +160,14 @@ export class LearningDaysComponent implements OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+
+  registerForm(id: string) {
+    this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
+      this.topics.push(response);
+    }).add(() => {
+      this.topics = this.topics[0];
+      this.modalService.open(id);
+    });
   }
 }
