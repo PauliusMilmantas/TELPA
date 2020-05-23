@@ -100,7 +100,6 @@ export class LearningDaysComponent implements OnInit {
       this.thread2.push(1);
 
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        console.log(this.dayDates[i]);
         this.learningDaysAll.push(
           {
             'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
@@ -135,6 +134,8 @@ export class LearningDaysComponent implements OnInit {
 
   //Modal window control
   openModal(topic: string, date: string, id) {
+    this.topicName = topic;
+    this.dayDate = date;
     this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
       for (var i = 0; i < Object.keys(response).length; i++) {
         if (response[i]['name'] == topic) {
