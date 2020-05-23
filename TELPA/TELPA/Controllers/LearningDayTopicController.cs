@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TELPA.Data;
 using TELPA.Models;
@@ -34,6 +36,21 @@ namespace TELPA.Controllers
             else
             {
                 return NotFound("GET: LearningDayTopic with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/all")]
+        public IActionResult getAllDays() {
+            IList<LearningDayTopic> learningDays = db.LearningDayTopics.ToList<LearningDayTopic>();
+
+            if (learningDays.Count != 0)
+            {
+                return Json(learningDays);
+            }
+            else
+            {
+                return NotFound("No learning day topics found.");
             }
         }
 

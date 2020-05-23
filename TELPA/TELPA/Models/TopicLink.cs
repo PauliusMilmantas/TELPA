@@ -9,6 +9,8 @@ namespace TELPA.Models
     public class TopicLink : IVersionedEntity
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public int TopicId { get; set; }
         [Required]
         public string Link { get; set; }

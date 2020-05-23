@@ -6,4 +6,6 @@ export interface CalendarData {
   last_month: boolean;
   today: boolean;
   has_tasks: boolean;
+  task_id: string;
+  eventRow: number;
 }

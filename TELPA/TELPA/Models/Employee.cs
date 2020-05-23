@@ -9,15 +9,18 @@ namespace TELPA.Models
     public class Employee : IVersionedEntity
     {
         [Required]
-        public string UserId { get; set; }
+        public int Id { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string PasswordHash { get; set; }
         public string Role { get; set; }
         [Required]
         public string Name { get; set; }
-        public string LeaderId { get; set; }
+        public int? LeaderId { get; set; }
         [ConcurrencyCheck]
         public long Version { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
         public virtual Employee Leader { get; set; }
         public virtual List<Employee> Subordinates { get; set; }
         public virtual List<LearnedTopic> LearnedTopics { get; set; }
