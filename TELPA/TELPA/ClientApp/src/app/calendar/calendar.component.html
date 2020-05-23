@@ -39,7 +39,24 @@
         </div>
 
         <div class="fourth">
-          <span *ngFor="let CalendarData of fourth_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+          <ng-container *ngFor="let CalendarData of fourth_week">
+            <ng-container *ngIf="CalendarData.today == true">
+              <ng-container *ngIf="CalendarData.has_tasks == true">
+                <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.has_tasks == false">
+                <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="CalendarData.today == false">
+              <ng-container *ngIf="CalendarData.has_tasks == true">
+                <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="event">{{CalendarData.day}}</span>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.has_tasks == false">
+                <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
 
         <div class="fifth">
@@ -92,4 +109,13 @@
   <i>{{date_string}}</i>
   <br /><br /><br /><br />
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-1');">Close</button>
+</jw-modal>
+
+<jw-modal id="custom-modal-2">
+  <h1>Learning day</h1>
+  <i>{{date_string}}</i>
+  <h3>{{selectedTopic}}</h3>
+  {{selectedTopicDescription}}
+  <br /><br /><br /><br />
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-2');">Close</button>
 </jw-modal>

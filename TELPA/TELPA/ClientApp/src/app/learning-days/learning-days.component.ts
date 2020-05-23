@@ -14,6 +14,8 @@ export class LearningDaysComponent implements OnInit {
 
   constructor(private httpClient: HttpClient) { }
 
+    userId;
+
     //Not parsed
     linkingData;
 
