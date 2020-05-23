@@ -21,21 +21,69 @@
       <div class="weeks">
         <div class="first">
           <ng-container *ngFor="let CalendarData of first_week">
-            <ng-container *ngIf="CalendarData.today == true">
-              <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+            <ng-container *ngIf="CalendarData.last_month == false">
+              <ng-container *ngIf="CalendarData.today == true">
+                <ng-container *ngIf="CalendarData.has_tasks == true">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+                </ng-container>
+                <ng-container *ngIf="CalendarData.has_tasks == false">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.today == false">
+                <ng-container *ngIf="CalendarData.has_tasks == true">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="event">{{CalendarData.day}}</span>
+                </ng-container>
+                <ng-container *ngIf="CalendarData.has_tasks == false">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+                </ng-container>
+              </ng-container>
             </ng-container>
-            <ng-container *ngIf="CalendarData.today == false">
-              <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+            <ng-container *ngIf="CalendarData.last_month == true">
+              <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
             </ng-container>
-            <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
           </ng-container>
         </div>
 
         <div class="second">
-          <span *ngFor="let CalendarData of second_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+          <ng-container *ngFor="let CalendarData of second_week">
+            <ng-container *ngIf="CalendarData.today == true">
+              <ng-container *ngIf="CalendarData.has_tasks == true">
+                <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.has_tasks == false">
+                <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="CalendarData.today == false">
+              <ng-container *ngIf="CalendarData.has_tasks == true">
+                <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="event">{{CalendarData.day}}</span>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.has_tasks == false">
+                <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
         <div class="third">
-          <span *ngFor="let CalendarData of third_week" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+          <ng-container *ngFor="let CalendarData of third_week">
+            <ng-container *ngIf="CalendarData.today == true">
+              <ng-container *ngIf="CalendarData.has_tasks == true">
+                <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.has_tasks == false">
+                <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="CalendarData.today == false">
+              <ng-container *ngIf="CalendarData.has_tasks == true">
+                <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="event">{{CalendarData.day}}</span>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.has_tasks == false">
+                <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
 
         <div class="fourth">
@@ -61,8 +109,27 @@
 
         <div class="fifth">
           <ng-container *ngFor="let CalendarData of fifth_week">
-            <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
-            <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
+            <ng-container *ngIf="CalendarData.last_month == false">
+              <ng-container *ngIf="CalendarData.today == true">
+                <ng-container *ngIf="CalendarData.has_tasks == true">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+                </ng-container>
+                <ng-container *ngIf="CalendarData.has_tasks == false">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)" class="active">{{CalendarData.day}}</span>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="CalendarData.today == false">
+                <ng-container *ngIf="CalendarData.has_tasks == true">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openEventViewer('custom-modal-2', CalendarData.day)" class="event">{{CalendarData.day}}</span>
+                </ng-container>
+                <ng-container *ngIf="CalendarData.has_tasks == false">
+                  <span *ngIf="CalendarData.last_month == false" (click)="openModal('custom-modal-1', CalendarData.day)">{{CalendarData.day}}</span>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="CalendarData.last_month == true">
+              <span *ngIf="CalendarData.last_month == true" class="last-month">{{CalendarData.day}}</span>
+            </ng-container>
           </ng-container>
         </div>
       </div>

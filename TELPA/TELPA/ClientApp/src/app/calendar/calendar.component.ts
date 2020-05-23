@@ -244,10 +244,7 @@ export class CalendarComponent implements OnInit {
         }
       }
     }).add(() => {
-      console.log(foundEventFromResponse);
-
       this.httpClient.get(location.origin + '/api/topic/get/' + foundEventFromResponse['topicId']).subscribe(response2 => {
-        console.log(response2['name']);
         this.selectedTopic = response2['name'];
         this.selectedTopicDescription = response2['description'];
 
