@@ -20,7 +20,14 @@
         <td>mikas</td>
         <td></td>
       </tr>
-      <tr *ngFor="let field of fieldArray; let i = index">
+      <tr *ngFor="let EmployeeData of employeeData">
+        <td>{{EmployeeData.name}}</td>
+        <td>{{EmployeeData.email}}</td>
+        <td>{{EmployeeData.role}}</td>
+        <td>{{EmployeeData.leader_id}}</td>
+        <td></td>
+      </tr>
+<!--      <tr *ngFor="let field of fieldArray; let i = index">
         <td>
         <ng-container [(ngModel)]="field.name" class="form-control" type="text">{{field.name}}</ng-container> 
         </td>
@@ -37,6 +44,7 @@
           <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
         </td>
       </tr>
+-->
     </table>
   </div>
 </div>

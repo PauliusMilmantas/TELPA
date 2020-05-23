@@ -16,6 +16,14 @@ export class EmployeeManagementComponent implements OnInit {
   private fieldArray: Array<any> = [];
   private newAttribute: any = {};
   employeeDataAll = EmployeeDataList;
+  employeeData = [];
+
+  linkingData;
+
+  employeeName;
+  employeeEmail;
+  employeeRole;
+  employeeLeader;
 
   constructor(private modalService: ModalService, private httpClient: HttpClient) { }
 
@@ -31,18 +39,32 @@ export class EmployeeManagementComponent implements OnInit {
     this.employeeDataAll = [];
     this.httpClient.get(baseURL + 'api/employee/get/all').subscribe(
       data => {
-        for (var i = 0; i < Object.keys(data).length; i++) {
-          var date = data[i][''];
-          this.employeeDataAll.push(
-            {
-              'name': name,
-              'email': email,
-              'role': role,
-              'leader_id': leader_id
-            }
-          );
+        this.linkingData = data;
+      }
+    ).add(() => {
+      for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+        this.employeeName = this.linkingData[i]['name'];
+        this.employeeEmail = this.linkingData[i]['email'];
+        this.employeeRole = this.linkingData[i]['role'];
+        this.employeeLeader = this.linkingData[i]['leaderId'];
+      }
+    }).add(() => {
+      this.getDataForFE();
+    });
+  }
+
+  getDataForFE() {
+    this.employeeData = [];
+    for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+      this.employeeData.push(
+        {
+          'name': this.employeeName[i],
+          'email': this.employeeEmail[i],
+          'role': this.employeeRole[i],
+          'leader_id': this.employeeLeader[i]
         }
-      });
+      );
+    }
   }
 
   selectTeamBtnClick(event) {
