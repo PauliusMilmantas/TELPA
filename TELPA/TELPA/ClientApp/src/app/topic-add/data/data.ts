@@ -1,4 +1,4 @@
-export class SubjectData {
+export class TopicData {
   constructor(
     public id: number,
     public parentId: number,

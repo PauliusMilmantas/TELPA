@@ -17,10 +17,10 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { LearningDaysComponent } from './learning-days/learning-days.component';
-import { AddSubjectComponent } from './add-subject/add-subject.component';
+import { TopicAddComponent } from './topic-add/topic-add.component';
 import { ManagerCalendarComponent } from './manager-calendar/manager-calendar.component';
 import { ManagerHomePageComponent } from './manager-home-page/manager-home-page.component';
-import { EditSubjectComponent } from './edit-subject/edit-subject.component';
+import { TopicEditComponent } from './topic-edit/topic-edit.component';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
 
 @NgModule({
@@ -37,10 +37,10 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
     LoginFormComponent,
     CalendarComponent,
     LearningDaysComponent,
-    AddSubjectComponent,
+    TopicAddComponent,
     ManagerCalendarComponent,
     ManagerHomePageComponent,
-    EditSubjectComponent,
+    TopicEditComponent,
     RecommendationsComponent
   ],
   imports: [
@@ -57,8 +57,8 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
           { path: 'register', component: RegistrationFormComponent },
           { path: 'login', component: LoginFormComponent },
           { path: 'manager', component: ManagerHomePageComponent },
-          { path: 'add-subject', component: AddSubjectComponent },
-          { path: 'edit-subject', component: EditSubjectComponent },
+          { path: 'topic-add', component: TopicAddComponent },
+          { path: 'topic-edit', component: TopicEditComponent },
           { path: 'recommendations', component: RecommendationsComponent }
 
     ])

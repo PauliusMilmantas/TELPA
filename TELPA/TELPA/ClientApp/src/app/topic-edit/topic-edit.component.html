@@ -1,17 +1,17 @@
 <div style="color: black;">
   <div class="container">
-    <h1>Edit Subject</h1>
+    <h1>Edit Topic</h1>
 
     <div class="background-box">
-      <label for="subject">Select Subject</label>
-      <select class="form-control" id="subject" required (change)="onSubjectChange($event.target.value)">
+      <label for="topic">Select Topic</label>
+      <select class="form-control" id="topic" required (change)="onTopicChange($event.target.value)">
         <option>(None)</option>
         <option>Math</option>
         <option>Math</option>
         <option>Math</option>
       </select>
 
-      <form (ngSubmit)="onSubmit()" #addSubject="ngForm" [hidden]="hideForm">
+      <form (ngSubmit)="onSubmit()" #addTopic="ngForm" [hidden]="hideForm">
 
         <div class="form-group">
 
@@ -20,24 +20,24 @@
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name" required
-                 [(ngModel)]="subjectToAdd.name" name="name" #name="ngModel" />
+                 [(ngModel)]="topicToAdd.name" name="name" #name="ngModel" />
         </div>
 
         <div class="form-group">
           <label for="description">Description</label>
           <textarea class="form-control" id="description"
-                    [(ngModel)]="subjectToAdd.description" name="description" #description="ngModel"></textarea>
+                    [(ngModel)]="topicToAdd.description" name="description" #description="ngModel"></textarea>
         </div>
 
 
         <div class="form-group">
           <label for="link">Links</label>
-          <div *ngFor="let link of subjectToAdd.links; let i = index; trackBy: trackByFn">
+          <div *ngFor="let link of topicToAdd.links; let i = index; trackBy: trackByFn">
             <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (change)="onLinkChange($event.target.value, i)" />
           </div>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!addSubject.form.valid">Submit</button>
+        <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
 
       </form>
     </div>
