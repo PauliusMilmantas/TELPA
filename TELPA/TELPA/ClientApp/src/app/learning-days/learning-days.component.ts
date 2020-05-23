@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingDayList } from './data/mock_data';
-import { LearningDay } from './data/TrainingDay';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Local } from 'protractor/built/driverProviders';
 import { ModalService } from '../__modal';
 
 @Component({
@@ -15,6 +11,10 @@ import { ModalService } from '../__modal';
 export class LearningDaysComponent implements OnInit {
 
   constructor(private httpClient: HttpClient, private modalService: ModalService) { }
+
+    //POST Register learning day
+    post_topic;
+    post_date;
 
     //Modal window content
     topicDescription;
@@ -54,6 +54,10 @@ export class LearningDaysComponent implements OnInit {
 
   ngOnInit() {
     this.getBackendData();
+  }
+
+  submit_learning_day() {
+    console.log(this.post_topic);
   }
 
   // Requesting data from API

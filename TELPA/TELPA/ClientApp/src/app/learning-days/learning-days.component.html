@@ -17,7 +17,7 @@
 
 <jw-modal id="custom-modal-3" style="text-align: center">
   <h1>{{topicName}}</h1>
-  <i>{{dayDate}}</i>
+  <h3>{{dayDate}}</h3>
   <h3>{{topicDescription}}</h3>
   <h3>{{comment}}</h3>
   <br /><br /><br /><br />
@@ -28,7 +28,7 @@
 
   <label for="selectTopic">Select topic</label><br />
   <select id="selectTopic">
-    <option *ngFor="let topic of topics">{{topic.name}}</option>
+    <option *ngFor="let topic of topics" [(ngModel)]="post_topic">{{topic.name}}</option>
   </select>
 
   <br /><br />
@@ -36,7 +36,7 @@
   <input type="date" id="dayS" name="birthday">
 
   <br /><br />
-  <input type="submit">
+  <input type="submit" (click)="submit_learning_day()">
 
   <br /><br /><br /><br />
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-4');">Close</button>
