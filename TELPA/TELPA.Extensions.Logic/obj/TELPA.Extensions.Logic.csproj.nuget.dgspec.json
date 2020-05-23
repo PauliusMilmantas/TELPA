@@ -14,7 +14,7 @@
         "outputPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\Evaldas\\AppData\\Roaming\\NuGet\\NuGet.Config",
