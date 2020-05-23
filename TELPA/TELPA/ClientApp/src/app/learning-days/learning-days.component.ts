@@ -4,6 +4,8 @@ import { LearningDay } from './data/TrainingDay';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Local } from 'protractor/built/driverProviders';
+import { ModalService } from '../__modal';
 
 @Component({
   selector: 'app-learning-days',
@@ -12,7 +14,11 @@ import { map } from 'rxjs/operators';
 })
 export class LearningDaysComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private modalService: ModalService) { }
+
+    //Modal window content
+    topicDescription;
+    comment;
 
     userId;
 
@@ -90,6 +96,7 @@ export class LearningDaysComponent implements OnInit {
       this.thread2.push(1);
 
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
+        console.log(this.dayDates[i]);
         this.learningDaysAll.push(
           {
             'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
@@ -120,5 +127,34 @@ export class LearningDaysComponent implements OnInit {
       this.pageCounter += 1;
       this.getDataForFE(this.pageCounter);
     }
+  }
+
+  //Modal window control
+  openModal(topic: string, date: string, id) {
+    this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
+      for (var i = 0; i < Object.keys(response).length; i++) {
+        if (response[i]['name'] == topic) {
+          this.topicDescription = response[i]['description'];
+          this.topicId = response[i]['id'];
+        }
+      }
+    }).add(() => {
+      this.httpClient.get(location.origin + '/api/learningDay/get/all').subscribe(response2 => {
+        for (var i = 0; i < Object.keys(response2).length; i++) {
+          if (response2[i]['date'].split('T')[0].split('-')[0] == date.split(' ')[0].split('-')[0] &&
+            response2[i]['date'].split('T')[0].split('-')[1] == date.split(' ')[0].split('-')[1] &&
+            response2[i]['date'].split('T')[0].split('-')[2] == date.split(' ')[0].split('-')[2]) {
+
+            this.comment = response2[i]['comment'];
+          }
+        }
+      }).add(() => {
+        this.modalService.open(id);
+      })
+    });
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }

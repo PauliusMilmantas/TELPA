@@ -6,7 +6,7 @@
 <br>
 
 <ng-container *ngFor="let LearningDay of learningDays">
-  <div class="event confirmed" *ngIf="LearningDay != null">
+  <div class="event confirmed" *ngIf="LearningDay != null" (click)="openModal(LearningDay.topic, LearningDay.date, 'custom-modal-3')">
     <div class="title" id="title">{{LearningDay.topic}}</div>
     <div class="time" id="time">{{LearningDay.date}}</div>
   </div>
@@ -14,3 +14,12 @@
 <h1><button type="button" class="calendarbtn" (click)="changePageLeft()"><</button></h1>
 <h3 class="calendarbtn"> {{pageCounter}} </h3>
 <h1><button type="button" class="calendarbtn" (click)="changePageRight()" style="margin-left: 20px;">></button></h1>
+
+<jw-modal id="custom-modal-3">
+  <h1>{{topicName}}</h1>
+  <i>{{dayDate}}</i>
+  <h3>{{topicDescription}}</h3>
+  <h3>{{comment}}</h3>
+  <br /><br /><br /><br />
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('custom-modal-3');">Close</button>
+</jw-modal>
