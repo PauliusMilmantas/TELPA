@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TELPA.Data;
 using TELPA.Models;
@@ -19,6 +21,22 @@ namespace TELPA.Controllers
         public IActionResult ping()
         {
             return Ok("TopicController online");
+        }
+
+        [HttpGet]
+        [Route("get/all")]
+        public IActionResult getAll()
+        {
+            IList<Topic> learningDays = db.Topics.ToList<Topic>();
+
+            if (learningDays.Count != 0)
+            {
+                return Json(learningDays);
+            }
+            else
+            {
+                return NotFound("No topics found.");
+            }
         }
 
         [HttpGet]

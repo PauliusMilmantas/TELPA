@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\calendar\data\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarDataList } from './data/mock_data';
 import { CalendarData } from './data/data';
 import { ModalService } from '../__modal';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-calendar',
@@ -26,13 +27,38 @@ export class CalendarComponent implements OnInit {
   current_month_name = "";
 
   //For modular window
-  date_string = ""
+  date_string = "";
+  selectedDay;
+  selectedEvent;
+  selectedTopic;
+  selectedTopicDescription;
 
-  constructor(private modalService: ModalService) { }
+  // Dates with events
+  eventDates = [];
+
+  constructor(private modalService: ModalService, private httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.get_month_name(this.month_id);
-    this.getMonthData(this.month_id);
+    this.getBackendData();
+  }
+
+  // Loading eventDates variable
+  getBackendData() {
+    var baseURL = location.origin;
+    this.httpClient.get(baseURL + '/api/learningDay/get/all').subscribe(response => {
+      for (var i = 0; i < Object.keys(response).length; i++) {
+        var date = response[i]['date'];
+        this.eventDates.push(
+          {
+            'date': date.split("T")[0],
+            'id': response[i]['id']
+          }
+        );
+      }
+    }).add(() => {
+      this.get_month_name(this.month_id);
+      this.getMonthData(this.month_id);
+    });
   }
 
   get_month_name(month_id) {
@@ -106,10 +132,28 @@ export class CalendarComponent implements OnInit {
     //Setting today date
     for (let row in this.calendarDataList) {
       if (this.calendarDataList[row].day == 2 && this.calendarDataList[row].month_id == 5) {
-        this.calendarDataList[row] = { month_id: 5, year: "2020", day: 2, week_id: 1, "last_month": false, today: true, has_tasks: false };
+        this.calendarDataList[row] = { month_id: 5, year: "2020", day: 2, week_id: 1, "last_month": false, today: true, has_tasks: false, task_id: '', eventRow: 0 };
       }
     }
 
+    //Parsing events
+    for (var i = 0; i < Object.keys(this.eventDates).length; i++) {
+      for (var t = 0; t < Object.keys(this.calendarDataList).length; t++) {
+        if (
+          this.calendarDataList[t].day == this.eventDates[i]['date'].split('-')[2] &&
+          this.calendarDataList[t].month_id == this.eventDates[i]['date'].split('-')[1] &&
+          this.calendarDataList[t].year == this.eventDates[i]['date'].split('-')[0]
+        ) {
+          this.calendarDataList[t] = {
+            month_id: this.calendarDataList[t].month_id, year: this.calendarDataList[t].year
+            , day: this.calendarDataList[t].day, week_id: this.calendarDataList[t].week_id, "last_month": this.calendarDataList[t].last_month, today: this.calendarDataList[t].today,
+            has_tasks: true, task_id: this.calendarDataList[t].task_id, eventRow: 0
+          };
+        }
+      }
+    }
+
+    //Setting up FE
     var prev_week = 0;
     for (let row in this.calendarDataList) {
       var current_row = this.calendarDataList[row];
@@ -166,21 +210,47 @@ export class CalendarComponent implements OnInit {
     //Filling in days
     //If it's the last days
     for (var i = 0; i < 7 - this.fifth_week.length + i; i++) {
-      this.fifth_week.push({ month_id: this.third_week[0].month_id, year: this.third_week[0].year, day: i + 1, week_id: 5, last_month: true, today: false, has_tasks: false });
+      this.fifth_week.push({ month_id: this.third_week[0].month_id, year: this.third_week[0].year, day: i + 1, week_id: 5, last_month: true, today: false, has_tasks: false, task_id: '' });
     }
 
     for (var k = 0; k < (7 - this.first_week.length + k); k++) {
       current_row = this.last_month[this.last_month.length - k - 1];
-      let current_object: CalendarData = { month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true, today: false, has_tasks: false };
+      let current_object: CalendarData = { month_id: current_row.month_id, year: current_row.year, day: current_row.day, week_id: current_row.week_id, last_month: true, today: false, has_tasks: false, task_id: '', eventRow: 0 };
       this.first_week.unshift(current_object);  
     }
   }
 
   //Modal window control
-  openModal(id: string, day: string) {
+  openModal(id: string, day: number) {
     this.date_string = (this.second_week[0].year).concat("-").concat(this.month_id.toString()).concat("-").concat(day);
-
     this.modalService.open(id);
+  }
+
+  openEventViewer(id: string, day: number, row: string) {
+    this.date_string = (this.second_week[0].year).concat("-").concat(this.month_id.toString()).concat("-").concat(day);
+    for (var i = 0; i < Object.keys(this.eventDates).length; i++) {
+      if (this.eventDates[i]['date'].split('-')[0] == '2020' &&
+        this.eventDates[i]['date'].split('-')[1] == this.month_id &&
+        this.eventDates[i]['date'].split('-')[2] == day) {
+        this.selectedEvent = this.eventDates[i];
+      }
+    }
+
+    var foundEventFromResponse;
+    this.httpClient.get(location.origin + '/api/learningDayTopic/get/all').subscribe(response => {
+      for (var i = 0; i < Object.keys(response).length; i++) {
+        if (response[i]['id'] == this.selectedEvent['id']) {
+          foundEventFromResponse = response[i];
+        }
+      }
+    }).add(() => {
+      this.httpClient.get(location.origin + '/api/topic/get/' + foundEventFromResponse['topicId']).subscribe(response2 => {
+        this.selectedTopic = response2['name'];
+        this.selectedTopicDescription = response2['description'];
+
+        this.modalService.open(id);
+      });
+    });
   }
 
   closeModal(id: string) {
