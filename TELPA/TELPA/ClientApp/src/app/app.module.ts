@@ -22,6 +22,9 @@ import { ManagerCalendarComponent } from "./manager-calendar/manager-calendar.co
 import { ManagerHomePageComponent } from "./manager-home-page/manager-home-page.component";
 import { CookieService } from "ngx-cookie-service";
 import { EmployeeManagementComponent } from "./employee-management/employee-management.component";
+import { TopicAddComponent } from "./topic-add/topic-add.component";
+import { TopicEditComponent } from "./topic-edit/topic-edit.component";
+import { RecommendationsComponent } from "./recommendations/recommendations.component";
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { EmployeeManagementComponent } from "./employee-management/employee-mana
     AddSubjectComponent,
     ManagerCalendarComponent,
     ManagerHomePageComponent,
+    TopicAddComponent,
+    TopicEditComponent,
+    RecommendationsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -57,6 +63,9 @@ import { EmployeeManagementComponent } from "./employee-management/employee-mana
       { path: "login", component: LoginFormComponent },
       { path: "manager", component: ManagerHomePageComponent },
       { path: "employee-management", component: EmployeeManagementComponent },
+      { path: "topic-add", component: TopicAddComponent },
+      { path: "topic-edit", component: TopicEditComponent },
+      { path: "recommendations", component: RecommendationsComponent },
     ]),
   ],
   providers: [CookieService],
