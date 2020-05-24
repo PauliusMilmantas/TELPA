@@ -236,10 +236,10 @@ export class CalendarComponent implements OnInit {
       }
     }
 
-    var foundEventFromResponse;
+    var foundEventFromResponse = null;
     this.httpClient.get(location.origin + '/api/learningDayTopic/get/all').subscribe(response => {
       for (var i = 0; i < Object.keys(response).length; i++) {
-        if (response[i]['id'] == this.selectedEvent['id']) {
+        if (response[i]['learningDayId'] == this.selectedEvent['id']) {
           foundEventFromResponse = response[i];
         }
       }
