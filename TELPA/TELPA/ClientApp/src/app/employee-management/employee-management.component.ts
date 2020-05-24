@@ -112,20 +112,24 @@ export class EmployeeManagementComponent implements OnInit {
 
     this.fieldArray.push(this.newAttribute)
     this.newAttribute = {};
-
+    console.log(name, email, role);
     this.httpClient.post(location.origin + "/api/employee/create", {
       "name": name,
       "email": email,
-      "role": role
+      "role": role,
+      "passwordHash": "slaptazodis"
       //"leaderId": leader_id
     }).subscribe(
       (val) => {
-        console.log("POST call successful", val)
-      }, response => {
+        console.log("POST call successful value returned in body",
+          val);
+      },
+      response => {
         console.log("POST call in error", response);
-      }, () => {
+      },
+      () => {
         console.log("The POST observable is now completed.");
-      });
+      });;
    
 
     this.modalService.close(id);

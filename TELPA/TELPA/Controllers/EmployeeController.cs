@@ -56,10 +56,11 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createEmployee(Employee employee)
+        public IActionResult createEmployee([FromBody] Employee employee)
         {
             if (employee != null)
             {
+                Console.WriteLine(employee.Name, employee.Role);
                 db.Employees.Add(employee);
                 db.SaveChanges();
                 return Ok("Employee created");
