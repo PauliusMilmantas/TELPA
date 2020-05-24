@@ -17,7 +17,6 @@ import { RegistrationFormComponent } from "./registration-form/registration-form
 import { LoginFormComponent } from "./login-form/login-form.component";
 import { CalendarComponent } from "./calendar/calendar.component";
 import { LearningDaysComponent } from "./learning-days/learning-days.component";
-import { AddSubjectComponent } from "./add-subject/add-subject.component";
 import { ManagerCalendarComponent } from "./manager-calendar/manager-calendar.component";
 import { ManagerHomePageComponent } from "./manager-home-page/manager-home-page.component";
 import { CookieService } from "ngx-cookie-service";
@@ -41,7 +40,6 @@ import { RecommendationsComponent } from "./recommendations/recommendations.comp
     CalendarComponent,
     LearningDaysComponent,
     EmployeeManagementComponent,
-    AddSubjectComponent,
     ManagerCalendarComponent,
     ManagerHomePageComponent,
     TopicAddComponent,

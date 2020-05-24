@@ -1,43 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { TopicData } from '../topic-add/data/data';
-
+import { Component, OnInit } from "@angular/core";
+import { Topic } from "../api/api-entities";
 
 @Component({
-  selector: 'app-topic-edit',
-  templateUrl: './topic-edit.component.html',
-  styleUrls: ['./topic-edit.component.css']
+  selector: "app-topic-edit",
+  templateUrl: "./topic-edit.component.html",
+  styleUrls: ["./topic-edit.component.css"],
 })
 export class TopicEditComponent implements OnInit {
-
-  topicToAdd = new TopicData(1, 2, '', '', ['']);
+  topicToAdd = <Topic>{
+    id: 1,
+    name: "",
+    description: "",
+    parentTopicId: 2,
+  };
   hideForm = true;
   isEmpty = [false];
- 
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.hideForm = true;
   }
 
-  onSubmit() { }
+  onSubmit() {}
 
   onTopicChange(value) {
     if (value == "(None)") {
       this.hideForm = true;
-    }
-    else {
+    } else {
       this.hideForm = false;
     }
   }
 
   onLinkChange(value, place) {
     this.topicToAdd.links[place] = value;
-    if (place == (this.topicToAdd.links.length - 1) && this.topicToAdd.links[place].length != 0) {
-      this.topicToAdd.links.push('');
+    if (
+      place == this.topicToAdd.links.length - 1 &&
+      this.topicToAdd.links[place].length != 0
+    ) {
+      this.topicToAdd.links.push("");
       this.isEmpty.push(false);
-    }
-    else if (place != (this.topicToAdd.links.length - 1) && this.topicToAdd.links[place].length == 0) {
+    } else if (
+      place != this.topicToAdd.links.length - 1 &&
+      this.topicToAdd.links[place].length == 0
+    ) {
       this.isEmpty[place] = true;
     }
   }
