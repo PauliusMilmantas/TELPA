@@ -56,7 +56,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createLearnedTopic(LearnedTopic learnedTopic)
+        public IActionResult createLearnedTopic([FromBody] LearnedTopic learnedTopic)
         {
             if (learnedTopic != null)
             {
@@ -71,7 +71,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateLearnedTopic(LearnedTopic learnedTopic)
+        public IActionResult updateLearnedTopic([FromBody] LearnedTopic learnedTopic)
         {
             if (learnedTopic != null)
             {

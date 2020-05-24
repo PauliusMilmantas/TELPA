@@ -38,7 +38,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createLimit(Limit limit)
+        public IActionResult createLimit([FromBody] Limit limit)
         {
             if (limit != null)
             {
@@ -53,7 +53,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateLimit(Limit limit)
+        public IActionResult updateLimit([FromBody] Limit limit)
         {
             if (limit != null)
             {
