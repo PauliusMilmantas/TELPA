@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TELPA.Constants;
 
@@ -26,12 +26,19 @@ namespace TELPA.Models
         [ConcurrencyCheck]
         public long Version { get; set; }
 
+        [JsonIgnore]
         public virtual Employee Leader { get; set; }
+        [JsonIgnore]
         public virtual List<Employee> Subordinates { get; set; }
+        [JsonIgnore]
         public virtual List<LearnedTopic> LearnedTopics { get; set; }
+        [JsonIgnore]
         public virtual List<RecommendedTopic> RecommendedTopics { get; set; }
+        [JsonIgnore]
         public virtual List<LearningDay> LearningDays { get; set; }
+        [JsonIgnore]
         public virtual List<Limit> Limits { get; set; }
+        [JsonIgnore]
         public virtual List<Invite> Invites { get; set; }
 
         public bool IsPassword(string password)

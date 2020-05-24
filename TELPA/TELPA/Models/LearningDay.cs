@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TELPA.Models
@@ -23,8 +23,11 @@ namespace TELPA.Models
         [ConcurrencyCheck]
         public long Version { get; set; }
 
+        [JsonIgnore]
         public virtual Employee Employee { get; set; }
+        [JsonIgnore]
         public virtual List<LearningDayTopic> LearningDayTopics { get; set; }
+        [JsonIgnore]
         public virtual List<LearningDayLink> LearningDayLinks { get; set; }
     }
 }
