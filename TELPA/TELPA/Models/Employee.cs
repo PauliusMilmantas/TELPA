@@ -22,6 +22,7 @@ namespace TELPA.Models
         [Required]
         public string Name { get; set; }
         public int? LeaderId { get; set; }
+        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 

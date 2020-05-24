@@ -30,7 +30,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("logIn")]
         public IActionResult LogIn([FromBody] LoginData loginData)
         {
             try
@@ -46,7 +46,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost]
-        [Route("logout")]
+        [Route("logOut")]
         public IActionResult LogOut()
         {
             if (Request.Headers.ContainsKey("X-SessionToken"))

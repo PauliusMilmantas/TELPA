@@ -85,7 +85,7 @@ namespace TELPA.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteLearningDay(int id)
         {

@@ -67,7 +67,7 @@ namespace TELPA.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteRecommendedTopic(int id)
         {

@@ -1,30 +1,30 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Invite } from "./api-entities";
+import { TopicLink } from "./api-entities";
 import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
-const API_URL = "api/invite/";
+const API_URL = "api/topicLink/";
 
 @Injectable({
   providedIn: "root",
 })
-export class InviteAPIService {
+export class TopicLinkAPIService {
   constructor(private http: HttpWrapperService) {}
 
-  getAll(): Observable<Invite[]> {
-    return this.http.get<Invite[]>(API_URL + "get/all");
+  getAll(): Observable<TopicLink[]> {
+    return this.http.get<TopicLink[]>(API_URL + "get/all");
   }
 
-  get(id: number): Observable<Invite> {
-    return this.http.get<Invite>(API_URL + "get/" + id);
+  get(id: number): Observable<TopicLink> {
+    return this.http.get<TopicLink>(API_URL + "get/" + id);
   }
 
-  create(e: Invite): Observable<any> {
+  create(e: TopicLink): Observable<any> {
     return this.http.post(API_URL + "create", JSON.stringify(e));
   }
 
-  update(e: Invite): Observable<any> {
+  update(e: TopicLink): Observable<any> {
     return this.http.put(API_URL + "update", JSON.stringify(e));
   }
 
