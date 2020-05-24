@@ -56,7 +56,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createLearningDay(LearningDay learningDay)
+        public IActionResult createLearningDay([FromBody] LearningDay learningDay)
         {
             if (learningDay != null)
             {
@@ -96,7 +96,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateLearningDay(LearningDay learningDay)
+        public IActionResult updateLearningDay([FromBody] LearningDay learningDay)
         {
             if (learningDay != null)
             {
