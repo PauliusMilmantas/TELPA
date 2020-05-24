@@ -36,22 +36,22 @@ namespace TELPA.Models
         public bool IsPassword(string password)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: password,
-            salt: Convert.FromBase64String(Config.salt),
-            prf: KeyDerivationPrf.HMACSHA1,
-            iterationCount: 1000,
-            numBytesRequested: 256 / 8));
-            return password == PasswordHash;
+                password: password,
+                salt: Convert.FromBase64String(Config.salt),
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 1000,
+                numBytesRequested: 256 / 8));
+            return hashed == PasswordHash;
         }
 
         public void SetPasswordHash(string password)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: password,
-            salt: Convert.FromBase64String(Config.salt),
-            prf: KeyDerivationPrf.HMACSHA1,
-            iterationCount: 1000,
-            numBytesRequested: 256 / 8));
+                password: password,
+                salt: Convert.FromBase64String(Config.salt),
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 1000,
+                numBytesRequested: 256 / 8));
             PasswordHash = hashed;
         }
     }

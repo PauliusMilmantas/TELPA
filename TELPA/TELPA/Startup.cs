@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using System.IO;
 using System.Linq;
 using TELPA.Components;
+using Microsoft.Extensions.Options;
 
 namespace TELPA
 {
@@ -44,6 +45,9 @@ namespace TELPA
 
             //services.AddAuthentication()
             //    .AddIdentityServerJwt();
+            services.AddAuthentication("NoOpAuthentication")
+                .AddScheme<NoOpAuthenticationOptions, NoOpAuthenticationHandler>("NoOpAuthentication", options => { });
+            services.AddSingleton<IPostConfigureOptions<NoOpAuthenticationOptions>, NoOpAuthenticationPostConfigureOptions>();
 
             services.AddSingleton<ISessionService, SessionService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();

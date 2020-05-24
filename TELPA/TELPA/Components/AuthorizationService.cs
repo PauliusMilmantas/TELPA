@@ -66,7 +66,9 @@ namespace TELPA.Components
             {
                 throw new ValidationException("password", "The password is incorrect.");
             }
-            return sessionService.CreateSession().Id;
+            Session session = sessionService.CreateSession();
+            session.EmployeeId = employee.Id;
+            return session.Id;
         }
 
         public void LogOut(string id)

@@ -22,6 +22,7 @@ namespace TELPA.Controllers
             this.authorization = authorization;
         }
 
+        [Authenticated]
         [HttpGet("ping")]
         public IActionResult Ping()
         {
@@ -30,7 +31,7 @@ namespace TELPA.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult LogIn(LoginData loginData)
+        public IActionResult LogIn([FromBody] LoginData loginData)
         {
             try
             {
