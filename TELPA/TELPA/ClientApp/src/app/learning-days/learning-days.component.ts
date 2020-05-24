@@ -15,6 +15,7 @@ export class LearningDaysComponent implements OnInit {
     //POST Register learning day
     post_topic;
     post_date;
+    post_comment;
 
     //Modal window content
     topicDescription;
@@ -58,6 +59,24 @@ export class LearningDaysComponent implements OnInit {
 
   submit_learning_day() {
     console.log(this.post_topic);
+    console.log(this.post_date);
+
+    var post_topic_id;
+
+    this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
+      for (var i = 0; i < Object.keys(response).length; i++) {
+        if (response[i]['name'] == this.post_topic) {
+          post_topic_id = response[i]['id'];
+        }
+      }
+    }).add(() => {
+      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/1/1/' + post_topic_id).subscribe(response2 => {
+      }).add(() => {
+        this.closeModal('custom-modal-4');
+      });
+    });
+
+    
   }
 
   // Requesting data from API
