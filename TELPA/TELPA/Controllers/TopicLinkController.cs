@@ -38,7 +38,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createTopicLink(TopicLink topicLink)
+        public IActionResult createTopicLink([FromBody] TopicLink topicLink)
         {
             if (topicLink != null)
             {
@@ -53,7 +53,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateTopicLink(TopicLink topicLink)
+        public IActionResult updateTopicLink([FromBody] TopicLink topicLink)
         {
             if (topicLink != null)
             {

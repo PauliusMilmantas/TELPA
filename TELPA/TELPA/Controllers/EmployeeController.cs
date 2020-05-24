@@ -56,7 +56,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createEmployee(Employee employee)
+        public IActionResult createEmployee([FromBody] Employee employee)
         {
             if (employee != null)
             {
@@ -71,7 +71,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateEmployee(Employee employee)
+        public IActionResult updateEmployee([FromBody] Employee employee)
         {
             if (employee != null)
             {

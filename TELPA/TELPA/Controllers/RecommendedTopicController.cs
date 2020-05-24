@@ -38,7 +38,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createRecommendedTopic(RecommendedTopic recommendedTopic)
+        public IActionResult createRecommendedTopic([FromBody] RecommendedTopic recommendedTopic)
         {
             if (recommendedTopic != null)
             {
@@ -53,7 +53,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateRecommendedTopic(RecommendedTopic recommendedTopic)
+        public IActionResult updateRecommendedTopic([FromBody] RecommendedTopic recommendedTopic)
         {
             if (recommendedTopic != null)
             {
