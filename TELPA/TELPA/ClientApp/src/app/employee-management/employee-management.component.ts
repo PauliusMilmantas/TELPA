@@ -30,15 +30,23 @@ export class EmployeeManagementComponent implements OnInit {
 
   ngOnInit() {
     //this.columns = this.atService.getColumns();
-
     //this.characters = this.atService.getEmployees();
     this.getBackendData();
   }
-
+/*
   getBackendData() {
     var baseURL = location.origin;
+    this.httpClient.get(baseURL + '/api/employees/get/all').toPromise().then(data => {
+      console.log(data);
+    });
+  }
+*/
+
+  getBackendData() {
+    console.log(location.origin);
     this.employeeDataAll = [];
-    this.httpClient.get(baseURL + 'api/employee/get/all').subscribe(
+    this.employeeData = [];
+    this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
       data => {
         this.linkingData = data;
       }
@@ -47,11 +55,25 @@ export class EmployeeManagementComponent implements OnInit {
         this.employeeName = this.linkingData[i]['name'];
         this.employeeEmail = this.linkingData[i]['email'];
         this.employeeRole = this.linkingData[i]['role'];
-        this.employeeLeader = this.linkingData[i]['leaderId'];
+        //this.employeeLeader = this.linkingData[i]['leaderId'];
+        console.log(this.employeeEmail);
+        this.employeeData.push({
+          'name': this.employeeName,
+          'email': this.employeeEmail,
+          'role': this.employeeRole
+        })
       }
-    }).add(() => {
-      this.getDataForFE();
     });
+ /*     .add(() => {
+      //this.getDataForFE();
+      for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+        this.employeeData.push({
+          'name': this.employeeName[i],
+          'email': this.employeeEmail[i],
+          'role': this.employeeRole[i]
+        });
+      }
+    });*/
   }
 
   getDataForFE() {
@@ -61,8 +83,8 @@ export class EmployeeManagementComponent implements OnInit {
         {
           'name': this.employeeName[i],
           'email': this.employeeEmail[i],
-          'role': this.employeeRole[i],
-          'leader_id': this.employeeLeader[i]
+          'role': this.employeeRole[i]
+          //'leader_id': this.employeeLeader[i]
         }
       );
     }
@@ -87,15 +109,15 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   addFieldValue(id: string, name: string, email: string, role: string, leader_id: number) {
-    var baseURL = location.origin;
+
     this.fieldArray.push(this.newAttribute)
     this.newAttribute = {};
 
-    this.httpClient.post(baseURL + "api/employee/create", {
+    this.httpClient.post(location.origin + "/api/employee/create", {
       "name": name,
       "email": email,
-      "role": role,
-      "leaderId": leader_id
+      "role": role
+      //"leaderId": leader_id
     }).subscribe(
       (val) => {
         console.log("POST call successful", val)
