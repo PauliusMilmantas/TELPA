@@ -21,6 +21,7 @@ import { AddSubjectComponent } from "./add-subject/add-subject.component";
 import { ManagerCalendarComponent } from "./manager-calendar/manager-calendar.component";
 import { ManagerHomePageComponent } from "./manager-home-page/manager-home-page.component";
 import { CookieService } from "ngx-cookie-service";
+import { EmployeeManagementComponent } from "./employee-management/employee-management.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CookieService } from "ngx-cookie-service";
     LoginFormComponent,
     CalendarComponent,
     LearningDaysComponent,
+    EmployeeManagementComponent,
     AddSubjectComponent,
     ManagerCalendarComponent,
     ManagerHomePageComponent,
@@ -54,6 +56,7 @@ import { CookieService } from "ngx-cookie-service";
       { path: "register", component: RegistrationFormComponent },
       { path: "login", component: LoginFormComponent },
       { path: "manager", component: ManagerHomePageComponent },
+      { path: "employee-management", component: EmployeeManagementComponent },
     ]),
   ],
   providers: [CookieService],

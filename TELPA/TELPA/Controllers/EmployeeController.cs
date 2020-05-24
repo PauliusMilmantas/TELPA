@@ -60,6 +60,7 @@ namespace TELPA.Controllers
         {
             if (employee != null)
             {
+                Console.WriteLine(employee.Name, employee.Role);
                 db.Employees.Add(employee);
                 db.SaveChanges();
                 return Ok("Employee created");

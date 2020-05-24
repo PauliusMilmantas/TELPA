@@ -1,0 +1,71 @@
+<div class="employee-managemenmt">
+  <div class="front">
+    <div class="buttons">
+      <h1><button type="button" value="Select Team" class="select-team-btn" (click)="openModal('selectTeam')">Select Team</button></h1>
+      <h1><button type="button" value="Add employee" class="add-employee-btn" (click)="openModal('addEmployee')">Add employee</button></h1>
+    </div>
+    <table class="employee-table">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Assigned by</th>
+        <th>delete</th>
+      </tr>
+
+      <tr *ngFor="let EmployeeData of employeeData">
+        <td>{{EmployeeData.name}}</td>
+        <td>{{EmployeeData.email}}</td>
+        <td>{{EmployeeData.role}}</td>
+      <!--  <td>{{EmployeeData.leader_id}}</td> -->
+        <td></td>
+        <td></td>
+      </tr> 
+      <tr *ngFor="let field of fieldArray; let i = index">
+        <td>
+        <ng-container [(ngModel)]="field.name" class="form-control" type="text">{{field.name}}</ng-container> 
+        </td>
+        <td>
+        <ng-container [(ngModel)]="field.email" class="form-control" type="text">{{field.email}}</ng-container>
+        </td>
+        <td>
+        <ng-container [(ngModel)]="field.role" class="form-control" type="text">{{field.role}}</ng-container> 
+        </td>
+     <!--   <td>
+        <ng-container [(ngModel)]="field.leader_id" class="form-control" type="text">{{field.leader_id}}</ng-container> 
+        </td>-->
+        <td></td>
+        <td>
+          <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+</div>
+
+<jw-modal id="selectTeam">
+  Select team from the list:
+  <br />
+  <select name="team">
+    <option value="alfredas">alfredas</option>
+    <option value="minedas">minedas</option>
+    <option value="joachimas">joachimas</option>
+  </select>
+  <br/><br/><br/>
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Close</button>
+</jw-modal>
+
+<jw-modal id="addEmployee">
+  Employee information:
+  First and Last name: <br />
+  <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name" name="newAttributeName" />
+  Email:<br/>
+  <input class="form-control" type="text" id="newAttributeEmail" [(ngModel)]="newAttribute.email" name="newAttributeEmail" />
+  Role: <br/>
+  <input class="form-control" type="text" id="newAttributeRole" [(ngModel)]="newAttribute.role" name="newAttributeRole" />
+  Leader id:
+<!--  <input class="form-control" type="text" id="newAttributeLeaderId" [(ngModel)]="newAttribute.leader_id" name="newAttributeLeaderId" /> -->
+  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee', newAttribute.name, newAttribute.email, newAttribute.role);">Add employee</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('addEmployee');">Cancel</button>
+</jw-modal> 
