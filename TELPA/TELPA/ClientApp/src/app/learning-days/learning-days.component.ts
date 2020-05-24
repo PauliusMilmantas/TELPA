@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingDayList } from './data/mock_data';
-import { LearningDay } from './data/TrainingDay';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Local } from 'protractor/built/driverProviders';
 import { ModalService } from '../__modal';
 
 @Component({
@@ -15,6 +11,11 @@ import { ModalService } from '../__modal';
 export class LearningDaysComponent implements OnInit {
 
   constructor(private httpClient: HttpClient, private modalService: ModalService) { }
+
+    //POST Register learning day
+    post_topic;
+    post_date;
+    post_comment;
 
     //Modal window content
     topicDescription;
@@ -54,6 +55,28 @@ export class LearningDaysComponent implements OnInit {
 
   ngOnInit() {
     this.getBackendData();
+  }
+
+  submit_learning_day() {
+    console.log(this.post_topic);
+    console.log(this.post_date);
+
+    var post_topic_id;
+
+    this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
+      for (var i = 0; i < Object.keys(response).length; i++) {
+        if (response[i]['name'] == this.post_topic) {
+          post_topic_id = response[i]['id'];
+        }
+      }
+    }).add(() => {
+      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/1/1/' + post_topic_id).subscribe(response2 => {
+      }).add(() => {
+        this.closeModal('custom-modal-4');
+      });
+    });
+
+    
   }
 
   // Requesting data from API
@@ -100,7 +123,6 @@ export class LearningDaysComponent implements OnInit {
       this.thread2.push(1);
 
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        console.log(this.dayDates[i]);
         this.learningDaysAll.push(
           {
             'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
@@ -135,6 +157,8 @@ export class LearningDaysComponent implements OnInit {
 
   //Modal window control
   openModal(topic: string, date: string, id) {
+    this.topicName = topic;
+    this.dayDate = date;
     this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
       for (var i = 0; i < Object.keys(response).length; i++) {
         if (response[i]['name'] == topic) {
