@@ -70,6 +70,31 @@ namespace TELPA.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("createWithGET/{date}/{comment}/{employeeId}/{version}/{topicId}")]
+        public string createWithGet(string date, string comment, string employeeId, string version, string topicId) {
+            //Adding to LearningDays
+            LearningDay learningDay = new LearningDay();
+            learningDay.Date = DateTime.Parse(date);
+            learningDay.Comment = comment;
+            learningDay.EmployeeId = Int32.Parse(employeeId);
+            learningDay.Version = Int32.Parse(version);
+
+            db.LearningDays.Add(learningDay);
+            db.SaveChanges();
+
+            //Adding to LearningDayTopics
+            LearningDayTopic learningDayTopic = new LearningDayTopic();
+            learningDayTopic.LearningDayId = learningDay.Id;
+            learningDayTopic.TopicId = Int32.Parse(topicId);
+            learningDayTopic.Version = Int32.Parse(version);
+
+            db.LearningDayTopics.Add(learningDayTopic);
+            db.SaveChanges();
+
+            return "Ok";
+        }
+
         [HttpPut("update")]
         public IActionResult updateLearningDay(LearningDay learningDay)
         {

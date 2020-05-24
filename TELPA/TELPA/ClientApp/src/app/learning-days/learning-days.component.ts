@@ -58,6 +58,13 @@ export class LearningDaysComponent implements OnInit {
 
   submit_learning_day() {
     console.log(this.post_topic);
+    console.log(this.post_date);
+
+
+
+
+
+    
   }
 
   // Requesting data from API
