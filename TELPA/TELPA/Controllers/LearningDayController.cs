@@ -72,10 +72,10 @@ namespace TELPA.Controllers
 
         [HttpGet]
         [Route("createWithGET/{date}/{comment}/{employeeId}/{version}/{topicId}")]
-        public string createWithGet(string date, string comment, string employeeId, string version, string topicId) {
+        public IActionResult createWithGet(string date, string comment, string employeeId, string version, string topicId) {
             //Adding to LearningDays
             LearningDay learningDay = new LearningDay();
-            learningDay.Date = DateTime.Parse(date);
+            learningDay.Date = DateTime.Parse(date.Replace('-', '.'));
             learningDay.Comment = comment;
             learningDay.EmployeeId = Int32.Parse(employeeId);
             learningDay.Version = Int32.Parse(version);
@@ -92,7 +92,7 @@ namespace TELPA.Controllers
             db.LearningDayTopics.Add(learningDayTopic);
             db.SaveChanges();
 
-            return "Ok";
+            return Ok("Added");
         }
 
         [HttpPut("update")]
