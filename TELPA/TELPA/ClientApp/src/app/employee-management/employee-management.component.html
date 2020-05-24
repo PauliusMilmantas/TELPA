@@ -72,6 +72,6 @@
   Leader id:
   <input class="form-control" type="text" id="newAttributeLeaderId" [(ngModel)]="newAttribute.leader_id" name="newAttributeLeaderId" />
 
-  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee');">Add employee</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee', newAttribute.name, newAttribute.email, newAttribute.role, newAttribute.leader_id);">Add employee</button>
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('addEmployee');">Cancel</button>
 </jw-modal>

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeDataList } from './data/mock_employee_data';
 import { EmployeeData } from './data/data';
 import { ModalService } from '../__modal';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 
 @Component({
@@ -85,14 +86,36 @@ export class EmployeeManagementComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  addFieldValue(id: string) {
+  addFieldValue(id: string, name: string, email: string, role: string, leader_id: number) {
+    var baseURL = location.origin;
     this.fieldArray.push(this.newAttribute)
     this.newAttribute = {};
+
+    this.httpClient.post(baseURL + "api/employee/create", {
+      "name": name,
+      "email": email,
+      "role": role,
+      "leaderId": leader_id
+    }).subscribe(
+      (val) => {
+        console.log("POST call successful", val)
+      }, response => {
+        console.log("POST call in error", response);
+      }, () => {
+        console.log("The POST observable is now completed.");
+      });
+   
+
     this.modalService.close(id);
   }
 
   deleteFieldValue(index) {
     this.fieldArray.splice(index, 1);
+  }
+
+  handleError() {
+    console.log("nepavyko prideti");
+    return "nepavyko prideti";
   }
 }
 
