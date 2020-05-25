@@ -166,56 +166,5 @@ namespace TELPA.Controllers
                 return NotFound("DELETE: Employee with ID = " + id + " was not found.");
             }
         }
-
-
-
-
-        [HttpGet("test/1")]
-        public IActionResult testCreate()
-        {
-            Employee emp = new Employee();
-            emp.Email = "ignas@email.com";
-            emp.PasswordHash = "hash(abc123)";
-            emp.Name = "Ignas";
-
-            return createEmployee(emp);
-        }
-
-        [HttpGet("test/2")]
-        public IActionResult testUpdate()
-        {
-            Employee emp = db.Employees.Find("2");
-            emp.Name = emp.Name + "2";
-            
-            return updateEmployee(emp);
-        }
-
-        /*public ActionResult Index()
-        {
-            IEnumerable<Employee> employees = null;
-             
-            using (var client = new HttpClient()) {
-                client.BaseAddress = new Uri(Constants.Config.localAddress);
-
-                var responseTask = client.GetAsync("employee");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<IList<Employee>>();
-                    readTask.Wait();
-
-                    employees = readTask.Result;
-                }
-                else { 
-                    employees = Enumerable.Empty<Employee>();
-
-                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-                }
-            }
-
-            return View(employees);
-        }*/
     }
 }

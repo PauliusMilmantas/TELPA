@@ -22,6 +22,8 @@ namespace TELPA.Data
         public DbSet<LearningDayTopic> LearningDayTopics { get; set; }
         public DbSet<LearningDayLink> LearningDayLinks { get; set; }
         public DbSet<Limit> Limits { get; set; }
+        public DbSet<EmployeesForTopic> EmployeesForTopic { get; set; }
+        public DbSet<LeadersForTopic> LeadersForTopic { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
@@ -213,6 +215,11 @@ namespace TELPA.Data
                 .HasOne(e => e.Employee)
                 .WithMany(e => e.Limits)
                 .HasForeignKey(e => e.EmployeeId);
+
+            modelBuilder.Entity<EmployeesForTopic>()
+                .HasNoKey();
+            modelBuilder.Entity<LeadersForTopic>()
+                .HasNoKey();
         }
         #endregion
     }
