@@ -12,9 +12,10 @@
 
       <div class="form-group">
         <label for="parent">Topic Parent</label>
-        <select class="form-control" id="parent" required>
-          <option>(None)</option>
-          <option *ngFor="let topic of topics" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
+        <select class="form-control" id="parent"
+                [(ngModel)]="topicToAdd['parentTopicId']" name="parentTopicId" #parentTopicId="ngModel">
+          <option [value]="null">(None)</option>
+          <option *ngFor="let topic of topics" [value]="topic['id']" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
         </select>
       </div>
 
@@ -30,16 +31,14 @@
                   [(ngModel)]="topicToAdd['description']" name="description" #description="ngModel"></textarea>
       </div>
 
-      <!--
       <div class="form-group">
         <label for="link">Links</label>
-        <div *ngFor="let link of topicToAdd.links; let i = index; trackBy: trackByFn">
-          <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (change)="onLinkChange($event.target.value, i)"/>
+        <div *ngFor="let link of topicLinksToAdd; let i = index; trackBy: trackByFn">
+          <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (input)="onLinkChange($event.target.value, i)" [value]="topicLinksToAdd[i]['link']"/>
         </div>
       </div>
-  -->
-      <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
 
+      <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
     </form>
   </div>
 </div>

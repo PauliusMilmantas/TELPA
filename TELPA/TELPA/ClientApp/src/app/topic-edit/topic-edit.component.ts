@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TopicData } from '../topic-add/data/data';
 
 
 @Component({
@@ -9,7 +8,6 @@ import { TopicData } from '../topic-add/data/data';
 })
 export class TopicEditComponent implements OnInit {
 
-  topicToAdd = new TopicData(1, 2, '', '', ['']);
   hideForm = true;
   isEmpty = [false];
  
@@ -30,7 +28,7 @@ export class TopicEditComponent implements OnInit {
       this.hideForm = false;
     }
   }
-
+  /*
   onLinkChange(value, place) {
     this.topicToAdd.links[place] = value;
     if (place == (this.topicToAdd.links.length - 1) && this.topicToAdd.links[place].length != 0) {
@@ -40,7 +38,7 @@ export class TopicEditComponent implements OnInit {
     else if (place != (this.topicToAdd.links.length - 1) && this.topicToAdd.links[place].length == 0) {
       this.isEmpty[place] = true;
     }
-  }
+  }*/
 
   trackByFn(index: any, item: any) {
     return index;

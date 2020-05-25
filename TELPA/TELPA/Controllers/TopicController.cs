@@ -27,11 +27,11 @@ namespace TELPA.Controllers
         [Route("get/all")]
         public IActionResult getAll()
         {
-            IList<Topic> learningDays = db.Topics.ToList<Topic>();
+            IList<Topic> topics = db.Topics.ToList<Topic>();
 
-            if (learningDays.Count != 0)
+            if (topics.Count != 0)
             {
-                return Json(learningDays);
+                return Json(topics);
             }
             else
             {
@@ -52,6 +52,22 @@ namespace TELPA.Controllers
             else
             {
                 return NotFound("GET: Topic with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/last")]
+        public IActionResult getLastTopicId()
+        {
+            IList<Topic> topics = db.Topics.ToList<Topic>();
+
+            if (topics.Count != 0)
+            {
+                return Json(topics[topics.Count - 1].Id);
+            }
+            else
+            {
+                return NotFound("No topics found.");
             }
         }
 
@@ -101,5 +117,7 @@ namespace TELPA.Controllers
                 return NotFound("DELETE: Topic with ID = " + id + " was not found.");
             }
         }
+
+
     }
 }
