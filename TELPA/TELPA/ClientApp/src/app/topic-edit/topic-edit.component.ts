@@ -150,61 +150,61 @@ export class TopicEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.topicToModify);
-
     this.httpClient.put(this.baseUrl + "/api/topic/update", this.topicToModify
     ).subscribe(
       (val) => {
-        console.log("PUT call successful value returned in body",
-          val);
+        console.log("PUT call successful value returned in body", val);
+        this.updateTopicLinks();
       },
       response => {
         console.log("PUT call in error", response);
-       /* for (let i = 0; i < this.topicLinksToModify.length; i++) {
-          if (this.topicLinksToModify[i]['link'] != '') {
-            if (this.topicLinksToModify[i]['id'] != null) {
-              console.log("update");
-              console.log(this.topicLinksToModify[i]);
-              this.httpClient.put(this.baseUrl + "/api/topicLink/update", this.topicLinksToModify[i]
-              ).subscribe(
-                (val) => {
-                  console.log("POST call successful value returned in body",
-                    val);
-                },
-                response => {
-                  console.log("POST call in error", response);
-                },
-                () => {
-                  console.log("The POST observable is now completed.");
-                }
-              );;
-            }
-            else {
-              this.topicLinksToModify[i]['topicId'] = this.topicToModify['id'];
-              console.log("post");
-              console.log(this.topicLinksToModify[i]);
-              this.httpClient.post(this.baseUrl + "/api/topicLink/create", this.topicLinksToModify[i]
-              ).subscribe(
-                (val) => {
-                  console.log("POST call successful value returned in body",
-                    val);
-                },
-                response => {
-                  console.log("POST call in error", response);
-                },
-                () => {
-                  console.log("The POST observable is now completed.");
-                }
-              );;
-            }
-          }
-        }*/
-  
       },
       () => {
         console.log("The PUT observable is now completed.");
       }
     );;
+  }
+
+  updateTopicLinks() {
+  /* for (let i = 0; i < this.topicLinksToModify.length; i++) {
+if (this.topicLinksToModify[i]['link'] != '') {
+if (this.topicLinksToModify[i]['id'] != null) {
+ console.log("update");
+ console.log(this.topicLinksToModify[i]);
+ this.httpClient.put(this.baseUrl + "/api/topicLink/update", this.topicLinksToModify[i]
+ ).subscribe(
+   (val) => {
+     console.log("POST call successful value returned in body",
+       val);
+   },
+   response => {
+     console.log("POST call in error", response);
+   },
+   () => {
+     console.log("The POST observable is now completed.");
+   }
+ );;
+}
+else {
+ this.topicLinksToModify[i]['topicId'] = this.topicToModify['id'];
+ console.log("post");
+ console.log(this.topicLinksToModify[i]);
+ this.httpClient.post(this.baseUrl + "/api/topicLink/create", this.topicLinksToModify[i]
+ ).subscribe(
+   (val) => {
+     console.log("POST call successful value returned in body",
+       val);
+   },
+   response => {
+     console.log("POST call in error", response);
+   },
+   () => {
+     console.log("The POST observable is now completed.");
+   }
+ );;
+}
+}
+}*/
   }
 
   

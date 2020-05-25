@@ -99,12 +99,11 @@ export class TopicAddComponent implements OnInit {
     this.httpClient.post(this.baseUrl + "/api/topic/create", this.topicToAdd
     ).subscribe(
       (val) => {
-        console.log("POST call successful value returned in body",
-          val);
+        console.log("POST call successful value returned in body", val);
+        this.submitted()
       },
       response => {
         console.log("POST call in error", response);
-        this.submitted();
       },
       () => {
         console.log("The POST observable is now completed.");
@@ -125,8 +124,7 @@ export class TopicAddComponent implements OnInit {
           this.httpClient.post(this.baseUrl + "/api/topicLink/create", this.topicLinksToAdd[i]
           ).subscribe(
             (val) => {
-              console.log("POST call successful value returned in body",
-                val);
+              console.log("POST call successful value returned in body", val);
             },
             response => {
               console.log("POST call in error", response);
