@@ -18,12 +18,15 @@ export class EmployeeManagementComponent implements OnInit {
   private newAttribute: any = {};
   employeeDataAll = EmployeeDataList;
   employeeData = [];
+  leaderData = [];
 
   linkingData;
+  linkingLeaderData;
 
   employeeName;
   employeeEmail;
   employeeRole;
+  employeeLeaderId;
   employeeLeader;
 
   constructor(private modalService: ModalService, private httpClient: HttpClient) { }
@@ -32,6 +35,7 @@ export class EmployeeManagementComponent implements OnInit {
     //this.columns = this.atService.getColumns();
     //this.characters = this.atService.getEmployees();
     this.getBackendData();
+    this.getBackendLeaderData();
   }
 /*
   getBackendData() {
@@ -44,6 +48,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   getBackendData() {
     console.log(location.origin);
+    //let lyderis: string;
     this.employeeDataAll = [];
     this.employeeData = [];
     this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
@@ -55,13 +60,14 @@ export class EmployeeManagementComponent implements OnInit {
         this.employeeName = this.linkingData[i]['name'];
         this.employeeEmail = this.linkingData[i]['email'];
         this.employeeRole = this.linkingData[i]['role'];
-        //this.employeeLeader = this.linkingData[i]['leaderId'];
-        console.log(this.employeeEmail);
+        this.employeeLeaderId = this.linkingData[i]['leaderId'];
         this.employeeData.push({
           'name': this.employeeName,
           'email': this.employeeEmail,
-          'role': this.employeeRole
+          'role': this.employeeRole,
+          'leaderName': this.employeeLeaderId
         })
+
       }
     });
  /*     .add(() => {
@@ -75,7 +81,49 @@ export class EmployeeManagementComponent implements OnInit {
       }
     });*/
   }
-
+  getBackendLeaderData() {
+    //let lyderis: string;
+    this.leaderData = [];
+    this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
+      data => {
+        this.linkingData = data;
+      }
+    ).add(() => {
+      let contains = 0;
+      for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+        //contains = this.containsElement(contains, this.linkingData[i]['leaderId']);
+        for (let j = 0; j < this.leaderData.length; j++) {
+          if (this.leaderData[j]['leaderId'] == this.linkingData[i]['leaderId'] && this.linkingData[i]['leaderId'] != null) {
+            contains++;
+          }
+          else {
+            console.log("does not contain", this.linkingData[i]['leaderId']);
+          }
+        }
+        if (this.linkingData[i]['leaderId'] != null && contains == 0) {
+          console.log(this.leaderData, "not includes ", this.linkingData[i]['leaderId']);
+          this.employeeLeaderId = this.linkingData[i]['leaderId'];
+          this.leaderData.push({
+            'leaderId': this.employeeLeaderId
+          })
+        }
+      }
+    });
+  }
+  containsElement(contains: boolean, leaderId: number) {
+    console.log("containsElement", leaderId);
+    for (let i = 0; i < this.leaderData.length; i++) {
+      if (this.leaderData[i]['leader'] == leaderId) {
+        contains = true;
+        return contains;
+      }
+      else {
+        contains = false;
+        console.log("does not contain", leaderId);
+      }
+    }
+    return contains;
+  }
   getDataForFE() {
     this.employeeData = [];
     for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
