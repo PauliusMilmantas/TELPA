@@ -48,24 +48,27 @@
 <jw-modal id="selectTeam">
   Select team from the list:
   <br />
-<!--  <form> 
-  //<select (change)="selectTeam($event.target.value)" name="team"> 
-    <select name="team">
-    <option value="0">All</option>
-    <option *ngFor="let LeaderData of leaderData" value="{{LeaderData.leaderId}}">
-      {{LeaderData.leaderId}}
-    </option>
-  </select>
-  <br /><br /><br />
-  <button type="submit" class="btn btn-success mdlBtn" (click)="selectTeam(LeaderData.leaderId);">Select</button> 
-    </form> -->
-  <ng-container class="teamName"  *ngFor="let LeaderData of leaderData">
-    <div class="teamSelected" *ngIf="LeaderData != null" (click)="selectTeam(LeaderData.leaderId); closeModal('selectTeam')">
-      <span>{{LeaderData.leaderId}}</span>
+  <!--  <form>
+    //<select (change)="selectTeam($event.target.value)" name="team">
+      <select name="team">
+      <option value="0">All</option>
+      <option *ngFor="let LeaderData of leaderData" value="{{LeaderData.leaderId}}">
+        {{LeaderData.leaderId}}
+      </option>
+    </select>
+    <br /><br /><br />
+    <button type="submit" class="btn btn-success mdlBtn" (click)="selectTeam(LeaderData.leaderId);">Select</button>
+      </form> -->
+  <div class="teamSelected" (click)="selectTeam(0); closeModal('selectTeam')">
+    <span>Show all</span>
+  </div>
+  <ng-container class="teamName" *ngFor="let FullLeaderData of fullLeaderData">
+    <div class="teamSelected" *ngIf="FullLeaderData != null" (click)="selectTeam(FullLeaderData.leaderId); closeModal('selectTeam')">
+      <span>{{FullLeaderData.leaderName}}</span>
     </div>
   </ng-container>
 
-    <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Close</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Close</button>
 </jw-modal>
 
 <jw-modal id="addEmployee">

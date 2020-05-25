@@ -19,6 +19,7 @@ export class EmployeeManagementComponent implements OnInit {
   employeeDataAll = EmployeeDataList;
   employeeData = [];
   leaderData = [];
+  fullLeaderData = [];
 
   linkingData;
   linkingLeaderData;
@@ -28,13 +29,15 @@ export class EmployeeManagementComponent implements OnInit {
   employeeRole;
   employeeLeaderId;
   employeeLeader;
-  employeeLeaderName;
+  leaderName;
+  leaderId;
 
   constructor(private modalService: ModalService, private httpClient: HttpClient) { }
 
   ngOnInit() {
     this.getBackendData();
     this.getBackendLeaderData();
+    this.getLeaderData();
   }
 
   getBackendData() {
@@ -104,6 +107,24 @@ export class EmployeeManagementComponent implements OnInit {
     return contains;
   }
 
+  getLeaderData() {
+    this.fullLeaderData = [];
+    this.httpClient.get(location.origin + '/api/employee/get/all/leaders').subscribe(
+      data => {
+        this.linkingData = data;
+      }).add(() => {
+        for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+          this.leaderId = this.linkingData[i]['id'];
+          this.leaderName = this.linkingData[i]['name'];
+          console.log("leader name and id", this.leaderId, this.leaderName);
+          this.fullLeaderData.push({
+            'leaderId': this.leaderId,
+            'leaderName': this.leaderName
+          });
+        }
+      })
+  }
+
   selectTeam(id: number) {
     console.log("id yra", id);
     this.employeeDataAll = [];
@@ -135,8 +156,6 @@ export class EmployeeManagementComponent implements OnInit {
       });
     }
   }
-
-
 
   addEmployeeBtnClick(event) {
 
