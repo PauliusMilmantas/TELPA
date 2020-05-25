@@ -3,7 +3,12 @@
 
     <h1>Add Topic</h1>
 
-   <form (ngSubmit)="onSubmit()" #addTopic="ngForm">
+    <form (ngSubmit)="onSubmit()" #addTopic="ngForm">
+
+      <div [hidden]="adding" class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> New topic has been added to the database.
+      </div>
 
       <div class="form-group">
         <label for="parent">Topic Parent</label>
@@ -12,29 +17,29 @@
           <option *ngFor="let topic of topics" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
         </select>
       </div>
-<!--
+
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" required
-               [(ngModel)]="topicToAdd.name" name="name" #name="ngModel" />
+               [(ngModel)]="topicToAdd['name']" name="name" #name="ngModel" />
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description"
-               [(ngModel)]="topicToAdd.description" name="description" #description="ngModel"></textarea>
+                  [(ngModel)]="topicToAdd['description']" name="description" #description="ngModel"></textarea>
       </div>
 
-
+      <!--
       <div class="form-group">
         <label for="link">Links</label>
         <div *ngFor="let link of topicToAdd.links; let i = index; trackBy: trackByFn">
           <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (change)="onLinkChange($event.target.value, i)"/>
         </div>
       </div>
-
-      <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
   -->
+      <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
+
     </form>
   </div>
 </div>

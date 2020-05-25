@@ -56,7 +56,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createTopic(Topic topic)
+        public IActionResult createTopic([FromBody] Topic topic)
         {
             if (topic != null)
             {

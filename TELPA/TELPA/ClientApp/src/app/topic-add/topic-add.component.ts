@@ -8,24 +8,29 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TopicAddComponent implements OnInit {
 
+  baseUrl = location.origin;
   private apiTopics = [];
   topics = [];
+  topicToAdd = {
+    'name': '',
+    'description': '',
+    'parentTopicId': null
+  }
 
+  adding = true;
   isEmpty = [false];
 
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
+    this.adding = true;
+    this.resetForm();
     this.getBackendData();
   }
 
-
-  onSubmit() { }
-
   // Requesting data from API
   getBackendData() {
-    var baseURL = location.origin;
-    this.httpClient.get(baseURL + '/api/topic/get/all').subscribe(
+    this.httpClient.get(this.baseUrl + '/api/topic/get/all').subscribe(
       data => {
         for (let i = 0; i < Object.keys(data).length; i++) {
           this.apiTopics.push(
@@ -44,7 +49,6 @@ export class TopicAddComponent implements OnInit {
   }
 
   parseTopics() {
-
     let index = 1;
     for (let i = 0; i < this.apiTopics.length; i++) {
       if (this.apiTopics[i]['parentTopicId'] == null) {
@@ -61,9 +65,26 @@ export class TopicAddComponent implements OnInit {
         index++;
       }
     }
+  }
+/*
+    let index = 1;
+    for (let i = 0; i < this.apiTopics.length; i++) {
+      if (this.apiTopics[i]['parentTopicId'] == null) {
+        this.topics.push(
+          {
+            'id': this.apiTopics[i]['id'],
+            'index': index,
+            'name': this.apiTopics[i]['name'],
+            'subtopicAmount': 0,
+            'level': 0
+          }
+        );
+        this.apiTopics.splice(i, 1);
+        index++;
+      }
+    }*/
 
-
-    while (this.apiTopics.length != 0) {
+ /*   while (this.apiTopics.length != 0) {
       for (let i = 0; i < this.topics.length; i++) {
         for (let j = 0; j < this.apiTopics.length; j++) {
           if (this.topics[i]['id'] == this.apiTopics[j]['parentTopicId']) {
@@ -82,8 +103,37 @@ export class TopicAddComponent implements OnInit {
         }
       }
     }
+  }*/
+ 
+  onSubmit() {
+    this.httpClient.post(this.baseUrl + "/api/topic/create", this.topicToAdd
+    ).subscribe(
+      (val) => {
+        console.log("POST call successful value returned in body",
+          val);
+      },
+      response => {
+        console.log("POST call in error", response);
+        this.submitted();
+      },
+      () => {
+        console.log("The POST observable is now completed.");
+      }
+    );;
   }
 
+  submitted() {
+    this.adding = false;
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.topicToAdd = {
+      'name': '',
+      'description': '',
+      'parentTopicId': null
+    }
+  }
 
  /* onLinkChange(value, place) {
     this.topicToAdd.links[place] = value;
