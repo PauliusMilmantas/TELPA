@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -20,7 +21,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("EmployeeController online");
+            return Json(Ok("EmployeeController online"));
         }
 
         [HttpGet]
@@ -55,6 +56,70 @@ namespace TELPA.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("get/all/leaders")]
+        public IActionResult getLeaders()
+        { 
+            IList<Employee> leaders = db.Employees.FromSqlRaw(
+                @"
+                select
+                    emp.*
+                from
+                    (select
+                        emp_ldr.leaderId id
+                    from
+                        employees emp_ldr
+					where
+					  emp_ldr.leaderId is not null
+                    group by
+                        emp_ldr.leaderId) ldr,
+                    employees emp
+                where
+                    emp.id = ldr.id")
+                .ToList<Employee>();
+
+            if (leaders.Count != 0)
+            {
+                return Json(leaders);
+            }
+            else
+            {
+                return NotFound("No leaders found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/all/leaders/unassigned")]
+        public IActionResult getUnassignedLeaders()
+        {
+            IList<Employee> unassignedLeaders = db.Employees.FromSqlRaw(
+                @"
+                select
+                  emp.*
+                from 
+                  employees emp
+                where
+                  emp.id not in (
+                    select
+                      ldr.leaderId
+                    from
+                      employees ldr
+	                where
+	                  ldr.leaderId is not null
+                    group by
+                      ldr.leaderId)")
+                .ToList<Employee>();
+
+            if (unassignedLeaders.Count != 0)
+            {
+                return Json(unassignedLeaders);
+            }
+            else
+            {
+                return NotFound("No unassigned leaders found.");
+            }
+        }
+
         [HttpPost("create")]
         public IActionResult createEmployee([FromBody] Employee employee)
         {
@@ -62,7 +127,7 @@ namespace TELPA.Controllers
             {
                 db.Employees.Add(employee);
                 db.SaveChanges();
-                return Ok("Employee created");
+                return Json(Ok("Employee created"));
             }
             else
             {
@@ -77,7 +142,7 @@ namespace TELPA.Controllers
             {
                 db.Employees.Update(employee);
                 db.SaveChanges();
-                return Ok("Employee updated");
+                return Json(Ok("Employee updated"));
             }
             else
             {
@@ -94,7 +159,7 @@ namespace TELPA.Controllers
                 Employee employee = db.Employees.Find(id);
                 db.Employees.Remove(employee);
                 db.SaveChanges();
-                return Ok("Employee deleted");
+                return Json(Ok("Employee deleted"));
             }
             catch (ArgumentNullException)
             {

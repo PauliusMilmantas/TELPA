@@ -20,7 +20,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("LearningDayTopicController online");
+            return Json(Ok("LearningDayTopicController online"));
         }
 
         [HttpGet]
@@ -61,7 +61,7 @@ namespace TELPA.Controllers
             {
                 db.LearningDayTopics.Add(learningDayTopic);
                 db.SaveChanges();
-                return Ok("LearningDayTopic created");
+                return Json(Ok("LearningDayTopic created"));
             }
             else
             {
@@ -76,7 +76,7 @@ namespace TELPA.Controllers
             {
                 db.LearningDayTopics.Update(learningDayTopic);
                 db.SaveChanges();
-                return Ok("LearningDayTopic updated");
+                return Json(Ok("LearningDayTopic updated"));
             }
             else
             {
@@ -93,7 +93,7 @@ namespace TELPA.Controllers
                 LearningDayTopic learningDayTopic = db.LearningDayTopics.Find(id);
                 db.LearningDayTopics.Remove(learningDayTopic);
                 db.SaveChanges();
-                return Ok("LearningDayTopic deleted");
+                return Json(Ok("LearningDayTopic deleted"));
             }
             catch (ArgumentNullException)
             {
