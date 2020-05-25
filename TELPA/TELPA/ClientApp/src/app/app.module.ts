@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Router } from "@angular/router";
 import { ModalModule } from "./__modal";
 
 import { AppComponent } from "./app.component";
@@ -19,11 +19,14 @@ import { CalendarComponent } from "./calendar/calendar.component";
 import { LearningDaysComponent } from "./learning-days/learning-days.component";
 import { ManagerCalendarComponent } from "./manager-calendar/manager-calendar.component";
 import { ManagerHomePageComponent } from "./manager-home-page/manager-home-page.component";
-import { CookieService } from "ngx-cookie-service";
 import { EmployeeManagementComponent } from "./employee-management/employee-management.component";
 import { TopicAddComponent } from "./topic-add/topic-add.component";
 import { TopicEditComponent } from "./topic-edit/topic-edit.component";
 import { RecommendationsComponent } from "./recommendations/recommendations.component";
+import { HttpWrapperService } from "./authentication/http-wrapper.service";
+import { AuthenticationService } from "./authentication/authentication.service";
+import { AuthInterceptorService } from "./authentication/auth-interceptor.service";
+import { SessionAPIService } from "./api/session-api.service";
 
 @NgModule({
   declarations: [
@@ -66,7 +69,17 @@ import { RecommendationsComponent } from "./recommendations/recommendations.comp
       { path: "recommendations", component: RecommendationsComponent },
     ]),
   ],
-  providers: [CookieService],
+  providers: [
+    HttpWrapperService,
+    AuthenticationService,
+    SessionAPIService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+      deps: [Router],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

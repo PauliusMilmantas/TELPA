@@ -13,7 +13,7 @@ export class SessionAPIService {
   constructor(private http: HttpWrapperService) {}
 
   logIn(e: LoginData): Observable<any> {
-    return this.http.post(API_URL + "logIn", JSON.stringify(e));
+    return this.http.post(API_URL + "logIn", e);
   }
 
   logOut(): Observable<any> {

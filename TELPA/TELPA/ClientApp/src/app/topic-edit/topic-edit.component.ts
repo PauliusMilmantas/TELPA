@@ -7,11 +7,12 @@ import { Topic } from "../api/api-entities";
   styleUrls: ["./topic-edit.component.css"],
 })
 export class TopicEditComponent implements OnInit {
-  topicToAdd = <Topic>{
+  topicToAdd = {
     id: 1,
     name: "",
     description: "",
     parentTopicId: 2,
+    links: [],
   };
   hideForm = true;
   isEmpty = [false];

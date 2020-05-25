@@ -1,31 +1,39 @@
 import { Injectable } from "@angular/core";
-import { CookieService } from "ngx-cookie-service";
 import { SessionAPIService } from "../api/session-api.service";
-import { LoginData } from "../api/api-entities";
+import { LoginData, Employee } from "../api/api-entities";
 import { Observable } from "rxjs";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthenticationService {
-  constructor(
-    private sessionAPI: SessionAPIService,
-    private cookieService: CookieService
-  ) {}
+  private _email: string = null;
+  get email(): string {
+    return this._email;
+  }
+  private _password: string = null;
+  get password(): string {
+    return this._password;
+  }
+
+  constructor(private sessionAPI: SessionAPIService) {}
 
   logIn(email: string, password: string): Observable<any> {
     let observable = this.sessionAPI.logIn(<LoginData>{
       email: email,
       password: password,
     });
+    this._email = email;
+    this._password = password;
     observable.subscribe(
-      (response: Response) =>
-        this.cookieService.set(
+      (response: HttpResponse<any>) =>
+        sessionStorage.setItem(
           "session-token",
           response.headers.get("X-SessionToken")
         ),
-      (error) => {
-        this.cookieService.delete("session-token");
+      (error: HttpErrorResponse) => {
+        sessionStorage.removeItem("session-token");
       }
     );
     return observable;
@@ -34,18 +42,14 @@ export class AuthenticationService {
   logOut() {
     let observable = this.sessionAPI.logOut();
     observable.subscribe(
-      (response: Response) => this.cookieService.delete("session-token"),
+      (response: Response) => sessionStorage.removeItem("session-token"),
       (error) => {}
     );
     return observable;
   }
 
   getToken(): string {
-    if (this.cookieService.check("session-token")) {
-      return this.cookieService.get("session-token");
-    } else {
-      return null;
-    }
+    return sessionStorage.getItem("session-token");
   }
 
   isLoggedIn() {

@@ -21,11 +21,11 @@ export class LearningDayLinkAPIService {
   }
 
   create(e: LearningDayLink): Observable<any> {
-    return this.http.post(API_URL + "create", JSON.stringify(e));
+    return this.http.post(API_URL + "create", e);
   }
 
   update(e: LearningDayLink): Observable<any> {
-    return this.http.put(API_URL + "update", JSON.stringify(e));
+    return this.http.put(API_URL + "update", e);
   }
 
   delete(id: number): Observable<any> {
