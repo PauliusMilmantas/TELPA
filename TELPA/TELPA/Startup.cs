@@ -35,7 +35,7 @@ namespace TELPA
             {
                 connectionString = connectionString.Replace("%CONTENT_ROOT%", ContentRoot);
             }
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
             //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();

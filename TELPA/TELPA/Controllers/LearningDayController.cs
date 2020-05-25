@@ -18,14 +18,14 @@ namespace TELPA.Controllers
         }
 
         [HttpGet("ping")]
-        public IActionResult ping()
+        public IActionResult Ping()
         {
             return Ok("LearningDayController online");
         }
 
         [HttpGet]
         [Route("get/{id}")]
-        public IActionResult getLearningDay(int id)
+        public IActionResult GetLearningDay(int id)
         {
             LearningDay learningDay = db.LearningDays.Find(id);
 
@@ -40,8 +40,40 @@ namespace TELPA.Controllers
         }
 
         [HttpGet]
+        [Route("get/{id}/learningDayTopics")]
+        public IActionResult GetLearningDayLearningDayTopics(int id)
+        {
+            LearningDay learningDay = db.LearningDays.Find(id);
+
+            if (learningDay != null)
+            {
+                return Json(learningDay.LearningDayTopics);
+            }
+            else
+            {
+                return NotFound("GET: LearningDay with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/learningDayLinks")]
+        public IActionResult GetLearningDayLearningDayLinks(int id)
+        {
+            LearningDay learningDay = db.LearningDays.Find(id);
+
+            if (learningDay != null)
+            {
+                return Json(learningDay.LearningDayLinks);
+            }
+            else
+            {
+                return NotFound("GET: LearningDay with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
         [Route("get/all")]
-        public IActionResult getLearningDays()
+        public IActionResult GetLearningDays()
         {
             IList<LearningDay> learningDays = db.LearningDays.ToList<LearningDay>();
 
@@ -56,7 +88,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createLearningDay([FromBody] LearningDay learningDay)
+        public IActionResult CreateLearningDay([FromBody] LearningDay learningDay)
         {
             if (learningDay != null)
             {
@@ -72,7 +104,7 @@ namespace TELPA.Controllers
 
         [HttpGet]
         [Route("createWithGET/{date}/{comment}/{employeeId}/{version}/{topicId}")]
-        public IActionResult createWithGet(string date, string comment, string employeeId, string version, string topicId) {
+        public IActionResult CreateWithGet(string date, string comment, string employeeId, string version, string topicId) {
             //Adding to LearningDays
             LearningDay learningDay = new LearningDay();
             learningDay.Date = DateTime.Parse(date.Replace('-', '.'));
@@ -96,7 +128,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateLearningDay([FromBody] LearningDay learningDay)
+        public IActionResult UpdateLearningDay([FromBody] LearningDay learningDay)
         {
             if (learningDay != null)
             {
@@ -112,7 +144,7 @@ namespace TELPA.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        public IActionResult deleteLearningDay(int id)
+        public IActionResult DeleteLearningDay(int id)
         {
             try
             {

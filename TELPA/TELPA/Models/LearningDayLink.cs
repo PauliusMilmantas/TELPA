@@ -20,6 +20,6 @@ namespace TELPA.Models
         public long Version { get; set; }
 
         [JsonIgnore]
-        public LearningDay LearningDay { get; set; }
+        public virtual LearningDay LearningDay { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { LearningDay } from "./api-entities";
+import { LearningDay, LearningDayTopic, LearningDayLink } from "./api-entities";
 import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
 const API_URL = "api/learningDay/";
@@ -18,6 +18,18 @@ export class LearningDayAPIService {
 
   get(id: number): Observable<LearningDay> {
     return this.http.get<LearningDay>(API_URL + "get/" + id);
+  }
+
+  getLearningDayTopics(id: number): Observable<LearningDayTopic[]> {
+    return this.http.get<LearningDayTopic[]>(
+      API_URL + "get/" + id + "/learningDayTopics"
+    );
+  }
+
+  getLearningDayLinks(id: number): Observable<LearningDayLink[]> {
+    return this.http.get<LearningDayLink[]>(
+      API_URL + "get/" + id + "/learningDayLinks"
+    );
   }
 
   create(e: LearningDay): Observable<any> {

@@ -18,14 +18,14 @@ namespace TELPA.Controllers
         }
 
         [HttpGet("ping")]
-        public IActionResult ping()
+        public IActionResult Ping()
         {
             return Ok("EmployeeController online");
         }
 
         [HttpGet]
         [Route("get/{id}")]
-        public IActionResult getEmployee(int id)
+        public IActionResult GetEmployee(int id)
         {
             Employee employee = db.Employees.Find(id);
 
@@ -40,8 +40,104 @@ namespace TELPA.Controllers
         }
 
         [HttpGet]
+        [Route("get/{id}/subordinates")]
+        public IActionResult GetEmployeeSubordinates(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+
+            if (employee != null)
+            {
+                return Json(employee.Subordinates);
+            }
+            else
+            {
+                return NotFound("GET: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/learnedTopics")]
+        public IActionResult GetEmployeeLearnedTopics(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+
+            if (employee != null)
+            {
+                return Json(employee.LearnedTopics);
+            }
+            else
+            {
+                return NotFound("GET: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/recommendedTopics")]
+        public IActionResult GetEmployeeRecommendedTopics(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+
+            if (employee != null)
+            {
+                return Json(employee.RecommendedTopics);
+            }
+            else
+            {
+                return NotFound("GET: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/learningDays")]
+        public IActionResult GetEmployeeLearningDays(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+
+            if (employee != null)
+            {
+                return Json(employee.LearningDays);
+            }
+            else
+            {
+                return NotFound("GET: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/limits")]
+        public IActionResult GetEmployeeLimits(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+
+            if (employee != null)
+            {
+                return Json(employee.Limits);
+            }
+            else
+            {
+                return NotFound("GET: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/invites")]
+        public IActionResult GetEmployeeInvites(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+
+            if (employee != null)
+            {
+                return Json(employee.LearnedTopics);
+            }
+            else
+            {
+                return NotFound("GET: Employee with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
         [Route("get/all")]
-        public IActionResult getEmployees()
+        public IActionResult GetEmployees()
         {
             IList<Employee> employees = db.Employees.ToList<Employee>();
 
@@ -56,7 +152,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createEmployee([FromBody] Employee employee)
+        public IActionResult CreateEmployee([FromBody] Employee employee)
         {
             if (employee != null)
             {
@@ -72,7 +168,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateEmployee([FromBody] Employee employee)
+        public IActionResult UpdateEmployee([FromBody] Employee employee)
         {
             if (employee != null)
             {
@@ -88,7 +184,7 @@ namespace TELPA.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        public IActionResult deleteEmployee(int id)
+        public IActionResult DeleteEmployee(int id)
         {
             try
             {
@@ -107,23 +203,23 @@ namespace TELPA.Controllers
 
 
         [HttpGet("test/1")]
-        public IActionResult testCreate()
+        public IActionResult TestCreate()
         {
             Employee emp = new Employee();
             emp.Email = "ignas@email.com";
             emp.SetPasswordHash("abc123");
             emp.Name = "Ignas";
 
-            return createEmployee(emp);
+            return CreateEmployee(emp);
         }
 
         [HttpGet("test/2")]
-        public IActionResult testUpdate()
+        public IActionResult TestUpdate()
         {
             Employee emp = db.Employees.Find("2");
             emp.Name = emp.Name + "2";
             
-            return updateEmployee(emp);
+            return UpdateEmployee(emp);
         }
 
         /*public ActionResult Index()
