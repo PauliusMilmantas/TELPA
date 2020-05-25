@@ -38,7 +38,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createLearningDayLink(LearningDayLink learningDayLink)
+        public IActionResult createLearningDayLink([FromBody] LearningDayLink learningDayLink)
         {
             if (learningDayLink != null)
             {
@@ -53,7 +53,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateLearningDayLink(LearningDayLink learningDayLink)
+        public IActionResult updateLearningDayLink([FromBody] LearningDayLink learningDayLink)
         {
             if (learningDayLink != null)
             {

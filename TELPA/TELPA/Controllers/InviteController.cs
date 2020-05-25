@@ -38,7 +38,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createInvite(Invite invite)
+        public IActionResult createInvite([FromBody] Invite invite)
         {
             if (invite != null)
             {
@@ -53,7 +53,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateInvite(Invite invite)
+        public IActionResult updateInvite([FromBody] Invite invite)
         {
             if (invite != null)
             {

@@ -71,7 +71,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateTopic(Topic topic)
+        public IActionResult updateTopic([FromBody] Topic topic)
         {
             if (topic != null)
             {
