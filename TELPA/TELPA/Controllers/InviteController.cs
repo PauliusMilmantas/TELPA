@@ -18,7 +18,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("InviteController online");
+            return Json(Ok("InviteController online"));
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace TELPA.Controllers
             {
                 db.Invites.Add(invite);
                 db.SaveChanges();
-                return Ok("Invite created");
+                return Json(Ok("Invite created"));
             }
             else
             {
@@ -59,7 +59,7 @@ namespace TELPA.Controllers
             {
                 db.Invites.Update(invite);
                 db.SaveChanges();
-                return Ok("Invite updated");
+                return Json(Ok("Invite updated"));
             }
             else
             {
@@ -76,7 +76,7 @@ namespace TELPA.Controllers
                 Invite invite = db.Invites.Find(id);
                 db.Invites.Remove(invite);
                 db.SaveChanges();
-                return Ok("Invite deleted");
+                return Json(Ok("Invite deleted"));
             }
             catch (ArgumentNullException)
             {
