@@ -33,23 +33,12 @@ export class EmployeeManagementComponent implements OnInit {
   constructor(private modalService: ModalService, private httpClient: HttpClient) { }
 
   ngOnInit() {
-    //this.columns = this.atService.getColumns();
-    //this.characters = this.atService.getEmployees();
     this.getBackendData();
     this.getBackendLeaderData();
   }
-/*
-  getBackendData() {
-    var baseURL = location.origin;
-    this.httpClient.get(baseURL + '/api/employees/get/all').toPromise().then(data => {
-      console.log(data);
-    });
-  }
-*/
 
   getBackendData() {
     console.log(location.origin);
-    //let lyderis: string;
     this.employeeDataAll = [];
     this.employeeData = [];
     this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
@@ -71,19 +60,8 @@ export class EmployeeManagementComponent implements OnInit {
 
       }
     });
- /*     .add(() => {
-      //this.getDataForFE();
-      for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.employeeData.push({
-          'name': this.employeeName[i],
-          'email': this.employeeEmail[i],
-          'role': this.employeeRole[i]
-        });
-      }
-    });*/
   }
   getBackendLeaderData() {
-    //let lyderis: string;
     this.leaderData = [];
     this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
       data => {
@@ -93,7 +71,6 @@ export class EmployeeManagementComponent implements OnInit {
       let contains = 0;
       for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
         contains = 0;
-        //contains = this.containsElement(contains, this.linkingData[i]['leaderId']);
         for (let j = 0; j < this.leaderData.length; j++) {
           if (this.leaderData[j]['leaderId'] == this.linkingData[i]['leaderId'] && this.linkingData[i]['leaderId'] != null) {
             contains++;
@@ -129,7 +106,6 @@ export class EmployeeManagementComponent implements OnInit {
 
   selectTeam(id: number) {
     console.log("id yra", id);
-    //let lyderis: string;
     this.employeeDataAll = [];
     this.employeeData = [];
     if (id == 0) {
@@ -186,7 +162,6 @@ export class EmployeeManagementComponent implements OnInit {
       "email": email,
       "role": role,
       "passwordHash": "slaptazodis"
-      //"leaderId": leader_id
     }).subscribe(
       (val) => {
         console.log("POST call successful value returned in body",
