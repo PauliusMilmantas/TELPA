@@ -20,7 +20,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("TopicController online");
+            return Json(Ok("TopicController online"));
         }
 
         [HttpGet]
@@ -56,13 +56,13 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createTopic(Topic topic)
+        public IActionResult createTopic([FromBody] Topic topic)
         {
             if (topic != null)
             {
                 db.Topics.Add(topic);
                 db.SaveChanges();
-                return Ok("Topic created");
+                return Json(Ok("Topic created"));
             }
             else
             {
@@ -71,13 +71,13 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateTopic(Topic topic)
+        public IActionResult updateTopic([FromBody] Topic topic)
         {
             if (topic != null)
             {
                 db.Topics.Update(topic);
                 db.SaveChanges();
-                return Ok("Topic updated");
+                return Json(Ok("Topic updated"));
             }
             else
             {
@@ -94,7 +94,7 @@ namespace TELPA.Controllers
                 Topic topic = db.Topics.Find(id);
                 db.Topics.Remove(topic);
                 db.SaveChanges();
-                return Ok("Topic deleted");
+                return Json(Ok("Topic deleted"));
             }
             catch (ArgumentNullException)
             {

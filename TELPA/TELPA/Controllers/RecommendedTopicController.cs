@@ -18,7 +18,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("RecommendedTopicController online");
+            return Json(Ok("RecommendedTopicController online"));
         }
 
         [HttpGet]
@@ -38,13 +38,13 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createRecommendedTopic(RecommendedTopic recommendedTopic)
+        public IActionResult createRecommendedTopic([FromBody] RecommendedTopic recommendedTopic)
         {
             if (recommendedTopic != null)
             {
                 db.RecommendedTopics.Add(recommendedTopic);
                 db.SaveChanges();
-                return Ok("RecommendedTopic created");
+                return Json(Ok("RecommendedTopic created"));
             }
             else
             {
@@ -53,13 +53,13 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateRecommendedTopic(RecommendedTopic recommendedTopic)
+        public IActionResult updateRecommendedTopic([FromBody] RecommendedTopic recommendedTopic)
         {
             if (recommendedTopic != null)
             {
                 db.RecommendedTopics.Update(recommendedTopic);
                 db.SaveChanges();
-                return Ok("RecommendedTopic updated");
+                return Json(Ok("RecommendedTopic updated"));
             }
             else
             {
@@ -76,7 +76,7 @@ namespace TELPA.Controllers
                 RecommendedTopic recommendedTopic = db.RecommendedTopics.Find(id);
                 db.RecommendedTopics.Remove(recommendedTopic);
                 db.SaveChanges();
-                return Ok("RecommendedTopic deleted");
+                return Json(Ok("RecommendedTopic deleted"));
             }
             catch (ArgumentNullException)
             {

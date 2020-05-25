@@ -20,7 +20,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("EmployeeController online");
+            return Json(Ok("EmployeeController online"));
         }
 
         [HttpGet]
@@ -63,7 +63,7 @@ namespace TELPA.Controllers
                 Console.WriteLine(employee.Name, employee.Role);
                 db.Employees.Add(employee);
                 db.SaveChanges();
-                return Ok("Employee created");
+                return Json(Ok("Employee created"));
             }
             else
             {
@@ -72,13 +72,13 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateEmployee(Employee employee)
+        public IActionResult updateEmployee([FromBody] Employee employee)
         {
             if (employee != null)
             {
                 db.Employees.Update(employee);
                 db.SaveChanges();
-                return Ok("Employee updated");
+                return Json(Ok("Employee updated"));
             }
             else
             {
@@ -95,7 +95,7 @@ namespace TELPA.Controllers
                 Employee employee = db.Employees.Find(id);
                 db.Employees.Remove(employee);
                 db.SaveChanges();
-                return Ok("Employee deleted");
+                return Json(Ok("Employee deleted"));
             }
             catch (ArgumentNullException)
             {

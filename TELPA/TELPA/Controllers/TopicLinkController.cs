@@ -18,7 +18,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("TopicLinkController online");
+            return Json(Ok("TopicLinkController online"));
         }
 
         [HttpGet]
@@ -38,13 +38,13 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createTopicLink(TopicLink topicLink)
+        public IActionResult createTopicLink([FromBody] TopicLink topicLink)
         {
             if (topicLink != null)
             {
                 db.TopicLinks.Add(topicLink);
                 db.SaveChanges();
-                return Ok("TopicLink created");
+                return Json(Ok("TopicLink created"));
             }
             else
             {
@@ -53,13 +53,13 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateTopicLink(TopicLink topicLink)
+        public IActionResult updateTopicLink([FromBody] TopicLink topicLink)
         {
             if (topicLink != null)
             {
                 db.TopicLinks.Update(topicLink);
                 db.SaveChanges();
-                return Ok("TopicLink updated");
+                return Json(Ok("TopicLink updated"));
             }
             else
             {
@@ -76,7 +76,7 @@ namespace TELPA.Controllers
                 TopicLink topicLink = db.TopicLinks.Find(id);
                 db.TopicLinks.Remove(topicLink);
                 db.SaveChanges();
-                return Ok("TopicLink deleted");
+                return Json(Ok("TopicLink deleted"));
             }
             catch (ArgumentNullException)
             {
