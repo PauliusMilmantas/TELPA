@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class TopicAddComponent implements OnInit {
-  addTopic;
   baseUrl = location.origin;
   private apiTopics = [];
   private addedTopicId = null;
@@ -19,10 +18,7 @@ export class TopicAddComponent implements OnInit {
     'parentTopicId': null
   };
 
-  topicLinksToAdd =
-    [
-      { topicId: null, link: '' }
-    ];
+  topicLinksToAdd = [];
 
   adding = true;
   isEmpty = [false];
