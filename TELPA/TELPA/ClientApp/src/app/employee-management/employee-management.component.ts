@@ -132,27 +132,32 @@ export class EmployeeManagementComponent implements OnInit {
     //let lyderis: string;
     this.employeeDataAll = [];
     this.employeeData = [];
-    this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
-      data => {
-        this.linkingData = data;
-      }
-    ).add(() => {
-      for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.employeeName = this.linkingData[i]['name'];
-        this.employeeEmail = this.linkingData[i]['email'];
-        this.employeeRole = this.linkingData[i]['role'];
-        this.employeeLeaderId = this.linkingData[i]['leaderId'];
-        if (this.linkingData[i]['leaderId'] == id) {
-          this.employeeData.push({
-            'name': this.employeeName,
-            'email': this.employeeEmail,
-            'role': this.employeeRole,
-            'leaderName': this.employeeLeaderId
-          })
-
+    if (id == 0) {
+      this.getBackendData();
+    }
+    else {
+      this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
+        data => {
+          this.linkingData = data;
         }
-      }
-    });
+      ).add(() => {
+        for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+          this.employeeName = this.linkingData[i]['name'];
+          this.employeeEmail = this.linkingData[i]['email'];
+          this.employeeRole = this.linkingData[i]['role'];
+          this.employeeLeaderId = this.linkingData[i]['leaderId'];
+          if (this.linkingData[i]['leaderId'] == id) {
+            this.employeeData.push({
+              'name': this.employeeName,
+              'email': this.employeeEmail,
+              'role': this.employeeRole,
+              'leaderName': this.employeeLeaderId
+            })
+
+          }
+        }
+      });
+    }
   }
 
 

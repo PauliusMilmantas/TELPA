@@ -59,3 +59,7 @@ td {
   width: 100%;
   border-collapse: collapse;
 }
+
+.teamName span:hover {
+    cursor: pointer;
+}
