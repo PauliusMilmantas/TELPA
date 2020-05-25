@@ -48,17 +48,6 @@
 <jw-modal id="selectTeam">
   Select team from the list:
   <br />
-  <!--  <form>
-    //<select (change)="selectTeam($event.target.value)" name="team">
-      <select name="team">
-      <option value="0">All</option>
-      <option *ngFor="let LeaderData of leaderData" value="{{LeaderData.leaderId}}">
-        {{LeaderData.leaderId}}
-      </option>
-    </select>
-    <br /><br /><br />
-    <button type="submit" class="btn btn-success mdlBtn" (click)="selectTeam(LeaderData.leaderId);">Select</button>
-      </form> -->
   <div class="teamSelected" (click)="selectTeam(0); closeModal('selectTeam')">
     <span>Show all</span>
   </div>
@@ -80,7 +69,12 @@
   Role: <br/>
   <input class="form-control" type="text" id="newAttributeRole" [(ngModel)]="newAttribute.role" name="newAttributeRole" />
   Leader name:
-  <input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" />
+  <!--<input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" />-->
+  <select name="selectLeader" [(ngModel)]="newAttribute.leaderName">
+    <option *ngFor="let FullLeaderData of fullLeaderData" id="newAttributeLeaderName" value="{{FullLeaderData.leaderName}}">
+      {{FullLeaderData.leaderName}}
+    </option>
+  </select>
   <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee', newAttribute.name, newAttribute.email, newAttribute.role, newAttribute.leaderName);">Add employee</button>
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('addEmployee');">Cancel</button>
 </jw-modal> 
