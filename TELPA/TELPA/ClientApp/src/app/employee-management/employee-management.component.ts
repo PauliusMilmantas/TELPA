@@ -171,16 +171,27 @@ export class EmployeeManagementComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  addFieldValue(id: string, name: string, email: string, role: string, leader_id: number) {
-
-    this.fieldArray.push(this.newAttribute)
+  addFieldValue(id: string, name: string, email: string, role: string, leaderName: string) {
+    let leaderId: number;
+    this.leaderName = leaderName;
+    //this.fieldArray.push(this.newAttribute)
+    console.log(name);
+    console.log(this.leaderName);
+    console.log("length", this.fullLeaderData.length);
+    for (let i = 0; i < this.fullLeaderData.length; i++) {
+      console.log(this.fullLeaderData[i]['leaderName'], this.leaderName);
+      if (this.fullLeaderData[i]['leaderName'] == this.leaderName) {
+        leaderId = this.fullLeaderData[i]['leaderId'];
+      }
+    }
     this.newAttribute = {};
-    console.log(name, email, role);
+    console.log(name, email, role, leaderId);
     this.httpClient.post(location.origin + "/api/employee/create", {
       "name": name,
       "email": email,
       "role": role,
-      "passwordHash": "slaptazodis"
+      "passwordHash": "slaptazodis",
+      "leaderId": leaderId
     }).subscribe(
       (val) => {
         console.log("POST call successful value returned in body",
