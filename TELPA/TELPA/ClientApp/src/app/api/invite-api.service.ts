@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Invite } from "./api-entities";
-import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
 const API_URL = "api/invite/";
 
@@ -10,7 +9,7 @@ const API_URL = "api/invite/";
   providedIn: "root",
 })
 export class InviteAPIService {
-  constructor(private http: HttpWrapperService) {}
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Invite[]> {
     return this.http.get<Invite[]>(API_URL + "get/all");

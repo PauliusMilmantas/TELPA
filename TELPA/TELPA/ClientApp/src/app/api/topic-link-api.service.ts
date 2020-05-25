@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { TopicLink } from "./api-entities";
-import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
 const API_URL = "api/topicLink/";
 
@@ -10,7 +9,7 @@ const API_URL = "api/topicLink/";
   providedIn: "root",
 })
 export class TopicLinkAPIService {
-  constructor(private http: HttpWrapperService) {}
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<TopicLink[]> {
     return this.http.get<TopicLink[]>(API_URL + "get/all");

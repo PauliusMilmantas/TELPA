@@ -8,7 +8,6 @@ import {
   Limit,
   Invite,
 } from "./api-entities";
-import { HttpWrapperService } from "../authentication/http-wrapper.service";
 import { LearningDay } from "../learning-days/data/TrainingDay";
 
 const API_URL = "api/employee/";
@@ -17,7 +16,7 @@ const API_URL = "api/employee/";
   providedIn: "root",
 })
 export class EmployeeAPIService {
-  constructor(private http: HttpWrapperService) {}
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Employee[]> {
     return this.http.get<Employee[]>(API_URL + "get/all");

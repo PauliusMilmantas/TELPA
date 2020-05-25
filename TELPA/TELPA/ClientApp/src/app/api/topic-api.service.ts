@@ -8,7 +8,6 @@ import {
   RecommendedTopic,
   LearningDayTopic,
 } from "./api-entities";
-import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
 const API_URL = "api/topic/";
 
@@ -16,7 +15,7 @@ const API_URL = "api/topic/";
   providedIn: "root",
 })
 export class TopicAPIService {
-  constructor(private http: HttpWrapperService) {}
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Topic[]> {
     return this.http.get<Topic[]>(API_URL + "get/all");

@@ -8,8 +8,6 @@ import { ModalModule } from "./__modal";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { HomeComponent } from "./home/home.component";
-import { CounterComponent } from "./counter/counter.component";
-import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { FrontPageComponent } from "./front-page/front-page.component";
 import { CalendarWindowComponent } from "./calendar-window/calendar-window.component";
 import { HomePageComponent } from "./home-page/home-page.component";
@@ -23,18 +21,25 @@ import { EmployeeManagementComponent } from "./employee-management/employee-mana
 import { TopicAddComponent } from "./topic-add/topic-add.component";
 import { TopicEditComponent } from "./topic-edit/topic-edit.component";
 import { RecommendationsComponent } from "./recommendations/recommendations.component";
-import { HttpWrapperService } from "./authentication/http-wrapper.service";
 import { AuthenticationService } from "./authentication/authentication.service";
 import { AuthInterceptorService } from "./authentication/auth-interceptor.service";
 import { SessionAPIService } from "./api/session-api.service";
+import { EmployeeAPIService } from "./api/employee-api.service";
+import { InviteAPIService } from "./api/invite-api.service";
+import { LearnedTopicAPIService } from "./api/learned-topic-api.service";
+import { LearningDayAPIService } from "./api/learning-day-api.service";
+import { LearningDayLinkAPIService } from "./api/learning-day-link-api.service";
+import { LearningDayTopicAPIService } from "./api/learning-day-topic-api.service";
+import { LimitAPIService } from "./api/limit-api.service";
+import { RecommendedTopicAPIService } from "./api/recommended-topic-api.service";
+import { TopicAPIService } from "./api/topic-api.service";
+import { TopicLinkAPIService } from "./api/topic-link-api.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     FrontPageComponent,
     CalendarWindowComponent,
     HomePageComponent,
@@ -56,8 +61,6 @@ import { SessionAPIService } from "./api/session-api.service";
     ModalModule,
     RouterModule.forRoot([
       { path: "", component: FrontPageComponent },
-      { path: "counter", component: CounterComponent },
-      { path: "fetch-data", component: FetchDataComponent },
       { path: "calendar", component: CalendarWindowComponent },
       { path: "homepage", component: HomePageComponent },
       { path: "register", component: RegistrationFormComponent },
@@ -70,8 +73,17 @@ import { SessionAPIService } from "./api/session-api.service";
     ]),
   ],
   providers: [
-    HttpWrapperService,
     AuthenticationService,
+    EmployeeAPIService,
+    InviteAPIService,
+    LearnedTopicAPIService,
+    LearningDayAPIService,
+    LearningDayLinkAPIService,
+    LearningDayTopicAPIService,
+    LimitAPIService,
+    RecommendedTopicAPIService,
+    TopicAPIService,
+    TopicLinkAPIService,
     SessionAPIService,
     {
       provide: HTTP_INTERCEPTORS,

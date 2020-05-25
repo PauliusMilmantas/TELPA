@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { LearningDayTopic } from "./api-entities";
-import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
 const API_URL = "api/learningDayTopic/";
 
@@ -10,7 +9,7 @@ const API_URL = "api/learningDayTopic/";
   providedIn: "root",
 })
 export class LearningDayTopicAPIService {
-  constructor(private http: HttpWrapperService) {}
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<LearningDayTopic[]> {
     return this.http.get<LearningDayTopic[]>(API_URL + "get/all");

@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { SessionAPIService } from "../api/session-api.service";
 import { LoginData, Employee } from "../api/api-entities";
-import { Observable } from "rxjs";
+import { Observable, throwError, of } from "rxjs";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { catchError, tap, map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -20,45 +21,37 @@ export class AuthenticationService {
   constructor(private sessionAPI: SessionAPIService) {}
 
   logIn(email: string, password: string): Observable<any> {
-    let observable = this.sessionAPI.logIn(<LoginData>{
-      email: email,
-      password: password,
-    });
     this._email = email;
     this._password = password;
-    observable.subscribe(
-      (response: HttpResponse<any>) =>
-        sessionStorage.setItem(
-          "session-token",
-          response.headers.get("X-SessionToken")
-        ),
-      (error: HttpErrorResponse) => {
-        sessionStorage.removeItem("session-token");
-      }
-    );
-    return observable;
+    return this.sessionAPI
+      .logIn(<LoginData>{
+        email: email,
+        password: password,
+      })
+      .pipe(
+        tap((response: HttpResponse<any>) => {
+          localStorage.setItem(
+            "session-token",
+            response.headers.get("X-SessionToken")
+          );
+        })
+      );
   }
 
   logOut() {
-    let observable = this.sessionAPI.logOut();
-    observable.subscribe(
-      (response: Response) => sessionStorage.removeItem("session-token"),
-      (error) => {}
-    );
-    return observable;
+    return this.sessionAPI
+      .logOut()
+      .pipe(tap(() => localStorage.removeItem("session-token")));
   }
 
   getToken(): string {
-    return sessionStorage.getItem("session-token");
+    return localStorage.getItem("session-token");
   }
 
-  isLoggedIn() {
-    let observable = this.sessionAPI.ping();
-    let result = true;
-    observable.subscribe((error) => {
-      result = false;
-    });
-    observable.toPromise();
-    return result;
+  isLoggedIn(): Observable<boolean> {
+    return this.sessionAPI.ping().pipe(
+      map((x) => !(x instanceof HttpErrorResponse)),
+      catchError((err: HttpErrorResponse) => of(false))
+    );
   }
 }

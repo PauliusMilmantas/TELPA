@@ -18,7 +18,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    let accessToken = sessionStorage.getItem("session-token");
+    let accessToken = localStorage.getItem("session-token");
     if (accessToken) {
       request = request.clone({
         setHeaders: {
@@ -28,10 +28,11 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 403) {
+        if (err.status === 403 && !request.url.includes("ping")) {
           this.router.navigate([""]);
+          return throwError("authentication required");
         }
-        return throwError("autheticationRequired");
+        return throwError(err);
       })
     );
   }

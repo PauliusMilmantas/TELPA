@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { RecommendedTopic } from "./api-entities";
-import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
 const API_URL = "api/recommendedTopic/";
 
@@ -10,7 +9,7 @@ const API_URL = "api/recommendedTopic/";
   providedIn: "root",
 })
 export class RecommendedTopicAPIService {
-  constructor(private http: HttpWrapperService) {}
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<RecommendedTopic[]> {
     return this.http.get<RecommendedTopic[]>(API_URL + "get/all");

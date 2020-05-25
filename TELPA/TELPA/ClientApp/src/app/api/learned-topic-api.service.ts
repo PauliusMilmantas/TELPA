@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { LearnedTopic } from "./api-entities";
-import { HttpWrapperService } from "../authentication/http-wrapper.service";
 
 const API_URL = "api/learnedTopic/";
 
@@ -10,7 +9,7 @@ const API_URL = "api/learnedTopic/";
   providedIn: "root",
 })
 export class LearnedTopicAPIService {
-  constructor(private http: HttpWrapperService) {}
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<LearnedTopic[]> {
     return this.http.get<LearnedTopic[]>(API_URL + "get/all");
