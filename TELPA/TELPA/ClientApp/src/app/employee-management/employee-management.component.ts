@@ -28,6 +28,7 @@ export class EmployeeManagementComponent implements OnInit {
   employeeRole;
   employeeLeaderId;
   employeeLeader;
+  employeeLeaderName;
 
   constructor(private modalService: ModalService, private httpClient: HttpClient) { }
 
@@ -91,6 +92,7 @@ export class EmployeeManagementComponent implements OnInit {
     ).add(() => {
       let contains = 0;
       for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+        contains = 0;
         //contains = this.containsElement(contains, this.linkingData[i]['leaderId']);
         for (let j = 0; j < this.leaderData.length; j++) {
           if (this.leaderData[j]['leaderId'] == this.linkingData[i]['leaderId'] && this.linkingData[i]['leaderId'] != null) {
@@ -105,7 +107,7 @@ export class EmployeeManagementComponent implements OnInit {
           this.employeeLeaderId = this.linkingData[i]['leaderId'];
           this.leaderData.push({
             'leaderId': this.employeeLeaderId
-          })
+          });
         }
       }
     });
@@ -124,23 +126,36 @@ export class EmployeeManagementComponent implements OnInit {
     }
     return contains;
   }
-  getDataForFE() {
+
+  selectTeam(id: number) {
+    console.log("id yra", id);
+    //let lyderis: string;
+    this.employeeDataAll = [];
     this.employeeData = [];
-    for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-      this.employeeData.push(
-        {
-          'name': this.employeeName[i],
-          'email': this.employeeEmail[i],
-          'role': this.employeeRole[i]
-          //'leader_id': this.employeeLeader[i]
+    this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
+      data => {
+        this.linkingData = data;
+      }
+    ).add(() => {
+      for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+        this.employeeName = this.linkingData[i]['name'];
+        this.employeeEmail = this.linkingData[i]['email'];
+        this.employeeRole = this.linkingData[i]['role'];
+        this.employeeLeaderId = this.linkingData[i]['leaderId'];
+        if (this.linkingData[i]['leaderId'] == id) {
+          this.employeeData.push({
+            'name': this.employeeName,
+            'email': this.employeeEmail,
+            'role': this.employeeRole,
+            'leaderName': this.employeeLeaderId
+          })
+
         }
-      );
-    }
+      }
+    });
   }
 
-  selectTeamBtnClick(event) {
 
-  }
 
   addEmployeeBtnClick(event) {
 

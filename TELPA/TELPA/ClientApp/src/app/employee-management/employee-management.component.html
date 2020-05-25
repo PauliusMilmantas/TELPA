@@ -49,11 +49,13 @@
   Select team from the list:
   <br />
   <select name="team">
-    <option *ngFor="let LeaderData of leaderData">
+    <option value="0">All</option>
+    <option *ngFor="let LeaderData of leaderData" value="{{LeaderData.leaderId}}">
       {{LeaderData.leaderId}}
     </option>
   </select>
-  <br/><br/><br/>
+  <br /><br /><br />
+  <button type="button" class="btn btn-success mdlBtn" (click)="selectTeam(value);">Select</button>
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Close</button>
 </jw-modal>
 
