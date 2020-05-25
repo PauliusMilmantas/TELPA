@@ -18,7 +18,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("LimitController online");
+            return Json(Ok("LimitController online"));
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace TELPA.Controllers
             {
                 db.Limits.Add(limit);
                 db.SaveChanges();
-                return Ok("Limit created");
+                return Json(Ok("Limit created"));
             }
             else
             {
@@ -59,7 +59,7 @@ namespace TELPA.Controllers
             {
                 db.Limits.Update(limit);
                 db.SaveChanges();
-                return Ok("Limit updated");
+                return Json(Ok("Limit updated"));
             }
             else
             {
@@ -76,7 +76,7 @@ namespace TELPA.Controllers
                 Limit limit = db.Limits.Find(id);
                 db.Limits.Remove(limit);
                 db.SaveChanges();
-                return Ok("Limit deleted");
+                return Json(Ok("Limit deleted"));
             }
             catch (ArgumentNullException)
             {
