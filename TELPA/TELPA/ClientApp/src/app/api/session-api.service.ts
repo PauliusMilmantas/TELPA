@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { LoginData } from "./api-entities";
+import { LoginData, Employee } from "./api-entities";
 
 const API_URL = "api/session/";
 
@@ -15,6 +15,10 @@ export class SessionAPIService {
     return this.http.post(API_URL + "logIn", e, {
       observe: "response",
     });
+  }
+
+  me(): Observable<Employee> {
+    return this.http.get<Employee>(API_URL + "me");
   }
 
   logOut(): Observable<any> {
