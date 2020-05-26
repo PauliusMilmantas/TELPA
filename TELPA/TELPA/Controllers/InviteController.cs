@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TELPA.Data;
 using TELPA.Models;
@@ -16,14 +17,14 @@ namespace TELPA.Controllers
         }
 
         [HttpGet("ping")]
-        public IActionResult ping()
+        public IActionResult Ping()
         {
             return Json(Ok("InviteController online"));
         }
 
         [HttpGet]
         [Route("get/{id}")]
-        public IActionResult getInvite(int id)
+        public IActionResult GetInvite(int id)
         {
             Invite invite = db.Invites.Find(id);
 
@@ -37,8 +38,24 @@ namespace TELPA.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("get/link/{id}")]
+        public IActionResult GetInviteByLink(string id)
+        {
+            Invite invite = db.Invites.FirstOrDefault(e => e.Link == id);
+
+            if (invite != null)
+            {
+                return Json(invite);
+            }
+            else
+            {
+                return NotFound("GET: Invite with link = " + id + " was not found.");
+            }
+        }
+
         [HttpPost("create")]
-        public IActionResult createInvite([FromBody] Invite invite)
+        public IActionResult CreateInvite([FromBody] Invite invite)
         {
             if (invite != null)
             {
@@ -53,7 +70,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateInvite([FromBody] Invite invite)
+        public IActionResult UpdateInvite([FromBody] Invite invite)
         {
             if (invite != null)
             {
@@ -69,7 +86,7 @@ namespace TELPA.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        public IActionResult deleteInvite(int id)
+        public IActionResult DeleteInvite(int id)
         {
             try
             {

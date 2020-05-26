@@ -82,6 +82,12 @@ export interface LoginData {
   password: string;
 }
 
+export interface RegisterData {
+  link: string;
+  name: string;
+  password: string;
+}
+
 function repeatingDateLessThan(x: string, y: string): boolean {
   let x_parts = x.split("-");
   let y_parts = y.split("-");

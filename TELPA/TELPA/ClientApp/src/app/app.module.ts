@@ -36,6 +36,7 @@ import { TopicAPIService } from "./api/topic-api.service";
 import { TopicLinkAPIService } from "./api/topic-link-api.service";
 import { EmployeeTreeComponent } from "./employee-tree/employee-tree.component";
 import { TreeComponent } from "./tree/tree.component";
+import { AccountAPIService } from "./api/account-api.service";
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { TreeComponent } from "./tree/tree.component";
     TopicAPIService,
     TopicLinkAPIService,
     SessionAPIService,
+    AccountAPIService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
