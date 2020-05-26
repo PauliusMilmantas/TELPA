@@ -17,6 +17,7 @@ export class TopicEditComponent implements OnInit {
     name: "",
     description: "",
     parentTopicId: null,
+    version: null
   };
 
   topicLinksToModify = [
@@ -24,6 +25,7 @@ export class TopicEditComponent implements OnInit {
       id: null,
       topicId: null,
       link: "",
+      version: null
     },
   ];
 
@@ -112,6 +114,7 @@ export class TopicEditComponent implements OnInit {
           id: null,
           topicId: null,
           link: "",
+          version: null
         },
       ];
     }
@@ -122,10 +125,11 @@ export class TopicEditComponent implements OnInit {
       data => {
         this.topicToModify =
         {
-          'id': data['id'],
-          'name': data['name'],
-          'description': data['description'],
-          'parentTopicId': data['parentTopicId']
+          id: data['id'],
+          name: data['name'],
+          description: data['description'],
+          parentTopicId: data['parentTopicId'],
+          version: data['version']
         }
       })
       .add(() => {
@@ -147,13 +151,14 @@ export class TopicEditComponent implements OnInit {
         for (let i = 0; i < Object.keys(data).length; i++) {
           this.isEmpty.push(false);
           this.topicLinksToModify.push({
-            id: data[i]["id"],
-            topicId: data[i]["topicId"],
-            link: data[i]["link"],
+            id: data[i]['id'],
+            topicId: data[i]['topicId'],
+            link: data[i]['link'],
+            version: data[i]['version']
           });
         }
         this.onLinkChange(
-          this.topicLinksToModify[Object.keys(data).length - 1]["link"],
+          this.topicLinksToModify[Object.keys(data).length - 1]['link'],
           Object.keys(data).length - 1
         );
       })
@@ -167,6 +172,7 @@ export class TopicEditComponent implements OnInit {
   }
 
   updateTopic() {
+    console.log(this.topicToModify);
     this.httpClient.put(this.baseUrl + "/api/topic/update", this.topicToModify
     ).subscribe(
       (val) => {
@@ -314,7 +320,8 @@ export class TopicEditComponent implements OnInit {
       this.topicLinksToModify.push({
         id: null,
         topicId: null,
-        link: "",
+        link: '',
+        version: null
       });
       this.isEmpty.push(false);
     } else if (
