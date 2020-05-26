@@ -169,20 +169,25 @@ export class TopicEditComponent implements OnInit {
     ).subscribe(
       (val) => {
         console.log("PUT call successful value returned in body", val);
-        if (this.topicLinksToModify.length > 1) {
-          this.editTopicLinks();
-        }
-        else {
-          this.editDone();
-        }
+        this.topicUpdated();
       },
       response => {
         console.log("PUT call in error", response);
+        this.topicUpdated();
       },
       () => {
         console.log("The PUT observable is now completed.");
       }
     );;
+  }
+
+  topicUpdated() {
+    if (this.topicLinksToModify.length > 1) {
+      this.editTopicLinks();
+    }
+    else {
+      this.editDone();
+    }
   }
 
   editTopicLinks() {
@@ -206,16 +211,21 @@ export class TopicEditComponent implements OnInit {
     ).subscribe(
       (val) => {
         console.log("PUT call successful value returned in body", val);
-        this.doneUpdate = true;
-        this.checkIfDone();
+        this.topicLinkUpdated();
       },
       response => {
         console.log("PUT call in error", response);
+        this.topicLinkUpdated();
       },
       () => {
         console.log("The PUT observable is now completed.");
       }
     );;
+  }
+
+  topicLinkUpdated() {
+    this.doneUpdate = true;
+    this.checkIfDone();
   }
 
   createTopicLink(topicLinkToCreate) {
