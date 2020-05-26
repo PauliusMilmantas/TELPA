@@ -34,6 +34,8 @@ import { LimitAPIService } from "./api/limit-api.service";
 import { RecommendedTopicAPIService } from "./api/recommended-topic-api.service";
 import { TopicAPIService } from "./api/topic-api.service";
 import { TopicLinkAPIService } from "./api/topic-link-api.service";
+import { EmployeeTreeComponent } from "./employee-tree/employee-tree.component";
+import { TreeComponent } from "./tree/tree.component";
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { TopicLinkAPIService } from "./api/topic-link-api.service";
     TopicAddComponent,
     TopicEditComponent,
     RecommendationsComponent,
+    EmployeeTreeComponent,
+    TreeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -70,6 +74,7 @@ import { TopicLinkAPIService } from "./api/topic-link-api.service";
       { path: "topic-add", component: TopicAddComponent },
       { path: "topic-edit", component: TopicEditComponent },
       { path: "recommendations", component: RecommendationsComponent },
+      { path: "employee-tree", component: EmployeeTreeComponent },
     ]),
   ],
   providers: [
