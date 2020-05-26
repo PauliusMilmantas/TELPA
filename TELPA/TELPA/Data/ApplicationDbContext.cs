@@ -96,9 +96,6 @@ namespace TELPA.Data
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<TopicLink>()
-                .HasIndex(e => e.TopicId)
-                .IsUnique();
-            modelBuilder.Entity<TopicLink>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
             modelBuilder.Entity<TopicLink>()

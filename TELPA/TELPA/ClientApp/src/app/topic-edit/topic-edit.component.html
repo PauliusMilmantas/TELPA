@@ -2,44 +2,39 @@
   <div class="container">
     <h1>Edit Topic</h1>
 
-    <div class="background-box">
-      <label for="topic">Select Topic</label>
-      <select class="form-control" id="topic" required (change)="onTopicChange($event.target.value)">
-        <option>(None)</option>
-        <option>Math</option>
-        <option>Math</option>
-        <option>Math</option>
-      </select>
+      <div class="background-box">
+        <label for="selectTopic">Select Topic</label>
+        <select class="form-control" id="selectTopic" (change)="onTopicChange()"
+                [(ngModel)]="topicToModify['id']" name="id" #id="ngModel">
+          <option [value]="null">(None)</option>
+          <option *ngFor="let topic of topics" [value]="topic['id']" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
+        </select>
 
-      <form (ngSubmit)="onSubmit()" #addTopic="ngForm" [hidden]="hideForm">
+        <form (ngSubmit)="onSubmit()" #addTopic="ngForm" [hidden]="hideForm">
 
-        <div class="form-group">
-
-        </div>
-
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" required
-                 [(ngModel)]="topicToAdd.name" name="name" #name="ngModel" />
-        </div>
-
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea class="form-control" id="description"
-                    [(ngModel)]="topicToAdd.description" name="description" #description="ngModel"></textarea>
-        </div>
-
-
-        <div class="form-group">
-          <label for="link">Links</label>
-          <div *ngFor="let link of topicToAdd.links; let i = index; trackBy: trackByFn">
-            <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (change)="onLinkChange($event.target.value, i)" />
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required
+                   [(ngModel)]="topicToModify['name']" name="name" #name="ngModel" />
           </div>
-        </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description"
+                      [(ngModel)]="topicToModify['description']" name="description" #description="ngModel"></textarea>
+          </div>
 
-      </form>
+
+          <div class="form-group">
+            <label for="link">Links</label>
+            <div *ngFor="let link of topicLinksToModify; let i = index; trackBy: trackByFn">
+              <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (input)="onLinkChange($event.target.value, i)" [value]="topicLinksToModify[i]['link']" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
+
+        </form>
     </div>
   </div>
 </div>
