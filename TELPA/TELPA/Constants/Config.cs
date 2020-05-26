@@ -9,5 +9,7 @@ namespace TELPA.Constants
     {
         //Pereinant ant serverio, reikės šitą pakeisti.
         public static String localAddress = "https://localhost:44399/api/";
+        //Druska slaptažodžio maišai
+        public static String salt = "seJrnuYZVQmfBNP6rAKNuN==";
     }
 }

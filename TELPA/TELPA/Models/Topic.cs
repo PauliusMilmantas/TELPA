@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,11 +21,17 @@ namespace TELPA.Models
         [ConcurrencyCheck]
         public long Version { get; set; }
 
+        [JsonIgnore]
         public virtual Topic ParentTopic { get; set; }
+        [JsonIgnore]
         public virtual List<Topic> Subtopics { get; set; }
+        [JsonIgnore]
         public virtual List<TopicLink> TopicLinks { get; set; }
+        [JsonIgnore]
         public virtual List<LearnedTopic> LearnedTopics { get; set; }
+        [JsonIgnore]
         public virtual List<RecommendedTopic> RecommendedTopics { get; set; }
+        [JsonIgnore]
         public virtual List<LearningDayTopic> LearningDayTopics { get; set; }
     }
 }

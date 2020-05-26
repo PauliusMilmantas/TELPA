@@ -99,9 +99,6 @@ namespace TELPA.Data
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<TopicLink>()
-                .HasIndex(e => e.TopicId)
-                .IsUnique();
-            modelBuilder.Entity<TopicLink>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
             modelBuilder.Entity<TopicLink>()
@@ -190,9 +187,6 @@ namespace TELPA.Data
             modelBuilder.Entity<LearningDayLink>()
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
-            modelBuilder.Entity<LearningDayLink>()
-                .HasIndex(e => e.LearningDayId)
-                .IsUnique();
             modelBuilder.Entity<LearningDayLink>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);

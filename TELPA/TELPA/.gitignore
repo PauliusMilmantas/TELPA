@@ -193,8 +193,7 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
-*.mdf
-*.ldf
+# *.mdf
 
 # Business Intelligence projects
 *.rdl.data
