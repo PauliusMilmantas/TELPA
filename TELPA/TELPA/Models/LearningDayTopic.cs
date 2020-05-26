@@ -15,7 +15,6 @@ namespace TELPA.Models
         public int LearningDayId { get; set; }
         [Required]
         public int TopicId { get; set; }
-        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 

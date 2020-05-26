@@ -4,6 +4,7 @@ export interface Employee {
   role: string;
   name: string;
   leaderId: string;
+  version: number;
 }
 
 export interface Invite {
@@ -12,12 +13,14 @@ export interface Invite {
   link: string;
   expiryDate: Date;
   inviterId: number;
+  version: number;
 }
 
 export interface LearnedTopic {
   id: number;
   topicId: number;
   employeeId: number;
+  version: number;
 }
 
 export interface LearningDay {
@@ -25,18 +28,21 @@ export interface LearningDay {
   date: Date;
   comment: string;
   employeeId: number;
+  version: number;
 }
 
 export interface LearningDayLink {
   id: number;
   learningDayId: number;
   link: string;
+  version: number;
 }
 
 export interface LearningDayTopic {
   id: number;
   learningDayId: number;
   topicId: number;
+  version: number;
 }
 
 export interface Limit {
@@ -46,12 +52,14 @@ export interface Limit {
   endDate: string;
   maxConsecutiveLearningDays: number;
   maxTotalLearningDays: number;
+  version: number;
 }
 
 export interface RecommendedTopic {
   id: number;
   topicId: number;
   employeeId: number;
+  version: number;
 }
 
 export interface Topic {
@@ -59,12 +67,14 @@ export interface Topic {
   name: string;
   description: string;
   parentTopicId: number;
+  version: number;
 }
 
 export interface TopicLink {
   id: number;
   topicId: number;
   link: string;
+  version: number;
 }
 
 export interface LoginData {

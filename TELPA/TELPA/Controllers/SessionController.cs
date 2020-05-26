@@ -15,11 +15,13 @@ namespace TELPA.Controllers
     {
         private ApplicationDbContext db;
         private IAuthorizationService authorization;
+        private ISessionService session;
 
-        public SessionController(ApplicationDbContext db, IAuthorizationService authorization)
+        public SessionController(ApplicationDbContext db, IAuthorizationService authorization, ISessionService session)
         {
             this.db = db;
             this.authorization = authorization;
+            this.session = session;
         }
 
         [Authenticated]
@@ -27,6 +29,23 @@ namespace TELPA.Controllers
         public IActionResult Ping()
         {
             return Ok("SessionController online");
+        }
+
+        [Authenticated]
+        [HttpGet]
+        [Route("me")]
+        public IActionResult Me()
+        {
+            string token = Request.Headers["X-SessionToken"];
+            Employee me = db.Employees.Find(session.GetSession(token).EmployeeId);
+            if(me != null)
+            {
+                return Json(me);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]

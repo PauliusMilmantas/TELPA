@@ -19,7 +19,6 @@ namespace TELPA.Models
         public DateTime ExpiryDate { get; set; }
         [Required]
         public int InviterId { get; set; }
-        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 
