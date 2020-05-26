@@ -36,10 +36,21 @@ export class CalendarComponent implements OnInit {
   // Dates with events
   eventDates = [];
 
+  //session data
+  currentEmployeeId;
+
   constructor(private modalService: ModalService, private httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.getBackendData();
+    this.authenticate();
+  }
+
+  authenticate() {
+    this.httpClient.get(location.origin + '/api/session/me').subscribe(response => {
+      this.currentEmployeeId = response['id'];
+    }).add(() => {
+      this.getBackendData();
+    });
   }
 
   // Loading eventDates variable
@@ -47,13 +58,15 @@ export class CalendarComponent implements OnInit {
     var baseURL = location.origin;
     this.httpClient.get(baseURL + '/api/learningDay/get/all').subscribe(response => {
       for (var i = 0; i < Object.keys(response).length; i++) {
-        var date = response[i]['date'];
-        this.eventDates.push(
-          {
-            'date': date.split("T")[0],
-            'id': response[i]['id']
-          }
-        );
+        if (this.currentEmployeeId == response[i]['employeeId']) {
+          var date = response[i]['date'];
+          this.eventDates.push(
+            {
+              'date': date.split("T")[0],
+              'id': response[i]['id']
+            }
+          );
+        }
       }
     }).add(() => {
       this.get_month_name(this.month_id);
