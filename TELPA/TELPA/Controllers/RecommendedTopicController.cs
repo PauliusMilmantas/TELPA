@@ -18,7 +18,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult ping()
         {
-            return Ok("RecommendedTopicController online");
+            return Json(Ok("RecommendedTopicController online"));
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace TELPA.Controllers
             {
                 db.RecommendedTopics.Add(recommendedTopic);
                 db.SaveChanges();
-                return Ok("RecommendedTopic created");
+                return Json(Ok("RecommendedTopic created"));
             }
             else
             {
@@ -59,7 +59,7 @@ namespace TELPA.Controllers
             {
                 db.RecommendedTopics.Update(recommendedTopic);
                 db.SaveChanges();
-                return Ok("RecommendedTopic updated");
+                return Json(Ok("RecommendedTopic updated"));
             }
             else
             {
@@ -76,7 +76,7 @@ namespace TELPA.Controllers
                 RecommendedTopic recommendedTopic = db.RecommendedTopics.Find(id);
                 db.RecommendedTopics.Remove(recommendedTopic);
                 db.SaveChanges();
-                return Ok("RecommendedTopic deleted");
+                return Json(Ok("RecommendedTopic deleted"));
             }
             catch (ArgumentNullException)
             {

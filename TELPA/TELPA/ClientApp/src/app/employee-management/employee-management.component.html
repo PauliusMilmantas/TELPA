@@ -13,33 +13,34 @@
         <th>delete</th>
       </tr>
 
-      <tr *ngFor="let EmployeeData of employeeData">
+      <tr *ngFor="let EmployeeData of employeeData; let i = index">
         <td>{{EmployeeData.name}}</td>
         <td>{{EmployeeData.email}}</td>
         <td>{{EmployeeData.role}}</td>
-      <!--  <td>{{EmployeeData.leader_id}}</td> -->
+        <td>{{EmployeeData.leaderName}}</td>
         <td></td>
-        <td></td>
+        <td>
+          <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
+        </td>
       </tr> 
       <tr *ngFor="let field of fieldArray; let i = index">
         <td>
-        <ng-container [(ngModel)]="field.name" class="form-control" type="text">{{field.name}}</ng-container> 
+        <ng-container>{{field.name}}</ng-container> 
         </td>
         <td>
-        <ng-container [(ngModel)]="field.email" class="form-control" type="text">{{field.email}}</ng-container>
+        <ng-container>{{field.email}}</ng-container>
         </td>
         <td>
-        <ng-container [(ngModel)]="field.role" class="form-control" type="text">{{field.role}}</ng-container> 
+        <ng-container>{{field.role}}</ng-container> 
         </td>
-     <!--   <td>
-        <ng-container [(ngModel)]="field.leader_id" class="form-control" type="text">{{field.leader_id}}</ng-container> 
-        </td>-->
+        <td>
+          <ng-container>{{field.leaderName}}</ng-container> 
+        </td>
         <td></td>
         <td>
           <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
         </td>
       </tr>
-
     </table>
   </div>
 </div>
@@ -47,12 +48,15 @@
 <jw-modal id="selectTeam">
   Select team from the list:
   <br />
-  <select name="team">
-    <option value="alfredas">alfredas</option>
-    <option value="minedas">minedas</option>
-    <option value="joachimas">joachimas</option>
-  </select>
-  <br/><br/><br/>
+  <div class="teamSelected" (click)="selectTeam(0); closeModal('selectTeam')">
+    <span>Show all</span>
+  </div>
+  <ng-container class="teamName" *ngFor="let FullLeaderData of fullLeaderData">
+    <div class="teamSelected" *ngIf="FullLeaderData != null" (click)="selectTeam(FullLeaderData.leaderId); closeModal('selectTeam')">
+      <span>{{FullLeaderData.leaderName}}</span>
+    </div>
+  </ng-container>
+
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('selectTeam');">Close</button>
 </jw-modal>
 
@@ -64,8 +68,13 @@
   <input class="form-control" type="text" id="newAttributeEmail" [(ngModel)]="newAttribute.email" name="newAttributeEmail" />
   Role: <br/>
   <input class="form-control" type="text" id="newAttributeRole" [(ngModel)]="newAttribute.role" name="newAttributeRole" />
-  Leader id:
-<!--  <input class="form-control" type="text" id="newAttributeLeaderId" [(ngModel)]="newAttribute.leader_id" name="newAttributeLeaderId" /> -->
-  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee', newAttribute.name, newAttribute.email, newAttribute.role);">Add employee</button>
+  Leader name:
+  <!--<input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" />-->
+  <select name="selectLeader" [(ngModel)]="newAttribute.leaderName">
+    <option *ngFor="let FullLeaderData of fullLeaderData" id="newAttributeLeaderName" value="{{FullLeaderData.leaderName}}">
+      {{FullLeaderData.leaderName}}
+    </option>
+  </select>
+  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee', newAttribute.name, newAttribute.email, newAttribute.role, newAttribute.leaderName);">Add employee</button>
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('addEmployee');">Cancel</button>
 </jw-modal> 
