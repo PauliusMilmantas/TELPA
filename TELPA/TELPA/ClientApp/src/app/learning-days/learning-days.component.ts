@@ -35,6 +35,7 @@ export class LearningDaysComponent implements OnInit {
     //Parsed arrays
     C = [];
     topicNames = [];
+    employeeIds = [];
 
     //Thread status
     thread1 = [];
@@ -51,16 +52,25 @@ export class LearningDaysComponent implements OnInit {
   // Data to be displayed
   learningDays = [];
 
+  currentEmployeeId;
+
   topics = [];
 
   ngOnInit() {
-    this.getBackendData();
+    this.authentication();
+  }
+
+  authentication() {
+    this.httpClient.get(location.origin + '/api/session/me').subscribe(
+      response => {
+        this.currentEmployeeId = response['id'];
+      }
+    ).add(() => {
+      this.getBackendData();
+    });
   }
 
   submit_learning_day() {
-    console.log(this.post_topic);
-    console.log(this.post_date);
-
     var post_topic_id;
 
     this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
@@ -75,8 +85,6 @@ export class LearningDaysComponent implements OnInit {
         this.closeModal('custom-modal-4');
       });
     });
-
-    
   }
 
   // Requesting data from API
@@ -92,14 +100,17 @@ export class LearningDaysComponent implements OnInit {
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
         this.learningDayId = this.linkingData[i]['learningDayId'];
         this.topicId = this.linkingData[i]['topicId'];
-        
+
+        var empId;
         // Getting date
         this.httpClient.get(baseURL + '/api/learningDay/get/' + this.learningDayId).subscribe((response) => {
           this.dayDate = response['date'];
+          empId = response['employeeId'];
         }).add(() => {
-          this.thread1.push(1);
-          this.dayDates.push(this.dayDate);
-          this.getDataForFE(1);
+            this.employeeIds.push(empId);
+            this.thread1.push(1);
+            this.dayDates.push(this.dayDate);
+            this.getDataForFE(1);
         });
 
         // Getting topic name
@@ -122,13 +133,19 @@ export class LearningDaysComponent implements OnInit {
       this.thread1.push(1);
       this.thread2.push(1);
 
+      console.log(Object.keys(this.linkingData).length + ' - length');
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.learningDaysAll.push(
-          {
-            'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
-            'topic': this.topicNames[i]
-          }
-        );
+        if (this.employeeIds[i] == this.currentEmployeeId) {
+          console.log('OK ' + this.employeeIds[i] + ' ' + this.currentEmployeeId + ' ' + this.topicNames[i]);
+          this.learningDaysAll.push(
+            {
+              'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
+              'topic': this.topicNames[i]
+            }
+          );
+        } else {
+          console.log('False ' + this.employeeIds[i] + ' ' + this.currentEmployeeId + ' ' + this.topicNames[i]);
+        }
       }
     }
 
