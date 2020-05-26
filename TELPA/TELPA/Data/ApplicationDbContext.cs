@@ -24,6 +24,7 @@ namespace TELPA.Data
         public DbSet<Limit> Limits { get; set; }
         public DbSet<EmployeesForTopic> EmployeesForTopic { get; set; }
         public DbSet<LeadersForTopic> LeadersForTopic { get; set; }
+        public DbSet<LeadersForLearnedTopic> LeadersForLearnedTopic { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
@@ -213,6 +214,8 @@ namespace TELPA.Data
             modelBuilder.Entity<EmployeesForTopic>()
                 .HasNoKey();
             modelBuilder.Entity<LeadersForTopic>()
+                .HasNoKey();
+            modelBuilder.Entity<LeadersForLearnedTopic>()
                 .HasNoKey();
         }
         #endregion

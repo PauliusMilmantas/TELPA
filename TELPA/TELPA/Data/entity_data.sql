@@ -2,6 +2,7 @@ delete topics;
 delete employees;
 delete learningDays;
 delete learningDayTopics;
+delete learnedTopics;
 
 set identity_insert topics on
 insert into topics (
@@ -451,6 +452,71 @@ values (
   'Some intensive learning',
   7,
   0)
+
+insert into learningDays (
+  id,
+  date,
+  comment,
+  employeeId,
+  version)
+values (
+  11,
+  '2021-01-15',
+  'Some intensive learning',
+  6,
+  0)
+
+insert into learningDays (
+  id,
+  date,
+  comment,
+  employeeId,
+  version)
+values (
+  12,
+  '2021-01-15',
+  'Some intensive learning',
+  7,
+  0)
+
+insert into learningDays (
+  id,
+  date,
+  comment,
+  employeeId,
+  version)
+values (
+  13,
+  '2021-01-15',
+  'Some intensive learning',
+  8,
+  0)
+
+insert into learningDays (
+  id,
+  date,
+  comment,
+  employeeId,
+  version)
+values (
+  14,
+  '2021-01-16',
+  'Some intensive learning',
+  2,
+  0)
+
+insert into learningDays (
+  id,
+  date,
+  comment,
+  employeeId,
+  version)
+values (
+  15,
+  '2021-01-16',
+  'Some intensive learning',
+  3,
+  0)  
 set identity_insert learningDays off;
 
 
@@ -571,9 +637,134 @@ values (
   6,
   10,
   0)
+
+insert into learningDayTopics (
+  id,
+  learningDayId,
+  topicId,
+  version)
+values (
+  11,
+  11,
+  10,
+  0)
+
+insert into learningDayTopics (
+  id,
+  learningDayId,
+  topicId,
+  version)
+values (
+  12,
+  12,
+  10,
+  0)
+
+insert into learningDayTopics (
+  id,
+  learningDayId,
+  topicId,
+  version)
+values (
+  13,
+  13,
+  10,
+  0)
+
+insert into learningDayTopics (
+  id,
+  learningDayId,
+  topicId,
+  version)
+values (
+  14,
+  14,
+  10,
+  0)
+
+insert into learningDayTopics (
+  id,
+  learningDayId,
+  topicId,
+  version)
+values (
+  15,
+  15,
+  10,
+  0)
 set identity_insert learningDayTopics off;
+
+
+
+
+
+
+
+
+
+
+set identity_insert learnedTopics on;
+insert into learnedTopics (
+  id,
+  topicId,
+  employeeId,
+  version)
+values (
+  1,
+  10,
+  6,
+  0)
+
+insert into learnedTopics (
+  id,
+  topicId,
+  employeeId,
+  version)
+values (
+  2,
+  10,
+  5,
+  0)
+
+insert into learnedTopics (
+  id,
+  topicId,
+  employeeId,
+  version)
+values (
+  3,
+  10,
+  7,
+  0)
+
+insert into learnedTopics (
+  id,
+  topicId,
+  employeeId,
+  version)
+values (
+  4,
+  10,
+  2,
+  0)
+
+insert into learnedTopics (
+  id,
+  topicId,
+  employeeId,
+  version)
+values (
+  5,
+  2,
+  2,
+  0)
+
+set identity_insert learnedTopics off;
+
+
 
 select * from topics;
 select * from employees;
 select * from learningDays order by employeeId;
 select * from learningDayTopics;
+select * from learnedTopics;
