@@ -4,6 +4,8 @@ import { EmployeeData } from './data/data';
 import { ModalService } from '../__modal';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { SessionAPIService } from '../api/session-api.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -16,49 +18,71 @@ export class EmployeeManagementComponent implements OnInit {
   columns: string[];
   private fieldArray: Array<any> = [];
   private newAttribute: any = {};
+  private changeLeader: any = {};
+  //employee lentoms
   employeeDataAll = EmployeeDataList;
   employeeData = [];
+  employeeData1 = [];
+  //subordinate lentoms
+  subordinateData = [];
+  fullSubordinateData = [];
+  //leaderiu lentoms
   leaderData = [];
   fullLeaderData = [];
+  unasignedLeaderData = [];
+  fullUnasignedLeaderData = [];
 
   linkingData;
   linkingLeaderData;
-
+  //employee
   employeeName;
   employeeEmail;
   employeeRole;
   employeeLeaderId;
   employeeLeader;
+  employeeLeaderName;
+  //leader
   leaderName;
   leaderId;
+  //subordinates
+  subordinateName;
+  subordinateEmail;
+  subordinateRole;
+  subordinateLeaderName;
+  subordinateLeaderId;
 
-  constructor(private modalService: ModalService, private httpClient: HttpClient) { }
+  mySession;
+  e;
+
+  constructor(private modalService: ModalService, private httpClient: HttpClient, private sessionAPIService: SessionAPIService) { }
 
   ngOnInit() {
     this.getBackendData();
-    this.getBackendLeaderData();
     this.getLeaderData();
+    //this.getBackendLeaderData();
+    this.getSubordinateData();
   }
-
   getBackendData() {
     console.log(location.origin);
     this.employeeDataAll = [];
     this.employeeData = [];
-    this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
+    this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders').subscribe(
       data => {
         this.linkingData = data;
       }
     ).add(() => {
       for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.employeeName = this.linkingData[i]['name'];
-        this.employeeEmail = this.linkingData[i]['email'];
-        this.employeeRole = this.linkingData[i]['role'];
+        this.employeeName = this.linkingData[i]['employeeName'];
+        this.employeeEmail = this.linkingData[i]['employeeEmail'];
+        this.employeeRole = this.linkingData[i]['employeeRole'];
         this.employeeLeaderId = this.linkingData[i]['leaderId'];
+        this.employeeLeaderName = this.linkingData[i]['leaderName'];
         this.employeeData.push({
-          'name': this.employeeName,
-          'email': this.employeeEmail,
-          'role': this.employeeRole,
-          'leaderName': this.employeeLeaderId
+          'employeeName': this.employeeName,
+          'employeeEmail': this.employeeEmail,
+          'employeeRole': this.employeeRole,
+          'leaderId': this.employeeLeaderId,
+          'leaderName': this.employeeLeaderName
         })
 
       }
@@ -92,21 +116,6 @@ export class EmployeeManagementComponent implements OnInit {
       }
     });
   }
-  containsElement(contains: boolean, leaderId: number) {
-    console.log("containsElement", leaderId);
-    for (let i = 0; i < this.leaderData.length; i++) {
-      if (this.leaderData[i]['leader'] == leaderId) {
-        contains = true;
-        return contains;
-      }
-      else {
-        contains = false;
-        console.log("does not contain", leaderId);
-      }
-    }
-    return contains;
-  }
-
   getLeaderData() {
     this.fullLeaderData = [];
     this.httpClient.get(location.origin + '/api/employee/get/all/leaders').subscribe(
@@ -125,6 +134,35 @@ export class EmployeeManagementComponent implements OnInit {
       })
   }
 
+  getSubordinateData() {
+    this.subordinateData = [];
+    //id gaunamas is SessionApiController
+    this.sessionAPIService.me().subscribe((e) => {
+      this.e = e;
+    }).add(() => {
+      this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/' + this.e.id).subscribe(
+        data => {
+          this.linkingData = data;
+        }).add(() => {
+          for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+            this.subordinateName = this.linkingData[i]['id'];
+            this.subordinateEmail = this.linkingData[i]['email'];
+            this.subordinateRole = this.linkingData[i]['role'];
+            this.subordinateLeaderId = this.linkingData[i]['leaderId'];
+
+            this.subordinateData.push({
+              'name': this.subordinateName,
+              'email': this.subordinateEmail,
+              'role': this.subordinateRole,
+              'leaderId': this.subordinateLeaderId
+            });
+          }
+        });
+      console.log("subordinate data:", this.subordinateData);
+      console.log("session ID", this.e.id);
+    });
+  }
+
   selectTeam(id: number) {
     console.log("id yra", id);
     this.employeeDataAll = [];
@@ -133,34 +171,47 @@ export class EmployeeManagementComponent implements OnInit {
       this.getBackendData();
     }
     else {
-      this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
+      this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders/').subscribe(
         data => {
           this.linkingData = data;
         }
       ).add(() => {
+        console.log("e.id:", this.e.id);
         for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-          this.employeeName = this.linkingData[i]['name'];
-          this.employeeEmail = this.linkingData[i]['email'];
-          this.employeeRole = this.linkingData[i]['role'];
+          this.employeeName = this.linkingData[i]['employeeName'];
+          this.employeeEmail = this.linkingData[i]['employeeEmail'];
+          this.employeeRole = this.linkingData[i]['employeeRole'];
           this.employeeLeaderId = this.linkingData[i]['leaderId'];
+          this.employeeLeaderName = this.linkingData[i]['leaderName'];
           if (this.linkingData[i]['leaderId'] == id) {
             this.employeeData.push({
-              'name': this.employeeName,
-              'email': this.employeeEmail,
-              'role': this.employeeRole,
-              'leaderName': this.employeeLeaderId
+              'employeeName': this.employeeName,
+              'employeeEmail': this.employeeEmail,
+              'employeeRole': this.employeeRole,
+              'leaderId': this.employeeLeaderId,
+              'leaderName': this.employeeLeaderName
             })
-
           }
         }
       });
     }
+    console.log(id, this.employeeData1);
   }
 
   addEmployeeBtnClick(event) {
 
   }
+  onChange(leaderId: number) {
 
+  }
+
+  onSave() {
+
+  }
+
+  sendData(id: number) {
+
+  }
   //Modal window control
   openModal(id: string) {
 
@@ -171,41 +222,45 @@ export class EmployeeManagementComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  addFieldValue(id: string, name: string, email: string, role: string, leaderName: string) {
+  sendInvite(id: string, name: string, email: string, leaderName: string) {
     let leaderId: number;
     this.leaderName = leaderName;
     //this.fieldArray.push(this.newAttribute)
     console.log(name);
     console.log(this.leaderName);
     console.log("length", this.fullLeaderData.length);
-    for (let i = 0; i < this.fullLeaderData.length; i++) {
-      console.log(this.fullLeaderData[i]['leaderName'], this.leaderName);
-      if (this.fullLeaderData[i]['leaderName'] == this.leaderName) {
-        leaderId = this.fullLeaderData[i]['leaderId'];
+    this.sessionAPIService.me().subscribe(e => {
+      this.e = e;
+    }).add(() => {
+      for (let i = 0; i < this.fullLeaderData.length; i++) {
+        console.log(this.fullLeaderData[i]['leaderName'], this.leaderName);
+        if (this.fullLeaderData[i]['leaderName'] == this.leaderName) {
+          leaderId = this.fullLeaderData[i]['leaderId'];
+        }
       }
-    }
-    this.newAttribute = {};
-    console.log(name, email, role, leaderId);
-    this.httpClient.post(location.origin + "/api/employee/create", {
-      "name": name,
-      "email": email,
-      "role": role,
-      "passwordHash": "slaptazodis",
-      "leaderId": leaderId
-    }).subscribe(
-      (val) => {
-        console.log("POST call successful value returned in body",
-          val);
-      },
-      response => {
-        console.log("POST call in error", response);
-      },
-      () => {
-        console.log("The POST observable is now completed.");
-      });;
-   
+      this.newAttribute = {};
+      console.log(name, email, leaderId);
+      this.httpClient.post(location.origin + "/api/invite/create", {
+        "name": name,
+        "email": email,
+        "inviterId": this.e.id,
+        "expiryDate": "06/06/2020",
+        "link": "whatever.com"
+      }).subscribe(
+        (val) => {
+          console.log("POST call successful value returned in body",
+            val);
+        },
+        response => {
+          console.log("POST call in error", response);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });;
 
-    this.modalService.close(id);
+
+      this.modalService.close(id);
+    });
   }
 
   deleteFieldValue(index) {

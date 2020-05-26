@@ -31,7 +31,7 @@ namespace TELPA.Components
             {
                 while (true)
                 {
-                    byte[] randomData = new byte[256];
+                    byte[] randomData = new byte[64];
                     rng.GetBytes(randomData);
                     string id = Convert.ToBase64String(randomData);
                     if (GetSession(id) == null)
@@ -81,7 +81,7 @@ namespace TELPA.Components
             DateTime now = DateTime.Now;
             foreach (Session session in sessions.Values)
             {
-                if (DateTime.Compare(now, session.ExpiryDate) > 0)
+                if (DateTime.Compare(now, session.ExpiryDate) <= 0)
                 {
                     sessions.TryRemove(session.Id, out _);
                 }

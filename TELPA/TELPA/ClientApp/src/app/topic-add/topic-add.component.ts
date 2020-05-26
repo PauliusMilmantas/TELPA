@@ -20,13 +20,13 @@ export class TopicAddComponent implements OnInit {
 
   topicLinksToAdd = [];
 
-  adding = true;
+  hideMessageBox = true;
   isEmpty = [false];
 
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.adding = true;
+    this.hideMessageBox = true;
     this.resetForm();
     this.getBackendData(false);
   }
@@ -90,7 +90,7 @@ export class TopicAddComponent implements OnInit {
     }
 
     if (submitted) {
-      this.adding = false;
+      this.hideMessageBox = false;
       this.resetForm();
     }
   }

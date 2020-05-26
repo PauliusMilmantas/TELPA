@@ -162,6 +162,7 @@ namespace TELPA.Controllers
                     emp.id employeeId,
                     emp.name employeeName,
                     emp.email employeeEmail,
+                    emp.role employeeRole,
                     ldr.id leaderId,
                     ldr.name leaderName,
                     ldr.email leaderEmail
