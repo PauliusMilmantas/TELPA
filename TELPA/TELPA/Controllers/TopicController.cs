@@ -132,6 +132,9 @@ namespace TELPA.Controllers
             else
             {
                 return NotFound("GET: Topic with ID = " + id + " was not found.");
+            }
+        }
+
         [Route("get/last")]
         public IActionResult getLastTopicId()
         {

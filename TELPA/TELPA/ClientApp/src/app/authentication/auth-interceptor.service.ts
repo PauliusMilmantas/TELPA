@@ -28,7 +28,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 403 && !request.url.includes("ping")) {
+        if (err.status === 403 && !request.url.includes("/ping")) {
           this.router.navigate([""]);
           return throwError("authentication required");
         }
