@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
+    "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
+    "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "projectUniqueName": "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
         "projectName": "TELPA.Extensions.Logic",
-        "projectPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
-        "packagesPath": "C:\\Users\\Evaldas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
+        "projectPath": "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "packagesPath": "C:\\Users\\maciu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\maciu\\Documents\\Programs\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Evaldas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maciu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -50,6 +47,14 @@
               "version": "[2.2.5, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
               "version": "[3.1.4, )"
             }
