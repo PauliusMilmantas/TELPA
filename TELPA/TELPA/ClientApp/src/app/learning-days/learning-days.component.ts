@@ -35,6 +35,7 @@ export class LearningDaysComponent implements OnInit {
     //Parsed arrays
     C = [];
     topicNames = [];
+    employeeIds = [];
 
     //Thread status
     thread1 = [];
@@ -51,16 +52,25 @@ export class LearningDaysComponent implements OnInit {
   // Data to be displayed
   learningDays = [];
 
+  currentEmployeeId;
+
   topics = [];
 
   ngOnInit() {
-    this.getBackendData();
+    this.authentication();
+  }
+
+  authentication() {
+    this.httpClient.get(location.origin + '/api/session/me').subscribe(
+      response => {
+        this.currentEmployeeId = response['id'];
+      }
+    ).add(() => {
+      this.getBackendData();
+    });
   }
 
   submit_learning_day() {
-    console.log(this.post_topic);
-    console.log(this.post_date);
-
     var post_topic_id;
 
     this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
@@ -70,13 +80,11 @@ export class LearningDaysComponent implements OnInit {
         }
       }
     }).add(() => {
-      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/1/1/' + post_topic_id).subscribe(response2 => {
+      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/' + this.currentEmployeeId + '/1/' + post_topic_id).subscribe(response2 => {
       }).add(() => {
         this.closeModal('custom-modal-4');
       });
     });
-
-    
   }
 
   // Requesting data from API
@@ -92,23 +100,26 @@ export class LearningDaysComponent implements OnInit {
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
         this.learningDayId = this.linkingData[i]['learningDayId'];
         this.topicId = this.linkingData[i]['topicId'];
-        
+
+        var empId;
         // Getting date
         this.httpClient.get(baseURL + '/api/learningDay/get/' + this.learningDayId).subscribe((response) => {
           this.dayDate = response['date'];
+          empId = response['employeeId'];
         }).add(() => {
-          this.thread1.push(1);
-          this.dayDates.push(this.dayDate);
-          this.getDataForFE(1);
-        });
+            this.employeeIds.push(empId);
+            this.thread1.push(1);
+            this.dayDates.push(this.dayDate);
+            this.getDataForFE(1);
 
-        // Getting topic name
-        this.httpClient.get(baseURL + '/api/topic/get/' + this.topicId).subscribe((response) => {
-          this.topicName = response['name'];
-        }).add(() => {
-          this.thread2.push(1);
-          this.topicNames.push(this.topicName);
-          this.getDataForFE(1);
+            // Getting topic name
+            this.httpClient.get(baseURL + '/api/topic/get/' + this.topicId).subscribe((response) => {
+              this.topicName = response['name'];
+            }).add(() => {
+              this.thread2.push(1);
+              this.topicNames.push(this.topicName);
+              this.getDataForFE(1);
+            });
         });
       }
     });
@@ -121,14 +132,15 @@ export class LearningDaysComponent implements OnInit {
       && this.topicNames.length == Object.keys(this.linkingData).length && this.dayDates.length == Object.keys(this.linkingData).length) {
       this.thread1.push(1);
       this.thread2.push(1);
-
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.learningDaysAll.push(
-          {
-            'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
-            'topic': this.topicNames[i]
-          }
-        );
+        if (this.employeeIds[i] == this.currentEmployeeId) {
+          this.learningDaysAll.push(
+            {
+              'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
+              'topic': this.topicNames[i]
+            }
+          );
+        }
       }
     }
 
