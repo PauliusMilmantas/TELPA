@@ -9,15 +9,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using TELPA.Components;
+using Microsoft.Extensions.Options;
 using TELPA.Data;
 
 namespace TELPA
 {
     public class Startup
     {
+        private string ContentRoot;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ContentRoot = configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
         }
 
         public IConfiguration Configuration { get; }
@@ -25,9 +30,12 @@ namespace TELPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            if (connectionString.Contains("%CONTENT_ROOT%"))
+            {
+                connectionString = connectionString.Replace("%CONTENT_ROOT%", ContentRoot);
+            }
+            services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
             //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -37,6 +45,12 @@ namespace TELPA
 
             //services.AddAuthentication()
             //    .AddIdentityServerJwt();
+            services.AddAuthentication("NoOpAuthentication")
+                .AddScheme<NoOpAuthenticationOptions, NoOpAuthenticationHandler>("NoOpAuthentication", options => { });
+            services.AddSingleton<IPostConfigureOptions<NoOpAuthenticationOptions>, NoOpAuthenticationPostConfigureOptions>();
+
+            services.AddSingleton<ISessionService, SessionService>();
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
 
             //Assembly[] assemblies = new Assembly[] { Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "TELPA.Extensions.Logic.dll") };
             Assembly[] assemblies =
@@ -94,6 +108,15 @@ namespace TELPA
             }
 
             app.UseRouting();
+
+            app.Use((context, next) =>
+            {
+                if (context.Request.Headers.ContainsKey("X-SessionToken"))
+                {
+                    context.Response.Headers["X-SessionToken"] = context.Request.Headers["X-SessionToken"];
+                }
+                return next.Invoke();
+            });
 
             app.UseAuthentication();
             //app.UseIdentityServer();

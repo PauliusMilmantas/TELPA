@@ -29,10 +29,29 @@
             <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/counter']">Counter</a>
+            <a class="nav-link" [routerLink]="['/employee-management']"
+              >Employee management</a
+            >
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Topic</a
+            >
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/topic-add']">Add</a>
+              <a class="dropdown-item" [routerLink]="['/topic-edit']">Edit</a>
+            </div>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
+            <a class="nav-link" [routerLink]="['/recommendations']"
+              >Recommendations</a
+            >
           </li>
         </ul>
       </div>

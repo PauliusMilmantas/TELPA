@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,10 +15,13 @@ namespace TELPA.Models
         public int LearningDayId { get; set; }
         [Required]
         public int TopicId { get; set; }
+        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 
+        [JsonIgnore]
         public virtual LearningDay LearningDay { get; set; }
+        [JsonIgnore]
         public virtual Topic Topic { get; set; }
         
     }

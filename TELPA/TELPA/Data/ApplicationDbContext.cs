@@ -22,6 +22,8 @@ namespace TELPA.Data
         public DbSet<LearningDayTopic> LearningDayTopics { get; set; }
         public DbSet<LearningDayLink> LearningDayLinks { get; set; }
         public DbSet<Limit> Limits { get; set; }
+        public DbSet<EmployeesForTopic> EmployeesForTopic { get; set; }
+        public DbSet<LeadersForTopic> LeadersForTopic { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
@@ -95,9 +97,6 @@ namespace TELPA.Data
             modelBuilder.Entity<TopicLink>()
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
-            modelBuilder.Entity<TopicLink>()
-                .HasIndex(e => e.TopicId)
-                .IsUnique();
             modelBuilder.Entity<TopicLink>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
@@ -188,9 +187,6 @@ namespace TELPA.Data
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<LearningDayLink>()
-                .HasIndex(e => e.LearningDayId)
-                .IsUnique();
-            modelBuilder.Entity<LearningDayLink>()
                 .Property(e => e.Version)
                 .HasDefaultValue(0);
             modelBuilder.Entity<LearningDayLink>()
@@ -213,6 +209,11 @@ namespace TELPA.Data
                 .HasOne(e => e.Employee)
                 .WithMany(e => e.Limits)
                 .HasForeignKey(e => e.EmployeeId);
+
+            modelBuilder.Entity<EmployeesForTopic>()
+                .HasNoKey();
+            modelBuilder.Entity<LeadersForTopic>()
+                .HasNoKey();
         }
         #endregion
     }
