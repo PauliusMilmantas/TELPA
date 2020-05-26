@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,9 +21,11 @@ namespace TELPA.Models
         public int MaxConsecutiveLearningDays { get; set; }
         [Required]
         public int MaxTotalLearningDays { get; set; }
+        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 
+        [JsonIgnore]
         public virtual Employee Employee { get; set; }
 
         private bool RepeatingDateLessThan(string x, string y)

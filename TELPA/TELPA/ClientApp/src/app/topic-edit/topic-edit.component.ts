@@ -1,43 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-topic-edit',
-  templateUrl: './topic-edit.component.html',
-  styleUrls: ['./topic-edit.component.css']
+  selector: "app-topic-edit",
+  templateUrl: "./topic-edit.component.html",
+  styleUrls: ["./topic-edit.component.css"],
 })
 export class TopicEditComponent implements OnInit {
-
   baseUrl = location.origin;
 
   private apiTopics = [];
   topics = [];
 
   topicToModify = {
-    'id': null,
-    'name': '',
-    'description': '',
-    'parentTopicId': null
+    id: null,
+    name: "",
+    description: "",
+    parentTopicId: null,
   };
 
-  topicLinksToModify = [{
-    'id': null,
-    'topicId': null,
-    'link': ''
-  }];
+  topicLinksToModify = [
+    {
+      id: null,
+      topicId: null,
+      link: "",
+    },
+  ];
 
   topicTest;
 
   hideForm = true;
   isEmpty = [false];
- 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   ngOnInit() {
     this.hideForm = true;
-    this.getBackendData()
+    this.getBackendData();
   }
 
   // Requesting data from API
@@ -45,55 +44,50 @@ export class TopicEditComponent implements OnInit {
     this.apiTopics = [];
     this.topics = [];
 
-    this.httpClient.get(this.baseUrl + '/api/topic/get/all').subscribe(
-      data => {
+    this.httpClient
+      .get(this.baseUrl + "/api/topic/get/all")
+      .subscribe((data) => {
         for (let i = 0; i < Object.keys(data).length; i++) {
-          this.apiTopics.push(
-            {
-              'id': data[i]['id'],
-              'name': data[i]['name'],
-              'description': data[i]['description'],
-              'parentTopicId': data[i]['parentTopicId']
-            }
-          );
+          this.apiTopics.push({
+            id: data[i]["id"],
+            name: data[i]["name"],
+            description: data[i]["description"],
+            parentTopicId: data[i]["parentTopicId"],
+          });
         }
-      }
-    ).add(() => {
-      this.parseTopics();
-    });
+      })
+      .add(() => {
+        this.parseTopics();
+      });
   }
 
   parseTopics() {
-
     let index = 1;
     for (let i = 0; i < this.apiTopics.length; i++) {
-      if (this.apiTopics[i]['parentTopicId'] == null) {
-        this.topics.push(
-          {
-            'id': this.apiTopics[i]['id'],
-            'index': index,
-            'name': this.apiTopics[i]['name'],
-            'subtopicAmount': 0,
-            'level': 0
-          }
-        );
+      if (this.apiTopics[i]["parentTopicId"] == null) {
+        this.topics.push({
+          id: this.apiTopics[i]["id"],
+          index: index,
+          name: this.apiTopics[i]["name"],
+          subtopicAmount: 0,
+          level: 0,
+        });
         index++;
       }
     }
 
     for (let i = 0; i < this.topics.length; i++) {
       for (let j = 0; j < this.apiTopics.length; j++) {
-        if (this.topics[i]['id'] == this.apiTopics[j]['parentTopicId']) {
-          this.topics[i]['subtopicAmount']++;
-          this.topics.splice(i + this.topics[i]['subtopicAmount'], 0,
-            {
-              'id': this.apiTopics[j]['id'],
-              'index': this.topics[i]['index'] + '.' + this.topics[i]['subtopicAmount'],
-              'name': this.apiTopics[j]['name'],
-              'subtopicAmount': 0,
-              'level': this.topics[i]['level'] + 1
-            }
-          );
+        if (this.topics[i]["id"] == this.apiTopics[j]["parentTopicId"]) {
+          this.topics[i]["subtopicAmount"]++;
+          this.topics.splice(i + this.topics[i]["subtopicAmount"], 0, {
+            id: this.apiTopics[j]["id"],
+            index:
+              this.topics[i]["index"] + "." + this.topics[i]["subtopicAmount"],
+            name: this.apiTopics[j]["name"],
+            subtopicAmount: 0,
+            level: this.topics[i]["level"] + 1,
+          });
         }
       }
     }
@@ -102,7 +96,7 @@ export class TopicEditComponent implements OnInit {
   onTopicChange() {
     this.hideForm = true;
 
-    if (this.topicToModify['id'] != 'null') {
+    if (this.topicToModify["id"] != "null") {
       this.getTopicData();
     }
   }
@@ -118,15 +112,18 @@ export class TopicEditComponent implements OnInit {
           'description': data['description'],
           'parentTopicId': data['parentTopicId']
         }
-      }
-    ).add(() => {
-      this.getTopicLinks();
-    });
+      })
+      .add(() => {
+        this.getTopicLinks();
+      });
   }
 
   getTopicLinks() {
-    this.httpClient.get(this.baseUrl + '/api/topicLink/getByTopic/' + this.topicToModify['id']).subscribe(
-      data => {
+    this.httpClient
+      .get(
+        this.baseUrl + "/api/topicLink/getByTopic/" + this.topicToModify["id"]
+      )
+      .subscribe((data) => {
         if (Object.keys(data).length > 0) {
           this.topicLinksToModify = [];
           this.isEmpty = [];
@@ -134,18 +131,20 @@ export class TopicEditComponent implements OnInit {
 
         for (let i = 0; i < Object.keys(data).length; i++) {
           this.isEmpty.push(false);
-          this.topicLinksToModify.push(
-            {
-              'id': data[i]['id'],
-              'topicId': data[i]['topicId'],
-              'link': data[i]['link']
-            });
+          this.topicLinksToModify.push({
+            id: data[i]["id"],
+            topicId: data[i]["topicId"],
+            link: data[i]["link"],
+          });
         }
-        this.onLinkChange(this.topicLinksToModify[Object.keys(data).length - 1]['link'], Object.keys(data).length - 1);
-      }
-    ).add(() => {
-      this.hideForm = false;
-    });
+        this.onLinkChange(
+          this.topicLinksToModify[Object.keys(data).length - 1]["link"],
+          Object.keys(data).length - 1
+        );
+      })
+      .add(() => {
+        this.hideForm = false;
+      });
   }
 
   onSubmit() {
@@ -232,18 +231,21 @@ export class TopicEditComponent implements OnInit {
   }
 
   onLinkChange(value, place) {
-    this.topicLinksToModify[place]['link'] = value;
-    if (place == (this.topicLinksToModify.length - 1) && this.topicLinksToModify[place]['link'].length != 0) {
-      this.topicLinksToModify.push(
-        {
-          'id': null,
-          'topicId': null,
-          'link': ''
-        }
-      );
+    this.topicLinksToModify[place]["link"] = value;
+    if (
+      place == this.topicLinksToModify.length - 1 &&
+      this.topicLinksToModify[place]["link"].length != 0
+    ) {
+      this.topicLinksToModify.push({
+        id: null,
+        topicId: null,
+        link: "",
+      });
       this.isEmpty.push(false);
-    }
-    else if (place != (this.topicLinksToModify.length - 1) && this.topicLinksToModify[place]['link'].length == 0) {
+    } else if (
+      place != this.topicLinksToModify.length - 1 &&
+      this.topicLinksToModify[place]["link"].length == 0
+    ) {
       this.isEmpty[place] = true;
     }
   }

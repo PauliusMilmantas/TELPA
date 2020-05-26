@@ -18,14 +18,14 @@ namespace TELPA.Controllers
         }
 
         [HttpGet("ping")]
-        public IActionResult ping()
+        public IActionResult Ping()
         {
             return Json(Ok("TopicController online"));
         }
 
         [HttpGet]
         [Route("get/all")]
-        public IActionResult getAll()
+        public IActionResult GetAll()
         {
             IList<Topic> topics = db.Topics.ToList<Topic>();
 
@@ -41,7 +41,7 @@ namespace TELPA.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
-        public IActionResult getTopic(int id)
+        public IActionResult GetTopic(int id)
         {
             Topic topic = db.Topics.Find(id);
 
@@ -56,6 +56,85 @@ namespace TELPA.Controllers
         }
 
         [HttpGet]
+        [Route("get/{id}/subtopics")]
+        public IActionResult GetTopicSubtopics(int id)
+        {
+            Topic topic = db.Topics.Find(id);
+
+            if (topic != null)
+            {
+                return Json(topic.Subtopics);
+            }
+            else
+            {
+                return NotFound("GET: Topic with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/topicLinks")]
+        public IActionResult GetTopicTopicLinks(int id)
+        {
+            Topic topic = db.Topics.Find(id);
+
+            if (topic != null)
+            {
+                return Json(topic.TopicLinks);
+            }
+            else
+            {
+                return NotFound("GET: Topic with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/learnedTopics")]
+        public IActionResult GetTopicLearnedTopics(int id)
+        {
+            Topic topic = db.Topics.Find(id);
+
+            if (topic != null)
+            {
+                return Json(topic.LearnedTopics);
+            }
+            else
+            {
+                return NotFound("GET: Topic with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/recommendedTopics")]
+        public IActionResult GetTopicRecommendedTopics(int id)
+        {
+            Topic topic = db.Topics.Find(id);
+
+            if (topic != null)
+            {
+                return Json(topic.RecommendedTopics);
+            }
+            else
+            {
+                return NotFound("GET: Topic with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/{id}/learningDayTopics")]
+        public IActionResult GetTopicLearningDayTopics(int id)
+        {
+            Topic topic = db.Topics.Find(id);
+
+            if (topic != null)
+            {
+                return Json(topic.LearningDayTopics);
+            }
+            else
+            {
+                return NotFound("GET: Topic with ID = " + id + " was not found.");
+            }
+        }
+
         [Route("get/last")]
         public IActionResult getLastTopicId()
         {
@@ -72,7 +151,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult createTopic([FromBody] Topic topic)
+        public IActionResult CreateTopic([FromBody] Topic topic)
         {
             if (topic != null)
             {
@@ -87,7 +166,7 @@ namespace TELPA.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult updateTopic([FromBody] Topic topic)
+        public IActionResult UpdateTopic([FromBody] Topic topic)
         {
             if (topic != null)
             {
@@ -101,9 +180,9 @@ namespace TELPA.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("delete/{id}")]
-        public IActionResult deleteTopic(int id)
+        public IActionResult DeleteTopic(int id)
         {
             try
             {
