@@ -18,7 +18,6 @@ namespace TELPA.Models
         [Column(TypeName = "nvarchar(MAX)")]
         public string Description { get; set; }
         public int? ParentTopicId { get; set; }
-        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 

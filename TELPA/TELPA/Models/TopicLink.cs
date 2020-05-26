@@ -15,7 +15,6 @@ namespace TELPA.Models
         public int TopicId { get; set; }
         [Required]
         public string Link { get; set; }
-        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 
