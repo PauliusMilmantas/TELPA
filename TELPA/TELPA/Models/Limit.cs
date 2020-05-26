@@ -21,7 +21,6 @@ namespace TELPA.Models
         public int MaxConsecutiveLearningDays { get; set; }
         [Required]
         public int MaxTotalLearningDays { get; set; }
-        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 

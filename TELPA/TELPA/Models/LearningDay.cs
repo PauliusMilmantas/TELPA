@@ -19,7 +19,6 @@ namespace TELPA.Models
         public string Comment { get; set; }
         [Required]
         public int EmployeeId { get; set; }
-        [JsonIgnore]
         [ConcurrencyCheck]
         public long Version { get; set; }
 
