@@ -3744,19 +3744,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\grici\\.nuget\\packages\\": {}
+    "C:\\Users\\arnas\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\grici\\Documents\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+      "projectUniqueName": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
       "projectName": "TELPA.Extensions.Logic",
-      "projectPath": "C:\\Users\\grici\\Documents\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
-      "packagesPath": "C:\\Users\\grici\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\grici\\Documents\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
+      "projectPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+      "packagesPath": "C:\\Users\\arnas\\.nuget\\packages\\",
+      "outputPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\grici\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\arnas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
