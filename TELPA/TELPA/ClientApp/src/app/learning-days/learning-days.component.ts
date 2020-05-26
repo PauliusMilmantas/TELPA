@@ -80,7 +80,7 @@ export class LearningDaysComponent implements OnInit {
         }
       }
     }).add(() => {
-      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/1/1/' + post_topic_id).subscribe(response2 => {
+      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/' + this.currentEmployeeId + '/1/' + post_topic_id).subscribe(response2 => {
       }).add(() => {
         this.closeModal('custom-modal-4');
       });
@@ -111,15 +111,15 @@ export class LearningDaysComponent implements OnInit {
             this.thread1.push(1);
             this.dayDates.push(this.dayDate);
             this.getDataForFE(1);
-        });
 
-        // Getting topic name
-        this.httpClient.get(baseURL + '/api/topic/get/' + this.topicId).subscribe((response) => {
-          this.topicName = response['name'];
-        }).add(() => {
-          this.thread2.push(1);
-          this.topicNames.push(this.topicName);
-          this.getDataForFE(1);
+            // Getting topic name
+            this.httpClient.get(baseURL + '/api/topic/get/' + this.topicId).subscribe((response) => {
+              this.topicName = response['name'];
+            }).add(() => {
+              this.thread2.push(1);
+              this.topicNames.push(this.topicName);
+              this.getDataForFE(1);
+            });
         });
       }
     });
