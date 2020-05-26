@@ -110,14 +110,13 @@ export class TopicEditComponent implements OnInit {
   getTopicData() {
     this.httpClient.get(this.baseUrl + '/api/topic/get/' + this.topicToModify['id']).subscribe(
       data => {
-        for (let i = 0; i < Object.keys(data).length; i++) {
-          this.topicToModify =
-          {
-            'id': data['id'],
-            'name': data['name'],
-            'description': data['description'],
-            'parentTopicId': data['parentTopicId']
-          }
+        console.log(data);
+        this.topicToModify =
+        {
+          'id': data['id'],
+          'name': data['name'],
+          'description': data['description'],
+          'parentTopicId': data['parentTopicId']
         }
       }
     ).add(() => {
@@ -150,11 +149,15 @@ export class TopicEditComponent implements OnInit {
   }
 
   onSubmit() {
+    this.updateTopic();
+  }
+
+  updateTopic() {
     this.httpClient.put(this.baseUrl + "/api/topic/update", this.topicToModify
     ).subscribe(
       (val) => {
         console.log("PUT call successful value returned in body", val);
-        this.updateTopicLinks();
+        this.editTopicLinks();
       },
       response => {
         console.log("PUT call in error", response);
@@ -165,49 +168,69 @@ export class TopicEditComponent implements OnInit {
     );;
   }
 
-  updateTopicLinks() {
-  /* for (let i = 0; i < this.topicLinksToModify.length; i++) {
-if (this.topicLinksToModify[i]['link'] != '') {
-if (this.topicLinksToModify[i]['id'] != null) {
- console.log("update");
- console.log(this.topicLinksToModify[i]);
- this.httpClient.put(this.baseUrl + "/api/topicLink/update", this.topicLinksToModify[i]
- ).subscribe(
-   (val) => {
-     console.log("POST call successful value returned in body",
-       val);
-   },
-   response => {
-     console.log("POST call in error", response);
-   },
-   () => {
-     console.log("The POST observable is now completed.");
-   }
- );;
-}
-else {
- this.topicLinksToModify[i]['topicId'] = this.topicToModify['id'];
- console.log("post");
- console.log(this.topicLinksToModify[i]);
- this.httpClient.post(this.baseUrl + "/api/topicLink/create", this.topicLinksToModify[i]
- ).subscribe(
-   (val) => {
-     console.log("POST call successful value returned in body",
-       val);
-   },
-   response => {
-     console.log("POST call in error", response);
-   },
-   () => {
-     console.log("The POST observable is now completed.");
-   }
- );;
-}
-}
-}*/
+  editTopicLinks() {
+    for (let i = 0; i < this.topicLinksToModify.length; i++) {
+      if (this.topicLinksToModify[i]['link'] != '') {
+        if (this.topicLinksToModify[i]['id'] != null) {
+          this.updateTopicLink(this.topicLinksToModify[i]);
+        } else {
+          this.createTopicLink(this.topicLinksToModify[i]);
+        }
+      }
+      else if (this.topicLinksToModify[i]['id'] != null) {
+        this.deleteTopicLink(this.topicLinksToModify[i]);
+      }
+    }
   }
 
-  
+  updateTopicLink(topicLinkToUpdate) {
+    this.httpClient.put(this.baseUrl + "/api/topicLink/update", topicLinkToUpdate
+    ).subscribe(
+      (val) => {
+        console.log("PUT call successful value returned in body", val);
+      },
+      response => {
+        console.log("PUT call in error", response);
+      },
+      () => {
+        console.log("The PUT observable is now completed.");
+      }
+    );;
+  }
+
+  createTopicLink(topicLinkToCreate) {
+    console.log("veeeeiekiaaaa");
+    topicLinkToCreate['topicId'] = this.topicToModify['id'];
+    console.log(topicLinkToCreate);
+    /*this.httpClient.post(this.baseUrl + "/api/topicLink/create", topicLinkToCreate
+    ).subscribe(
+      (val) => {
+        console.log("POST call successful value returned in body", val);
+      },
+      response => {
+        console.log("POST call in error", response);
+      },
+      () => {
+        console.log("The POST observable is now completed.");
+      }
+    );;*/
+  }
+
+  deleteTopicLink(topicLinkToRemove) {
+    this.httpClient.delete(this.baseUrl + "/api/topicLink/delete/" + topicLinkToRemove['id']
+    ).subscribe(
+      (val) => {
+        console.log("DELETE call successful value returned in body", val);
+      },
+      response => {
+        console.log("DELETE call in error", response);
+      },
+      () => {
+        console.log("The DELETE observable is now completed.");
+      }
+    );;
+  }
+
   onLinkChange(value, place) {
     this.topicLinksToModify[place]['link'] = value;
     if (place == (this.topicLinksToModify.length - 1) && this.topicLinksToModify[place]['link'].length != 0) {
