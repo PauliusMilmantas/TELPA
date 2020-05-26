@@ -5,9 +5,9 @@
 
     <form (ngSubmit)="onSubmit()" #addTopic="ngForm">
 
-      <div [hidden]="adding" class="alert alert-success alert-dismissible">
+      <div [hidden]="hideMessageBox" class="alert alert-success alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Success!</strong> New topic has been added to the database.
+        <strong>Success!</strong> New topic has been added.
       </div>
 
       <div class="form-group">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Submit</button>
+      <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Add</button>
     </form>
   </div>
 </div>
