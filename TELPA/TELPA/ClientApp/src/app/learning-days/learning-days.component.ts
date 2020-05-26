@@ -132,19 +132,14 @@ export class LearningDaysComponent implements OnInit {
       && this.topicNames.length == Object.keys(this.linkingData).length && this.dayDates.length == Object.keys(this.linkingData).length) {
       this.thread1.push(1);
       this.thread2.push(1);
-
-      console.log(Object.keys(this.linkingData).length + ' - length');
       for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
         if (this.employeeIds[i] == this.currentEmployeeId) {
-          console.log('OK ' + this.employeeIds[i] + ' ' + this.currentEmployeeId + ' ' + this.topicNames[i]);
           this.learningDaysAll.push(
             {
               'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
               'topic': this.topicNames[i]
             }
           );
-        } else {
-          console.log('False ' + this.employeeIds[i] + ' ' + this.currentEmployeeId + ' ' + this.topicNames[i]);
         }
       }
     }
