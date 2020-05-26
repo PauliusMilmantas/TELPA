@@ -8,28 +8,16 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
-        <th>Role</th>
         <th>Assigned by</th>
+        <th></th>
       </tr>
 
       <tr *ngFor="let EmployeeData of employeeData; let i = index">
         <td>{{EmployeeData.name}}</td>
         <td>{{EmployeeData.email}}</td>
-        <td>{{EmployeeData.role}}</td>
         <td>{{EmployeeData.leaderName}}</td>
-      </tr> 
-      <tr *ngFor="let field of fieldArray; let i = index">
-        <td>
-        <ng-container>{{field.name}}</ng-container> 
-        </td>
-        <td>
-        <ng-container>{{field.email}}</ng-container>
-        </td>
-        <td>
-        <ng-container>{{field.role}}</ng-container> 
-        </td>
-        <td>
-          <ng-container>{{field.leaderName}}</ng-container> 
+        <td value="editLeader" (click)="openModal('editLeader');">
+          <span>edit</span>
         </td>
       </tr>
     </table>
@@ -57,8 +45,6 @@
   <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name" name="newAttributeName" />
   Email:<br/>
   <input class="form-control" type="text" id="newAttributeEmail" [(ngModel)]="newAttribute.email" name="newAttributeEmail" />
-  Role: <br/>
-  <input class="form-control" type="text" id="newAttributeRole" [(ngModel)]="newAttribute.role" name="newAttributeRole" />
   Leader name:
   <!--<input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" />-->
   <select name="selectLeader" [(ngModel)]="newAttribute.leaderName">
@@ -66,6 +52,13 @@
       {{FullLeaderData.leaderName}}
     </option>
   </select>
-  <button type="button" class="btn btn-success mdlBtn" (click)="addFieldValue('addEmployee', newAttribute.name, newAttribute.email, newAttribute.role, newAttribute.leaderName);">Add employee</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="sendInvite('addEmployee', newAttribute.name, newAttribute.email, newAttribute.leaderName);">Add employee</button>
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('addEmployee');">Cancel</button>
-</jw-modal> 
+</jw-modal>
+
+<jw-modal id="editLeader">
+  <div>
+  </div>
+  <button type="button" class="btn btn-success mdlBtn" (click)="onSave(); closeModal('editLeader')">Save changes</button>
+  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('editLeader');">Cancel</button>
+</jw-modal>
