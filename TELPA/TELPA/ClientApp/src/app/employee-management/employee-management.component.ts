@@ -4,6 +4,8 @@ import { EmployeeData } from './data/data';
 import { ModalService } from '../__modal';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { SessionAPIService } from '../api/session-api.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -46,16 +48,23 @@ export class EmployeeManagementComponent implements OnInit {
   subordinateLeaderName;
   subordinateLeaderId;
 
-  constructor(private modalService: ModalService, private httpClient: HttpClient) { }
+  mySession;
+  e;
+
+  constructor(private modalService: ModalService, private httpClient: HttpClient, private sessionAPIService: SessionAPIService) { }
 
   ngOnInit() {
     this.getBackendData();
+    this.getMe();
     this.getBackendLeaderData();
     this.getLeaderData();
     this.getSubordinateData();
     this.getFullSubordinateData();
   }
-
+  getMe() {
+    this.sessionAPIService.me();
+    console.log('sessionId: ', this.mySession);
+  }
   getBackendData() {
     console.log(location.origin);
     this.employeeDataAll = [];
@@ -144,25 +153,30 @@ export class EmployeeManagementComponent implements OnInit {
   getSubordinateData() {
     this.subordinateData = [];
     //id gaunamas is SessionApiController
-    this.httpClient.get(location.origin + '/api/employee/get/1/subordinates').subscribe(
-      data => {
-        this.linkingData = data;
-      }).add(() => {
-        for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-          this.subordinateName = this.linkingData[i]['id'];
-          this.subordinateEmail = this.linkingData[i]['email'];
-          this.subordinateRole = this.linkingData[i]['role'];
-          this.subordinateLeaderId = this.linkingData[i]['leaderId'];
+    this.sessionAPIService.me().subscribe((e) => {
+      this.e = e;
+    }).add(() => {
+      this.httpClient.get(location.origin + '/api/employee/get/' + this.e.id + '/subordinates').subscribe(
+        data => {
+          this.linkingData = data;
+        }).add(() => {
+          for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+            this.subordinateName = this.linkingData[i]['id'];
+            this.subordinateEmail = this.linkingData[i]['email'];
+            this.subordinateRole = this.linkingData[i]['role'];
+            this.subordinateLeaderId = this.linkingData[i]['leaderId'];
 
-          this.subordinateData.push({
-            'name': this.subordinateName,
-            'email': this.subordinateEmail,
-            'role': this.subordinateRole,
-            'leaderId': this.subordinateLeaderId
-          });
-        }
-      });
-    console.log("subordinate data:", this.subordinateData);
+            this.subordinateData.push({
+              'name': this.subordinateName,
+              'email': this.subordinateEmail,
+              'role': this.subordinateRole,
+              'leaderId': this.subordinateLeaderId
+            });
+          }
+        });
+      console.log("subordinate data:", this.subordinateData);
+      console.log("session ID", this.e.id);
+    });
   }
 
   getFullSubordinateData() {
@@ -235,7 +249,7 @@ export class EmployeeManagementComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  addFieldValue(id: string, name: string, email: string, role: string, leaderName: string) {
+  addFieldValue(id: string, name: string, email: string, leaderName: string) {
     let leaderId: number;
     this.leaderName = leaderName;
     //this.fieldArray.push(this.newAttribute)
@@ -249,13 +263,13 @@ export class EmployeeManagementComponent implements OnInit {
       }
     }
     this.newAttribute = {};
-    console.log(name, email, role, leaderId);
-    this.httpClient.post(location.origin + "/api/employee/create", {
+    console.log(name, email, leaderId);
+    this.httpClient.post(location.origin + "/api/invite/create", {
       "name": name,
       "email": email,
-      "role": role,
-      "passwordHash": "abc123",
-      "leaderId": leaderId
+      "inviterId": leaderId,
+      "expiryDate": "06/06/2020",
+      "link": "whatever.com"
     }).subscribe(
       (val) => {
         console.log("POST call successful value returned in body",
