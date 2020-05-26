@@ -153,6 +153,75 @@ namespace TELPA.Controllers
         }
 
         [HttpGet]
+        [Route("get/all/employeesAndLeaders")]
+        public IActionResult getEmployeesAndLeaders()
+        {
+            var result = db.EmployeesAndLeaders.FromSqlRaw(
+                @"
+                select
+                    emp.id employeeId,
+                    emp.name employeeName,
+                    emp.email employeeEmail,
+                    ldr.id leaderId,
+                    ldr.name leaderName,
+                    ldr.email leaderEmail
+                from
+                    employees emp,
+                    employees ldr
+                where
+                    ldr.id = emp.leaderId")
+                .ToList<EmployeesAndLeaders>();
+
+            if (result.Count != 0)
+            {
+                return Json(result);
+            }
+            else
+            {
+                return NotFound("No employees with leaders found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/all/employeesForLeader/{leaderId}")]
+        public IActionResult getemployeesForLeader(int leaderId)  // Grazina zemesniu lygiu employees pagal lyderio lygi
+        {
+            IList<Employee> employees = db.Employees.FromSqlInterpolated(
+                $@"
+                with employees_rec as (
+                  select
+                    emp_par.*
+                  from
+                    employees emp_par
+                  where
+                    emp_par.id = {leaderId}
+                  union all
+                  select
+                    emp_chi.*
+                  from
+                    employees emp_chi,
+	                employees_rec emp_rec
+                  where
+                    emp_rec.id = emp_chi.leaderId)
+                select
+                  emp_rec.*
+                from
+                  employees_rec emp_rec
+                where 
+                  emp_rec.id <> {leaderId}")
+                .ToList<Employee>();
+
+            if (employees.Count != 0)
+            {
+                return Json(employees);
+            }
+            else
+            {
+                return NotFound("No employees found under leader ID = " + leaderId);
+            }
+        }
+
+        [HttpGet]
         [Route("get/all/leaders")]
         public IActionResult getLeaders()
         { 
@@ -263,56 +332,5 @@ namespace TELPA.Controllers
                 return NotFound("DELETE: Employee with ID = " + id + " was not found.");
             }
         }
-
-
-
-
-        [HttpGet("test/1")]
-        public IActionResult TestCreate()
-        {
-            Employee emp = new Employee();
-            emp.Email = "ignas@email.com";
-            emp.SetPasswordHash("abc123");
-            emp.Name = "Ignas";
-
-            return CreateEmployee(emp);
-        }
-
-        [HttpGet("test/2")]
-        public IActionResult TestUpdate()
-        {
-            Employee emp = db.Employees.Find("2");
-            emp.Name = emp.Name + "2";
-            
-            return UpdateEmployee(emp);
-        }
-
-        /*public ActionResult Index()
-        {
-            IEnumerable<Employee> employees = null;
-             
-            using (var client = new HttpClient()) {
-                client.BaseAddress = new Uri(Constants.Config.localAddress);
-
-                var responseTask = client.GetAsync("employee");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<IList<Employee>>();
-                    readTask.Wait();
-
-                    employees = readTask.Result;
-                }
-                else { 
-                    employees = Enumerable.Empty<Employee>();
-
-                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-                }
-            }
-
-            return View(employees);
-        }*/
     }
 }
