@@ -22,6 +22,7 @@ export class EmployeeManagementComponent implements OnInit {
   //employee lentoms
   employeeDataAll = EmployeeDataList;
   employeeData = [];
+  employeeData1 = [];
   //subordinate lentoms
   subordinateData = [];
   fullSubordinateData = [];
@@ -39,6 +40,7 @@ export class EmployeeManagementComponent implements OnInit {
   employeeRole;
   employeeLeaderId;
   employeeLeader;
+  employeeLeaderName;
   //leader
   leaderName;
   leaderId;
@@ -64,21 +66,23 @@ export class EmployeeManagementComponent implements OnInit {
     console.log(location.origin);
     this.employeeDataAll = [];
     this.employeeData = [];
-    this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
+    this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders').subscribe(
       data => {
         this.linkingData = data;
       }
     ).add(() => {
       for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.employeeName = this.linkingData[i]['name'];
-        this.employeeEmail = this.linkingData[i]['email'];
-        this.employeeRole = this.linkingData[i]['role'];
+        this.employeeName = this.linkingData[i]['employeeName'];
+        this.employeeEmail = this.linkingData[i]['employeeEmail'];
+        this.employeeRole = this.linkingData[i]['employeeRole'];
         this.employeeLeaderId = this.linkingData[i]['leaderId'];
+        this.employeeLeaderName = this.linkingData[i]['leaderName'];
         this.employeeData.push({
-          'name': this.employeeName,
-          'email': this.employeeEmail,
-          'role': this.employeeRole,
-          'leaderName': this.employeeLeaderId
+          'employeeName': this.employeeName,
+          'employeeEmail': this.employeeEmail,
+          'employeeRole': this.employeeRole,
+          'leaderId': this.employeeLeaderId,
+          'leaderName': this.employeeLeaderName
         })
 
       }
@@ -136,7 +140,7 @@ export class EmployeeManagementComponent implements OnInit {
     this.sessionAPIService.me().subscribe((e) => {
       this.e = e;
     }).add(() => {
-      this.httpClient.get(location.origin + '/api/employee/get/' + this.e.id + '/subordinates').subscribe(
+      this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/' + this.e.id).subscribe(
         data => {
           this.linkingData = data;
         }).add(() => {
@@ -167,28 +171,31 @@ export class EmployeeManagementComponent implements OnInit {
       this.getBackendData();
     }
     else {
-      this.httpClient.get(location.origin + '/api/employee/get/all').subscribe(
+      this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders/').subscribe(
         data => {
           this.linkingData = data;
         }
       ).add(() => {
+        console.log("e.id:", this.e.id);
         for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-          this.employeeName = this.linkingData[i]['name'];
-          this.employeeEmail = this.linkingData[i]['email'];
-          this.employeeRole = this.linkingData[i]['role'];
+          this.employeeName = this.linkingData[i]['employeeName'];
+          this.employeeEmail = this.linkingData[i]['employeeEmail'];
+          this.employeeRole = this.linkingData[i]['employeeRole'];
           this.employeeLeaderId = this.linkingData[i]['leaderId'];
+          this.employeeLeaderName = this.linkingData[i]['leaderName'];
           if (this.linkingData[i]['leaderId'] == id) {
             this.employeeData.push({
-              'name': this.employeeName,
-              'email': this.employeeEmail,
-              'role': this.employeeRole,
-              'leaderName': this.employeeLeaderId
+              'employeeName': this.employeeName,
+              'employeeEmail': this.employeeEmail,
+              'employeeRole': this.employeeRole,
+              'leaderId': this.employeeLeaderId,
+              'leaderName': this.employeeLeaderName
             })
-
           }
         }
       });
     }
+    console.log(id, this.employeeData1);
   }
 
   addEmployeeBtnClick(event) {
