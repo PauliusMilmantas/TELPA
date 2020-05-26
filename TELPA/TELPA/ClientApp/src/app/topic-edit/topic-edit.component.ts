@@ -96,6 +96,8 @@ export class TopicEditComponent implements OnInit {
         }
       }
     }
+
+    console.log(this.topics);
   }
 
   onTopicChange() {
@@ -189,33 +191,53 @@ export class TopicEditComponent implements OnInit {
       this.editDone();
     }
   }
-
+  
   editTopicLinks() {
+    let updateCount = 0;
+    let createCount = 0;
+    let deleteCount = 0;
+
     for (let i = 0; i < this.topicLinksToModify.length; i++) {
       if (this.topicLinksToModify[i]['link'] != '') {
         if (this.topicLinksToModify[i]['id'] != null) {
-          this.updateTopicLink(this.topicLinksToModify[i]);
+          updateCount++;
         } else {
-          this.createTopicLink(this.topicLinksToModify[i]);
+          createCount++;
+        }
+      } else if (this.topicLinksToModify[i]['id'] != null) {
+        deleteCount++;
+      }
+    }
+
+    for (let i = 0; i < this.topicLinksToModify.length; i++) {
+      if (this.topicLinksToModify[i]['link'] != '') {
+        if (this.topicLinksToModify[i]['id'] != null) {
+            this.updateTopicLink(this.topicLinksToModify[i], (--updateCount == 0));
+        } else {
+          this.createTopicLink(this.topicLinksToModify[i], (--createCount == 0));
         }
       }
       else if (this.topicLinksToModify[i]['id'] != null) {
-        this.deleteTopicLink(this.topicLinksToModify[i]);
+        this.deleteTopicLink(this.topicLinksToModify[i], (--deleteCount == 0));
       }
     }
   }
 
-  updateTopicLink(topicLinkToUpdate) {
+  updateTopicLink(topicLinkToUpdate, last) {
     this.doneUpdate = false;
     this.httpClient.put(this.baseUrl + "/api/topicLink/update", topicLinkToUpdate
     ).subscribe(
       (val) => {
         console.log("PUT call successful value returned in body", val);
-        this.topicLinkUpdated();
+        if (last) {
+          this.topicLinkUpdated();
+        }
       },
       response => {
         console.log("PUT call in error", response);
-        this.topicLinkUpdated();
+        if (last) {
+          this.topicLinkUpdated();
+        }
       },
       () => {
         console.log("The PUT observable is now completed.");
@@ -228,7 +250,7 @@ export class TopicEditComponent implements OnInit {
     this.checkIfDone();
   }
 
-  createTopicLink(topicLinkToCreate) {
+  createTopicLink(topicLinkToCreate, last) {
     this.doneCreate = false;
     topicLinkToCreate['topicId'] = this.topicToModify['id'];
     this.httpClient.post(this.baseUrl + "/api/topicLink/create", {
@@ -238,8 +260,10 @@ export class TopicEditComponent implements OnInit {
     ).subscribe(
       (val) => {
         console.log("POST call successful value returned in body", val);
-        this.doneCreate = true;
-        this.checkIfDone();
+        if (last) {
+          this.doneCreate = true;
+          this.checkIfDone();
+        }
       },
       response => {
         console.log("POST call in error", response);
@@ -250,14 +274,16 @@ export class TopicEditComponent implements OnInit {
     );;
   }
 
-  deleteTopicLink(topicLinkToRemove) {
+  deleteTopicLink(topicLinkToRemove, last) {
     this.doneDelete = false;
     this.httpClient.delete(this.baseUrl + "/api/topicLink/delete/" + topicLinkToRemove['id']
     ).subscribe(
       (val) => {
         console.log("DELETE call successful value returned in body", val);
-        this.doneDelete = true;
-        this.checkIfDone();
+        if (last) {
+          this.doneDelete = true;
+          this.checkIfDone();
+        }
       },
       response => {
         console.log("DELETE call in error", response);
