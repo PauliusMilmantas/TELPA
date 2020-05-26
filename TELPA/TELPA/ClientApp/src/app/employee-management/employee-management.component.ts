@@ -16,21 +16,35 @@ export class EmployeeManagementComponent implements OnInit {
   columns: string[];
   private fieldArray: Array<any> = [];
   private newAttribute: any = {};
+  //employee lentoms
   employeeDataAll = EmployeeDataList;
   employeeData = [];
+  //subordinate lentoms
+  subordinateData = [];
+  fullSubordinateData = [];
+  //leaderiu lentoms
   leaderData = [];
   fullLeaderData = [];
+  unasignedLeaderData = [];
+  fullUnasignedLeaderData = [];
 
   linkingData;
   linkingLeaderData;
-
+  //employee
   employeeName;
   employeeEmail;
   employeeRole;
   employeeLeaderId;
   employeeLeader;
+  //leader
   leaderName;
   leaderId;
+  //subordinates
+  subordinateName;
+  subordinateEmail;
+  subordinateRole;
+  subordinateLeaderName;
+  subordinateLeaderId;
 
   constructor(private modalService: ModalService, private httpClient: HttpClient) { }
 
@@ -38,6 +52,8 @@ export class EmployeeManagementComponent implements OnInit {
     this.getBackendData();
     this.getBackendLeaderData();
     this.getLeaderData();
+    this.getSubordinateData();
+    this.getFullSubordinateData();
   }
 
   getBackendData() {
@@ -125,6 +141,54 @@ export class EmployeeManagementComponent implements OnInit {
       })
   }
 
+  getSubordinateData() {
+    this.subordinateData = [];
+    //id gaunamas is SessionApiController
+    this.httpClient.get(location.origin + '/api/employee/get/1/subordinates').subscribe(
+      data => {
+        this.linkingData = data;
+      }).add(() => {
+        for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+          this.subordinateName = this.linkingData[i]['id'];
+          this.subordinateEmail = this.linkingData[i]['email'];
+          this.subordinateRole = this.linkingData[i]['role'];
+          this.subordinateLeaderId = this.linkingData[i]['leaderId'];
+
+          this.subordinateData.push({
+            'name': this.subordinateName,
+            'email': this.subordinateEmail,
+            'role': this.subordinateRole,
+            'leaderId': this.subordinateLeaderId
+          });
+        }
+      });
+    console.log("subordinate data:", this.subordinateData);
+  }
+
+  getFullSubordinateData() {
+    this.fullSubordinateData = [];
+
+    for (let i = 0; i < this.subordinateData.length; i++) {
+      for (let j = 0; j < this.fullLeaderData.length; i++) {
+        if (this.subordinateData[i]['leaderId'] == this.fullLeaderData[j]['leaderId']) {
+          this.subordinateName = this.subordinateData[i]['name'];
+          this.subordinateEmail = this.subordinateData[i]['email'];
+          this.subordinateRole = this.subordinateData[i]['role'];
+          this.subordinateLeaderId = this.subordinateData[i]['leaderId'];
+          this.subordinateLeaderName = this.fullLeaderData[i]['leaderName'];
+          this.fullSubordinateData.push({
+            'name': this.subordinateName,
+            'email': this.subordinateEmail,
+            'role': this.subordinateRole,
+            'leaderId': this.subordinateLeaderId,
+            'leaderName': this.subordinateLeaderName
+          });
+        }
+      }
+    }
+    console.log("full leader data: ", this.fullLeaderData);
+    console.log("subordinate data: ", this.subordinateData);
+  }
   selectTeam(id: number) {
     console.log("id yra", id);
     this.employeeDataAll = [];
@@ -190,7 +254,7 @@ export class EmployeeManagementComponent implements OnInit {
       "name": name,
       "email": email,
       "role": role,
-      "passwordHash": "slaptazodis",
+      "passwordHash": "abc123",
       "leaderId": leaderId
     }).subscribe(
       (val) => {

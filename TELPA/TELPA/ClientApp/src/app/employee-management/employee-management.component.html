@@ -10,7 +10,6 @@
         <th>Email</th>
         <th>Role</th>
         <th>Assigned by</th>
-        <th>delete</th>
       </tr>
 
       <tr *ngFor="let EmployeeData of employeeData; let i = index">
@@ -18,10 +17,6 @@
         <td>{{EmployeeData.email}}</td>
         <td>{{EmployeeData.role}}</td>
         <td>{{EmployeeData.leaderName}}</td>
-        <td></td>
-        <td>
-          <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
-        </td>
       </tr> 
       <tr *ngFor="let field of fieldArray; let i = index">
         <td>
@@ -35,10 +30,6 @@
         </td>
         <td>
           <ng-container>{{field.leaderName}}</ng-container> 
-        </td>
-        <td></td>
-        <td>
-          <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
         </td>
       </tr>
     </table>
