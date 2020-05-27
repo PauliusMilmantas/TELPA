@@ -32,11 +32,12 @@ export class TopicEditComponent implements OnInit {
   topicTest;
 
   hideMessageBox = true;
+  hideForm = true;
+  isEmpty = [false];
+
   doneUpdate = true;
   doneCreate = true;
   doneDelete = true;
-  hideForm = true;
-  isEmpty = [false];
 
   constructor(private httpClient: HttpClient) {}
 
@@ -98,8 +99,6 @@ export class TopicEditComponent implements OnInit {
         }
       }
     }
-
-    console.log(this.topics);
   }
 
   onTopicChange() {

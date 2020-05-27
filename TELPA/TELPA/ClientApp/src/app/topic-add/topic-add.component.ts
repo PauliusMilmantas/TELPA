@@ -13,9 +13,9 @@ export class TopicAddComponent implements OnInit {
   private addedTopicId = null;
   topics = [];
   topicToAdd = {
-    'name': '',
-    'description': '',
-    'parentTopicId': null
+    name: '',
+    description: '',
+    parentTopicId: null
   };
 
   topicLinksToAdd = [];
@@ -41,10 +41,10 @@ export class TopicAddComponent implements OnInit {
         for (let i = 0; i < Object.keys(data).length; i++) {
           this.apiTopics.push(
             {
-              'id': data[i]['id'],
-              'name': data[i]['name'],
-              'description': data[i]['description'],
-              'parentTopicId': data[i]['parentTopicId']
+              id: data[i]['id'],
+              name: data[i]['name'],
+              description: data[i]['description'],
+              parentTopicId: data[i]['parentTopicId']
             }
           );
         }
@@ -61,11 +61,11 @@ export class TopicAddComponent implements OnInit {
       if (this.apiTopics[i]['parentTopicId'] == null) {
         this.topics.push(
           {
-            'id': this.apiTopics[i]['id'],
-            'index': index,
-            'name': this.apiTopics[i]['name'],
-            'subtopicAmount': 0,
-            'level': 0
+            id: this.apiTopics[i]['id'],
+            index: index,
+            name: this.apiTopics[i]['name'],
+            subtopicAmount: 0,
+            level: 0
           }
         );
         index++;
@@ -78,11 +78,11 @@ export class TopicAddComponent implements OnInit {
           this.topics[i]['subtopicAmount']++;
           this.topics.splice(i + this.topics[i]['subtopicAmount'], 0,
             {
-              'id': this.apiTopics[j]['id'],
-              'index': this.topics[i]['index'] + '.' + this.topics[i]['subtopicAmount'],
-              'name': this.apiTopics[j]['name'],
-              'subtopicAmount': 0,
-              'level': this.topics[i]['level'] + 1
+              id: this.apiTopics[j]['id'],
+              index: this.topics[i]['index'] + '.' + this.topics[i]['subtopicAmount'],
+              name: this.apiTopics[j]['name'],
+              subtopicAmount: 0,
+              level: this.topics[i]['level'] + 1
             }
           );
         }
@@ -141,9 +141,9 @@ export class TopicAddComponent implements OnInit {
 
   resetForm() {
     this.topicToAdd = {
-      'name': '',
-      'description': '',
-      'parentTopicId': null
+      name: '',
+      description: '',
+      parentTopicId: null
     }
 
     this.topicLinksToAdd =

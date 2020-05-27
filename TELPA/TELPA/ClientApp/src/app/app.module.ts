@@ -37,6 +37,7 @@ import { TopicLinkAPIService } from "./api/topic-link-api.service";
 import { EmployeeTreeComponent } from "./employee-tree/employee-tree.component";
 import { AccountAPIService } from "./api/account-api.service";
 import { TopicNetworkComponent } from "./topic-network/topic-network.component";
+import { StatisticsComponent } from "./statistics/statistics.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { TopicNetworkComponent } from "./topic-network/topic-network.component";
     RecommendationsComponent,
     EmployeeTreeComponent,
     TopicNetworkComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -77,6 +79,7 @@ import { TopicNetworkComponent } from "./topic-network/topic-network.component";
       { path: "recommendations", component: RecommendationsComponent },
       { path: "employee-tree", component: EmployeeTreeComponent },
       { path: "topic-network", component: TopicNetworkComponent },
+      { path: "statistics", component: StatisticsComponent },
     ]),
   ],
   providers: [

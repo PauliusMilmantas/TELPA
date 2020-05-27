@@ -21,22 +21,16 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav mr-auto">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/employee-management']"
-              >Employee management</a
-            >
+            <a class="nav-link" [routerLink]="['/employee-management']">Employee management</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/employee-tree']"
-              >Employee tree</a
-            >
+            <a class="nav-link" [routerLink]="['/employee-tree']">Employee tree</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/topic-network']"
@@ -44,24 +38,22 @@
             >
           </li>
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Topic</a
-            >
+            <a class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Topic</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" [routerLink]="['/topic-add']">Add</a>
               <a class="dropdown-item" [routerLink]="['/topic-edit']">Edit</a>
             </div>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/recommendations']"
-              >Recommendations</a
-            >
+            <a class="nav-link" [routerLink]="['/recommendations']">Recommendations</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/statistics']">Statistics</a>
           </li>
         </ul>
       </div>
