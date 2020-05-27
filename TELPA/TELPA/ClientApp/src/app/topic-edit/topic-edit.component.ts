@@ -17,6 +17,7 @@ export class TopicEditComponent implements OnInit {
     name: "",
     description: "",
     parentTopicId: null,
+    version: null
   };
 
   topicLinksToModify = [
@@ -24,17 +25,24 @@ export class TopicEditComponent implements OnInit {
       id: null,
       topicId: null,
       link: "",
+      version: null
     },
   ];
 
   topicTest;
 
+  hideMessageBox = true;
   hideForm = true;
   isEmpty = [false];
+
+  doneUpdate = true;
+  doneCreate = true;
+  doneDelete = true;
 
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit() {
+    this.hideMessageBox = true;
     this.hideForm = true;
     this.getBackendData();
   }
@@ -94,24 +102,33 @@ export class TopicEditComponent implements OnInit {
   }
 
   onTopicChange() {
+    this.hideMessageBox = true;
     this.hideForm = true;
 
     if (this.topicToModify["id"] != "null") {
       this.getTopicData();
+
+      this.topicLinksToModify = [
+        {
+          id: null,
+          topicId: null,
+          link: "",
+          version: null
+        },
+      ];
     }
   }
 
   getTopicData() {
-    this.httpClient
-      .get(this.baseUrl + "/api/topic/get/" + this.topicToModify["id"])
-      .subscribe((data) => {
-        for (let i = 0; i < Object.keys(data).length; i++) {
-          this.topicToModify = {
-            id: data["id"],
-            name: data["name"],
-            description: data["description"],
-            parentTopicId: data["parentTopicId"],
-          };
+    this.httpClient.get(this.baseUrl + '/api/topic/get/' + this.topicToModify['id']).subscribe(
+      data => {
+        this.topicToModify =
+        {
+          id: data['id'],
+          name: data['name'],
+          description: data['description'],
+          parentTopicId: data['parentTopicId'],
+          version: data['version']
         }
       })
       .add(() => {
@@ -133,13 +150,14 @@ export class TopicEditComponent implements OnInit {
         for (let i = 0; i < Object.keys(data).length; i++) {
           this.isEmpty.push(false);
           this.topicLinksToModify.push({
-            id: data[i]["id"],
-            topicId: data[i]["topicId"],
-            link: data[i]["link"],
+            id: data[i]['id'],
+            topicId: data[i]['topicId'],
+            link: data[i]['link'],
+            version: data[i]['version']
           });
         }
         this.onLinkChange(
-          this.topicLinksToModify[Object.keys(data).length - 1]["link"],
+          this.topicLinksToModify[Object.keys(data).length - 1]['link'],
           Object.keys(data).length - 1
         );
       })
@@ -149,62 +167,147 @@ export class TopicEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.httpClient
-      .put(this.baseUrl + "/api/topic/update", this.topicToModify)
-      .subscribe(
-        (val) => {
-          console.log("PUT call successful value returned in body", val);
-          this.updateTopicLinks();
-        },
-        (response) => {
-          console.log("PUT call in error", response);
-        },
-        () => {
-          console.log("The PUT observable is now completed.");
-        }
-      );
+    this.updateTopic();
   }
 
-  updateTopicLinks() {
-    /* for (let i = 0; i < this.topicLinksToModify.length; i++) {
-if (this.topicLinksToModify[i]['link'] != '') {
-if (this.topicLinksToModify[i]['id'] != null) {
- console.log("update");
- console.log(this.topicLinksToModify[i]);
- this.httpClient.put(this.baseUrl + "/api/topicLink/update", this.topicLinksToModify[i]
- ).subscribe(
-   (val) => {
-     console.log("POST call successful value returned in body",
-       val);
-   },
-   response => {
-     console.log("POST call in error", response);
-   },
-   () => {
-     console.log("The POST observable is now completed.");
-   }
- );;
-}
-else {
- this.topicLinksToModify[i]['topicId'] = this.topicToModify['id'];
- console.log("post");
- console.log(this.topicLinksToModify[i]);
- this.httpClient.post(this.baseUrl + "/api/topicLink/create", this.topicLinksToModify[i]
- ).subscribe(
-   (val) => {
-     console.log("POST call successful value returned in body",
-       val);
-   },
-   response => {
-     console.log("POST call in error", response);
-   },
-   () => {
-     console.log("The POST observable is now completed.");
-   }
- );;
-}
-}
-}*/
+  updateTopic() {
+    console.log(this.topicToModify);
+    this.httpClient.put(this.baseUrl + "/api/topic/update", this.topicToModify
+    ).subscribe(
+      (val) => {
+        console.log("PUT call successful value returned in body", val);
+        this.topicUpdated();
+      },
+      response => {
+        console.log("PUT call in error", response);
+        this.topicUpdated();
+      },
+      () => {
+        console.log("The PUT observable is now completed.");
+      }
+    );;
+  }
+
+  topicUpdated() {
+    if (this.topicLinksToModify.length > 1) {
+      this.editTopicLinks();
+    }
+    else {
+      this.editDone();
+    }
+  }
+  
+  editTopicLinks() {
+    let updateCount = 0;
+    let createCount = 0;
+    let deleteCount = 0;
+
+    for (let i = 0; i < this.topicLinksToModify.length; i++) {
+      if (this.topicLinksToModify[i]['link'] != '') {
+        if (this.topicLinksToModify[i]['id'] != null) {
+          updateCount++;
+        } else {
+          createCount++;
+        }
+      } else if (this.topicLinksToModify[i]['id'] != null) {
+        deleteCount++;
+      }
+    }
+
+    for (let i = 0; i < this.topicLinksToModify.length; i++) {
+      if (this.topicLinksToModify[i]['link'] != '') {
+        if (this.topicLinksToModify[i]['id'] != null) {
+            this.updateTopicLink(this.topicLinksToModify[i], (--updateCount == 0));
+        } else {
+          this.createTopicLink(this.topicLinksToModify[i], (--createCount == 0));
+        }
+      }
+      else if (this.topicLinksToModify[i]['id'] != null) {
+        this.deleteTopicLink(this.topicLinksToModify[i], (--deleteCount == 0));
+      }
+    }
+  }
+
+  updateTopicLink(topicLinkToUpdate, last) {
+    this.doneUpdate = false;
+    this.httpClient.put(this.baseUrl + "/api/topicLink/update", topicLinkToUpdate
+    ).subscribe(
+      (val) => {
+        console.log("PUT call successful value returned in body", val);
+        if (last) {
+          this.topicLinkUpdated();
+        }
+      },
+      response => {
+        console.log("PUT call in error", response);
+        if (last) {
+          this.topicLinkUpdated();
+        }
+      },
+      () => {
+        console.log("The PUT observable is now completed.");
+      }
+    );;
+  }
+
+  topicLinkUpdated() {
+    this.doneUpdate = true;
+    this.checkIfDone();
+  }
+
+  createTopicLink(topicLinkToCreate, last) {
+    this.doneCreate = false;
+    topicLinkToCreate['topicId'] = this.topicToModify['id'];
+    this.httpClient.post(this.baseUrl + "/api/topicLink/create", {
+      "topicId": topicLinkToCreate['topicId'],
+      "link": topicLinkToCreate['link']
+    }
+    ).subscribe(
+      (val) => {
+        console.log("POST call successful value returned in body", val);
+        if (last) {
+          this.doneCreate = true;
+          this.checkIfDone();
+        }
+      },
+      response => {
+        console.log("POST call in error", response);
+      },
+      () => {
+        console.log("The POST observable is now completed.");
+      }
+    );;
+  }
+
+  deleteTopicLink(topicLinkToRemove, last) {
+    this.doneDelete = false;
+    this.httpClient.delete(this.baseUrl + "/api/topicLink/delete/" + topicLinkToRemove['id']
+    ).subscribe(
+      (val) => {
+        console.log("DELETE call successful value returned in body", val);
+        if (last) {
+          this.doneDelete = true;
+          this.checkIfDone();
+        }
+      },
+      response => {
+        console.log("DELETE call in error", response);
+      },
+      () => {
+        console.log("The DELETE observable is now completed.");
+      }
+    );;
+  }
+
+  checkIfDone() {
+    if (this.doneUpdate && this.doneCreate && this.doneDelete) {
+      this.editDone();
+    }
+  }
+
+  editDone() {
+    this.hideMessageBox = false;
+    this.getBackendData();
   }
 
   onLinkChange(value, place) {
@@ -216,7 +319,8 @@ else {
       this.topicLinksToModify.push({
         id: null,
         topicId: null,
-        link: "",
+        link: '',
+        version: null
       });
       this.isEmpty.push(false);
     } else if (

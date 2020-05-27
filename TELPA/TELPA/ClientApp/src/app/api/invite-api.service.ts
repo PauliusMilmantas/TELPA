@@ -19,6 +19,10 @@ export class InviteAPIService {
     return this.http.get<Invite>(API_URL + "get/" + id);
   }
 
+  getByLink(link: string): Observable<Invite> {
+    return this.http.get<Invite>(API_URL + "get/link/" + link);
+  }
+
   create(e: Invite): Observable<any> {
     return this.http.post(API_URL + "create", e);
   }
