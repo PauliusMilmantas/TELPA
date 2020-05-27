@@ -35,21 +35,44 @@ export class EmployeeManagementComponent implements OnInit {
   linkingData;
   linkingLeaderData;
   //employee
+  employeeId;
   employeeName;
   employeeEmail;
   employeeRole;
   employeeLeaderId;
   employeeLeader;
   employeeLeaderName;
+  employeePasswordHash;
+  employeeVersion;
   //leader
   leaderName;
   leaderId;
+  newLeader = {
+    id: null,
+    email: '',
+    // passwordHash: '' ,
+    role: '',
+    name: '',
+    leaderId: null,
+    version: null
+  }
   //subordinates
+  subordinateId;
   subordinateName;
   subordinateEmail;
   subordinateRole;
   subordinateLeaderName;
   subordinateLeaderId;
+  //employeeToEdit
+  employeeToEdit = {
+    id: null,
+    email: '',
+    // passwordHash: '' ,
+    role: '',
+    name: '',
+    leaderId: null,
+    version: null
+  };
 
   mySession;
   e;
@@ -66,27 +89,33 @@ export class EmployeeManagementComponent implements OnInit {
     console.log(location.origin);
     this.employeeDataAll = [];
     this.employeeData = [];
-    this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders').subscribe(
+    /*    this.sessionAPIService.me().subscribe((e) => {
+          this.e = e;
+        }).add(() => {
+          this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/' + this.e.id).subscribe(*/
+    this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders/').subscribe(
       data => {
         this.linkingData = data;
-      }
-    ).add(() => {
-      for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.employeeName = this.linkingData[i]['employeeName'];
-        this.employeeEmail = this.linkingData[i]['employeeEmail'];
-        this.employeeRole = this.linkingData[i]['employeeRole'];
-        this.employeeLeaderId = this.linkingData[i]['leaderId'];
-        this.employeeLeaderName = this.linkingData[i]['leaderName'];
-        this.employeeData.push({
-          'employeeName': this.employeeName,
-          'employeeEmail': this.employeeEmail,
-          'employeeRole': this.employeeRole,
-          'leaderId': this.employeeLeaderId,
-          'leaderName': this.employeeLeaderName
-        })
-
-      }
-    });
+      }).add(() => {
+        for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+          this.employeeId = this.linkingData[i]['employeeId'];
+          this.employeeName = this.linkingData[i]['employeeName'];
+          this.employeeEmail = this.linkingData[i]['employeeEmail'];
+          this.employeeRole = this.linkingData[i]['employeeRole'];
+          this.employeeLeaderId = this.linkingData[i]['leaderId'];
+          this.employeeLeaderName = this.linkingData[i]['leaderName'];
+          this.employeeData.push({
+            'employeeId': this.employeeId,
+            'employeeName': this.employeeName,
+            'employeeEmail': this.employeeEmail,
+            'employeeRole': this.employeeRole,
+            'leaderId': this.employeeLeaderId,
+            'leaderName': this.employeeLeaderName
+          });
+        }
+        console.log(this.employeeData);
+      });
+    //    });
   }
   getBackendLeaderData() {
     this.leaderData = [];
@@ -132,6 +161,7 @@ export class EmployeeManagementComponent implements OnInit {
           });
         }
       })
+    console.log("fullLeaderData:", this.fullLeaderData)
   }
 
   getSubordinateData() {
@@ -145,12 +175,14 @@ export class EmployeeManagementComponent implements OnInit {
           this.linkingData = data;
         }).add(() => {
           for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-            this.subordinateName = this.linkingData[i]['id'];
+            this.subordinateId = this.linkingData[i]['id'];
+            this.subordinateName = this.linkingData[i]['name'];
             this.subordinateEmail = this.linkingData[i]['email'];
             this.subordinateRole = this.linkingData[i]['role'];
             this.subordinateLeaderId = this.linkingData[i]['leaderId'];
 
             this.subordinateData.push({
+              'id': this.subordinateId,
               'name': this.subordinateName,
               'email': this.subordinateEmail,
               'role': this.subordinateRole,
@@ -167,7 +199,7 @@ export class EmployeeManagementComponent implements OnInit {
     console.log("id yra", id);
     this.employeeDataAll = [];
     this.employeeData = [];
-    if (id == 0) {
+    if (id == 0 || id == null) {
       this.getBackendData();
     }
     else {
@@ -222,6 +254,96 @@ export class EmployeeManagementComponent implements OnInit {
     this.modalService.close(id);
   }
 
+  openEditModal(employeeId, employeeName, employeeLeaderId, id) {
+    console.log("employee kuri perduodu i modal:", employeeId);
+    console.log("subordinate data viduj modal:", this.subordinateData);
+    this.employeeId = employeeId;
+    this.employeeName = employeeName;
+    this.leaderId = employeeLeaderId;
+    this.httpClient.get('/api/employee/get/' + this.employeeId).subscribe(
+      data => {
+        this.linkingData = data;
+      }).add(() => {
+        this.employeeName = this.linkingData['name'];
+        this.employeeLeaderId = this.linkingData['leaderId'];
+      }).add(() => {
+        this.modalService.open(id);
+      })
+  }
+  getNewLeader(id: number) {
+    this.employeeId = id;
+    console.log("naujas lyderis",this.employeeId);
+    this.httpClient.get('api/employee/get/' + this.employeeId).subscribe(data => {
+      this.linkingData = data;
+    }).add(() => {
+      this.employeeName = this.linkingData['name'];
+      this.employeeRole = this.linkingData['role'];
+      //this.employeePasswordHash = this.linkingData['passwordHash'];
+      this.employeeEmail = this.linkingData['email'];
+      this.employeeId = this.linkingData['id'];
+      this.employeeLeaderId = this.linkingData['leaderId'];
+      this.employeeVersion = this.linkingData['version'];
+      console.log("viduj http get naujo lyderio id:", this.employeeId);
+      this.newLeader = {
+        id: this.employeeId,
+        email: this.employeeEmail,
+        //passwordHash: this.employeePasswordHash,
+        role: this.employeeRole,
+        name: this.employeeName,
+        leaderId: this.employeeLeaderId,
+        version: this.employeeVersion
+      }
+    });
+
+    console.log("new Leader metode", this.newLeader);
+  }
+  editLeader(id, leaderId: number, employeeId: number) {
+    this.employeeId = employeeId;
+    this.leaderId = leaderId;
+    this.modalService.close(id);
+    this.employeeToEdit['leaderId'] = leaderId;
+    console.log("newLeader: ", this.newLeader);
+    console.log("employee edit", this.employeeToEdit);
+    if (this.employeeToEdit['id'] != this.newLeader['leaderId']) {
+      this.httpClient.put('api/employee/update', this.employeeToEdit).subscribe(
+        (val) => {
+          console.log("PUT call successful value returned in body", val);
+        },
+        response => {
+          console.log("PUT call in error", response);
+        },
+        () => {
+          console.log("The PUT observable is now completed.");
+        }
+      );
+    }
+    else console.log("editint negalima");
+  }
+
+  getEmployee(id: number) {
+    this.httpClient.get('api/employee/get/' + id).subscribe(data => {
+      this.linkingData = data;
+    }).add(() => {
+      this.employeeName = this.linkingData['name'];
+      this.employeeRole = this.linkingData['role'];
+      //this.employeePasswordHash = this.linkingData['passwordHash'];
+      this.employeeEmail = this.linkingData['email'];
+      this.employeeId = this.linkingData['id'];
+      this.employeeLeaderId = this.linkingData['leaderId'];
+      this.employeeVersion = this.linkingData['version'];
+
+      this.employeeToEdit = {
+        id: this.employeeId,
+        email: this.employeeEmail,
+        //passwordHash: this.employeePasswordHash,
+        role: this.employeeRole,
+        name: this.employeeName,
+        leaderId: this.employeeLeaderId,
+        version: this.employeeVersion
+      }
+    });
+  }
+
   sendInvite(id: string, name: string, email: string, leaderName: string) {
     let leaderId: number;
     this.leaderName = leaderName;
@@ -263,13 +385,13 @@ export class EmployeeManagementComponent implements OnInit {
     });
   }
 
-  deleteFieldValue(index) {
-    this.fieldArray.splice(index, 1);
-  }
-
   handleError() {
     console.log("nepavyko prideti");
     return "nepavyko prideti";
+  }
+
+  onLeaderChange(value) {
+    console.log("employeeData value:", this.employeeData);
   }
 }
 
