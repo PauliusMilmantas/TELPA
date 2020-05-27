@@ -81,7 +81,7 @@ namespace TELPA.Components
             DateTime now = DateTime.Now;
             foreach (Session session in sessions.Values)
             {
-                if (DateTime.Compare(now, session.ExpiryDate) <= 0)
+                if (DateTime.Compare(now, session.ExpiryDate) > 0)
                 {
                     sessions.TryRemove(session.Id, out _);
                 }
