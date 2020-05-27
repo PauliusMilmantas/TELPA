@@ -14,15 +14,23 @@ export class StatisticsComponent implements OnInit {
 
   private apiTopics;
   topics = [];
+  leaders;
 
   selectedTopicId = null;
+  selectedLeaderId = null;
+
 
   employees;
+  teams;
+  completed;
+  scheduled;
+
+  ascending = true;
 
   constructor(private httpClient: HttpClient, private sessionAPIService: SessionAPIService) { }
 
   ngOnInit() {
-    this.getTopicData();
+    this.getLeaderData();
   }
 
   getTopicData() {
@@ -70,17 +78,113 @@ export class StatisticsComponent implements OnInit {
     }
   }
 
-  onTopicChange() {
+  onEmployeeTopicChange() {
     this.getEmployeesData();
   }
 
   getEmployeesData() {
+    this.employees = [];
     this.httpClient.get(this.baseUrl + '/api/section/get/employeesForTopic/' + this.selectedTopicId).subscribe(
       data => {
         this.employees = data;
       }
     ).add(() => {
-      console.log(this.employees);
     });
+  }
+
+  sortEmployees(column) {
+    if (!this.ascending) {
+      this.employees.sort((a, b) => a[column] > b[column] ? 1 : a[column] < b[column] ? -1 : 0)
+      this.ascending = true;
+    } else {
+      this.employees.sort((a, b) => a[column] < b[column] ? 1 : a[column] > b[column] ? -1 : 0)
+      this.ascending = false;
+    }
+  }
+
+  onTeamsTopicChange() {
+    this.getTeamsData();
+  }
+
+  getTeamsData() {
+    this.teams = [];
+    this.httpClient.get(this.baseUrl + '/api/section/get/leadersForTopic/' + this.selectedTopicId).subscribe(
+      data => {
+        this.teams = data;
+      }
+    ).add(() => {
+    });
+  }
+
+  sortTeams(column) {
+    if (!this.ascending) {
+      this.teams.sort((a, b) => a[column] > b[column] ? 1 : a[column] < b[column] ? -1 : 0)
+      this.ascending = true;
+    } else {
+      this.teams.sort((a, b) => a[column] < b[column] ? 1 : a[column] > b[column] ? -1 : 0)
+      this.ascending = false;
+    }
+  }
+
+  getLeaderData() {
+    let userId;
+    this.sessionAPIService.me().subscribe((user) => {
+      userId = user['id'];
+    }).add(() => {
+      this.httpClient.get(this.baseUrl + '/api/employee/get/all/employeesForLeader/leaders/' + userId).subscribe(
+        data => {
+          this.leaders = data;
+        }
+      ).add(() => {
+      });
+    });
+  }
+  
+  onCompletedLeaderChange() {
+    this.getCompletedData();
+  }
+
+  getCompletedData() {
+    this.completed = [];
+    this.httpClient.get(this.baseUrl + '/api/section/get/leadersForLearnedTopic/' + this.selectedLeaderId).subscribe(
+      data => {
+        this.completed = data;
+      }
+    ).add(() => {
+    });
+  }
+
+  sortCompleted(column) {
+    if (!this.ascending) {
+      this.completed.sort((a, b) => a[column] > b[column] ? 1 : a[column] < b[column] ? -1 : 0)
+      this.ascending = true;
+    } else {
+      this.completed.sort((a, b) => a[column] < b[column] ? 1 : a[column] > b[column] ? -1 : 0)
+      this.ascending = false;
+    }
+  }
+
+  onScheduledLeaderChange() {
+    this.getScheduledData();
+  }
+
+  getScheduledData() {
+    this.scheduled = [];
+    this.httpClient.get(this.baseUrl + '/api/section/get/futureLeadersForTopic/' + this.selectedLeaderId).subscribe(
+      data => {
+        this.scheduled = data;
+      }
+    ).add(() => {
+    });
+  }
+
+  sortScheduled(column) {
+    if (!this.ascending) {
+      this.scheduled.sort((a, b) => a[column] > b[column] ? 1 : a[column] < b[column] ? -1 : 0)
+      this.ascending = true;
+    } else {
+      this.scheduled.sort((a, b) => a[column] < b[column] ? 1 : a[column] > b[column] ? -1 : 0)
+      this.ascending = false;
+    }
   }
 }
