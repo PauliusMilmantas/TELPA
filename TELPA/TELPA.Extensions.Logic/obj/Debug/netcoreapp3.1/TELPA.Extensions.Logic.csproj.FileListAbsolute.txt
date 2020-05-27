@@ -41,3 +41,4 @@ C:\Users\grici\Documents\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp
 C:\Users\grici\Documents\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.AssemblyInfo.cs
 C:\Users\grici\Documents\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll
 C:\Users\grici\Documents\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.pdb
+D:\Desktop\Arno\Programming\Java\PSK\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.csprojAssemblyReference.cache
