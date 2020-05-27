@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TELPA.Constants;
 using TELPA.Data;
 using TELPA.Entities;
 using TELPA.Exceptions;
@@ -13,11 +15,13 @@ namespace TELPA.Components
     {
         private ApplicationDbContext db;
         private ISessionService sessionService;
+        private IOptions<Config> config;
 
-        public AuthorizationService(ApplicationDbContext db, ISessionService sessionService)
+        public AuthorizationService(ApplicationDbContext db, ISessionService sessionService, IOptions<Config> config)
         {
             this.db = db;
             this.sessionService = sessionService;
+            this.config = config;
         }
 
         public bool IsLeader(string id, Employee potentialSubordinate)
@@ -62,7 +66,7 @@ namespace TELPA.Components
             {
                 throw new ValidationException("email", "The email is not registered.");
             }
-            if (!employee.IsPassword(password))
+            if (!employee.IsPassword(password, config.Value.PasswordSalt))
             {
                 throw new ValidationException("password", "The password is incorrect.");
             }

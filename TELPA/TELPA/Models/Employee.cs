@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,22 +41,22 @@ namespace TELPA.Models
         [JsonIgnore]
         public virtual List<Invite> Invites { get; set; }
 
-        public bool IsPassword(string password)
+        public bool IsPassword(string password, string salt)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
-                salt: Convert.FromBase64String(Config.salt),
+                salt: Convert.FromBase64String(salt),
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 1000,
                 numBytesRequested: 256 / 8));
             return hashed == PasswordHash;
         }
 
-        public void SetPasswordHash(string password)
+        public void SetPasswordHash(string password, string salt)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
-                salt: Convert.FromBase64String(Config.salt),
+                salt: Convert.FromBase64String(salt),
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 1000,
                 numBytesRequested: 256 / 8));

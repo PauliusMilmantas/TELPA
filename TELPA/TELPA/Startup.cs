@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using TELPA.Components;
 using Microsoft.Extensions.Options;
 using TELPA.Data;
+using TELPA.Constants;
 
 namespace TELPA
 {
@@ -30,6 +31,9 @@ namespace TELPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<Config>(Configuration.GetSection("TELPAConfig"));
+            var config = Configuration.GetSection("TELPAConfig").Get<Config>();
+
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             if (connectionString.Contains("%CONTENT_ROOT%"))
             {
@@ -49,9 +53,26 @@ namespace TELPA
                 .AddScheme<NoOpAuthenticationOptions, NoOpAuthenticationHandler>("NoOpAuthentication", options => { });
             services.AddSingleton<IPostConfigureOptions<NoOpAuthenticationOptions>, NoOpAuthenticationPostConfigureOptions>();
 
-            services.AddSingleton<ISessionService, SessionService>();
-            services.AddScoped<IAuthorizationService, AuthorizationService>();
+            //System.Diagnostics.Debug.WriteLine(Configuration.);
 
+            //services.AddSingleton<ISessionService, SessionService>();
+            //services.AddScoped<IAuthorizationService, AuthorizationService>();
+
+            foreach (var serviceConfig in config.Services)
+            {
+                if (serviceConfig.Scope == "Singleton")
+                {
+                    services.AddSingleton(Type.GetType(serviceConfig.Interface), Type.GetType(serviceConfig.Implementation));
+                }
+                else if (serviceConfig.Scope == "Scoped")
+                {
+                    services.AddScoped(Type.GetType(serviceConfig.Interface), Type.GetType(serviceConfig.Implementation));
+                }
+                else if (serviceConfig.Scope == "Transient")
+                {
+                    services.AddTransient(Type.GetType(serviceConfig.Interface), Type.GetType(serviceConfig.Implementation));
+                }
+            }
             //Assembly[] assemblies = new Assembly[] { Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "TELPA.Extensions.Logic.dll") };
             Assembly[] assemblies =
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory)
