@@ -9,20 +9,28 @@
         <th>Name</th>
         <th>Email</th>
         <th>Assigned by</th>
-        <th></th>
+        <th>Change Leader</th>
       </tr>
 
       <tr *ngFor="let EmployeeData of employeeData; let i = index">
         <td>{{EmployeeData.employeeName}}</td>
         <td>{{EmployeeData.employeeEmail}}</td>
         <td>{{EmployeeData.leaderName}}</td>
+       <td>
+          <div class="editLeader" *ngIf="EmployeeData != null" (click)="getEmployee(EmployeeData.employeeId); openEditModal(EmployeeData.employeeId, EmployeeData.employeeName, EmployeeData.leaderId, 'edit-leader')">
+            <span>edit</span>
+          </div>
+        </td>
+
+<!--
         <td>
-          <select name="editLeader" [(ngModel)]="EmployeeData.leaderName">
-            <option *ngFor="let FullLeaderData of fullLeaderData" id="newAttribute.leaderName">
-              {{FullLeaderData.leaderName}}
+          <select name="editLeader" [(ngModel)]="EmployeeData.leaderName" #editLeader="ngModel" (change)="onLeaderChange($event.target.value)" [value]="EmployeeData.leaderName" selected="EmployeeData.leaderName">
+            <option *ngFor="let FullLeaderData of fullLeaderData">
+              {{EmployeeData.leaderName}}
             </option>
           </select>
         </td>
+-->
       </tr>
     </table>
   </div>
@@ -34,9 +42,9 @@
   <div class="teamSelected" (click)="selectTeam(0); closeModal('selectTeam')">
     <span>Show all</span>
   </div>
-  <ng-container class="teamName" *ngFor="let FullLeaderData of fullLeaderData">
-    <div class="teamSelected" *ngIf="FullLeaderData != null" (click)="selectTeam(FullLeaderData.leaderId); closeModal('selectTeam')">
-      <span>{{FullLeaderData.leaderName}}</span>
+  <ng-container class="teamName" *ngFor="let SubordinateData of subordinateData">
+    <div class="teamSelected" *ngIf="SubordinateData != null" (click)="selectTeam(SubordinateData.id); closeModal('selectTeam')">
+      <span>{{SubordinateData.name}}</span>
     </div>
   </ng-container>
 
@@ -60,9 +68,14 @@
   <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('addEmployee');">Cancel</button>
 </jw-modal>
 
-<jw-modal id="editLeader">
-  <div>
-  </div>
-  <button type="button" class="btn btn-success mdlBtn" (click)="onSave(); closeModal('editLeader')">Save changes</button>
-  <button type="button" class="btn btn-success mdlBtn" (click)="closeModal('editLeader');">Cancel</button>
+<jw-modal id="edit-leader">
+  <h3>{{employeeName}}</h3>
+  <h3>{{leaderId}}</h3>
+  <select name="selectLeader" [(ngModel)]="newAttribute.id">
+    <option *ngFor="let SubordinateData of subordinateData" id="newAttributeLeaderName" value="{{SubordinateData.id}}">
+      {{SubordinateData.name}}
+    </option>
+  </select>
+  <br/>
+  <button type="button" class="btn btn-success mdlBtn" (click)="editLeader('edit-leader',newAttribute.id, employeeId)">Save Changes</button>
 </jw-modal>
