@@ -6,6 +6,8 @@ export interface Employee {
   leaderId: string;
   version: number;
   subordinates: Employee[];
+  learnedTopics: LearnedTopic[];
+  recommendedTopics: RecommendedTopic[];
 }
 
 export interface Invite {

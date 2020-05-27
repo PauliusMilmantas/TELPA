@@ -1,0 +1,13 @@
+.color-box {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: #ccc;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.near-box {
+  padding-left: 10px;
+}
