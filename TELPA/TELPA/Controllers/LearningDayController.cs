@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Castle.Core.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TELPA.Data;
@@ -91,6 +92,56 @@ namespace TELPA.Controllers
         [HttpPost("create")]
         public IActionResult CreateLearningDay([FromBody] LearningDay learningDay)
         {
+            Employee employee = db.Employees.Find(learningDay.EmployeeId);
+
+            if (!employee.Limits.IsNullOrEmpty())  // jei darbuotojas turi kazkokiu nustatytu apribojimu
+            {
+                var result = db.CheckLearningDayForEmployee.FromSqlInterpolated(
+                    $@"
+                    select
+                      1 checkBool
+                    from
+                      limits lim
+                    where
+                      lim.employeeId = {employee.Id} and
+                      {learningDay.Date} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate)")
+                    .ToList<CheckLearningDayForEmployee>();
+
+                if (result.IsNullOrEmpty()) 
+                    return Json(Forbid("Learning day is not in allowed learning period of the employee!"));
+
+                if (!employee.LearningDays.IsNullOrEmpty())
+                {
+                    result = db.CheckLearningDayForEmployee.FromSqlInterpolated(
+                        $@"
+                        select
+				          sum(che.checkBool) checkBool
+				        from
+					      (select
+                            case
+					          when count(lda.id) < lim.maxTotalLearningDays then
+						        0
+						      else
+						        1
+					        end checkBool
+                          from
+                            limits lim,
+					        learningDays lda
+                          where
+                            lim.employeeId = {employee.Id} and
+                            {learningDay.Date} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate) and
+					        lda.employeeId = lim.employeeId and
+					        lda.date between convert(datetime, lim.startDate) and convert(datetime, lim.endDate)
+					      group by
+					        lim.id,
+					        lim.maxTotalLearningDays) che")
+                        .ToList<CheckLearningDayForEmployee>();
+
+                    if (result.First().checkBool != 0) 
+                        return Json(Forbid("Max learning days reached!"));
+                }
+            }
+
             if (learningDay != null)
             {
                 db.LearningDays.Add(learningDay);
