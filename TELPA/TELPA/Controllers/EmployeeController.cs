@@ -307,7 +307,12 @@ namespace TELPA.Controllers
         {
             if (employee != null)
             {
-                db.Employees.Update(employee);
+                Employee employeeExisting = db.Employees.Find(employee.Id);
+                employeeExisting.Email = employee.Email;
+                employeeExisting.Role = employee.Role;
+                employeeExisting.Name = employee.Name;
+                employeeExisting.LeaderId = employee.LeaderId;
+                db.Employees.Update(employeeExisting);
                 db.SaveChanges();
                 return Json(Ok("Employee updated"));
             }
