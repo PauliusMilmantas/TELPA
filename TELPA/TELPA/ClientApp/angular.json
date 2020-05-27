@@ -21,10 +21,20 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/assets"],
-            "styles": ["src/bootstrap-darkly.min.css", "src/styles.css"],
+            "styles": [
+              "src/assets/Treant.css",
+              "src/assets/perfect-scrollbar.css",
+              "src/assets/bootstrap-darkly.min.css",
+              "src/styles.css"
+            ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/jquery.easing.js",
+              "src/assets/jquery.mousewheel.js",
+              "src/assets/perfect-scrollbar.js",
+              "src/assets/raphael.js",
+              "src/assets/Treant.js"
             ]
           },
           "configurations": {
