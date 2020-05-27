@@ -223,6 +223,54 @@ namespace TELPA.Controllers
         }
 
         [HttpGet]
+        [Route("get/all/employeesForLeader/leaders/{supremeLeaderId}")]
+        public IActionResult getLeadersForSupremeLeader(int supremeLeaderId)  // Grazina visu zemesniu lygiu lyderius pagal lyderio lygi
+        {
+            IList<Employee> leaders = db.Employees.FromSqlInterpolated(
+                $@"
+                with employees_rec as (
+                  select
+                    emp_par.*
+                  from
+                    employees emp_par
+                  where
+                    emp_par.id = {supremeLeaderId}
+                  union all
+                  select
+                    emp_chi.*
+                  from
+                    employees emp_chi,
+	                employees_rec emp_rec
+                  where
+                    emp_rec.id = emp_chi.leaderId)
+				select
+				  emp.*
+				from
+				  (select
+					emp_rec.leaderId id
+				  from
+					employees_rec emp_rec
+				  where 
+					emp_rec.id <> {supremeLeaderId} and
+					emp_rec.leaderId <>{supremeLeaderId}
+				  group by
+				    emp_rec.leaderId) ldr,
+                  employees emp
+				where
+				  emp.id = ldr.id")
+                .ToList<Employee>();
+
+            if (leaders.Count != 0)
+            {
+                return Json(leaders);
+            }
+            else
+            {
+                return NotFound("No leaders found under leader ID = " + supremeLeaderId);
+            }
+        }
+
+        [HttpGet]
         [Route("get/all/leaders")]
         public IActionResult getLeaders()
         { 
