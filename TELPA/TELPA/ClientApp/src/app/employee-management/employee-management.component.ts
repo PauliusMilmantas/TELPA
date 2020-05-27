@@ -170,7 +170,7 @@ export class EmployeeManagementComponent implements OnInit {
     this.sessionAPIService.me().subscribe((e) => {
       this.e = e;
     }).add(() => {
-      this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/' + this.e.id).subscribe(
+      this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/leaders/' + this.e.id).subscribe(
         data => {
           this.linkingData = data;
         }).add(() => {
@@ -197,7 +197,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   selectTeam(id: number) {
     console.log("id yra", id);
-    this.employeeDataAll = [];
+    this.employeeId = id;
     this.employeeData = [];
     if (id == 0 || id == null) {
       this.getBackendData();
@@ -208,14 +208,16 @@ export class EmployeeManagementComponent implements OnInit {
           this.linkingData = data;
         }
       ).add(() => {
-        console.log("e.id:", this.e.id);
+        //console.log("e.id:", this.e.id);
         for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+          console.log("linkingData length:", Object.keys(this.linkingData).length);
           this.employeeName = this.linkingData[i]['employeeName'];
           this.employeeEmail = this.linkingData[i]['employeeEmail'];
           this.employeeRole = this.linkingData[i]['employeeRole'];
           this.employeeLeaderId = this.linkingData[i]['leaderId'];
           this.employeeLeaderName = this.linkingData[i]['leaderName'];
-          if (this.linkingData[i]['leaderId'] == id) {
+          console.log(this.employeeId, this.linkingData[i]['leaderId']);
+          if (this.linkingData[i]['leaderId'] == this.employeeId) {
             this.employeeData.push({
               'employeeName': this.employeeName,
               'employeeEmail': this.employeeEmail,
@@ -225,9 +227,9 @@ export class EmployeeManagementComponent implements OnInit {
             })
           }
         }
+        console.log(id, this.employeeData);
       });
     }
-    console.log(id, this.employeeData1);
   }
 
   addEmployeeBtnClick(event) {
