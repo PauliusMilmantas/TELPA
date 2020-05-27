@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -156,6 +157,45 @@ namespace TELPA.Controllers
             catch (ArgumentNullException)
             {
                 return NotFound("DELETE: LearningDay with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("get/learningDaysAndTopicsForEmployee/{employeeId}")]
+        public IActionResult getLearningDaysAndTopicsForEmployee(int employeeId)
+        {
+            var result = db.LearningDaysAndTopicsForEmployee.FromSqlInterpolated(
+                $@"
+                select
+                  lda.employeeId,
+                  lda.id learningDayId,
+                  convert(varchar, lda.date, 23) learningDayDate,
+                  lda.comment learningDayComment,
+                  lda.version learningDayVersion,
+                  ldt.id learningDayTopicId,
+                  ldt.version learningDayTopicVersion,
+                  tpc.id topicId,
+                  tpc.name topicName,
+                  tpc.description topicDescription,
+                  isNull(tpc.ParentTopicId, 0) topicParentTopicId,
+                  tpc.version topicVersion
+                from
+                  learningDays lda,
+                  learningDayTopics ldt,
+                  topics tpc
+                where
+                  lda.employeeId = {employeeId} and
+                  lda.id = ldt.learningDayId and
+                  tpc.id = ldt.topicId")
+                .ToList<LearningDaysAndTopicsForEmployee>();
+
+            if (result.Count != 0)
+            {
+                return Json(result);
+            }
+            else
+            {
+                return NotFound("No learning days found for employee ID = " + employeeId);
             }
         }
     }

@@ -26,6 +26,7 @@ namespace TELPA.Data
         public DbSet<LeadersForTopic> LeadersForTopic { get; set; }
         public DbSet<LeadersForLearnedTopic> LeadersForLearnedTopic { get; set; }
         public DbSet<EmployeesAndLeaders> EmployeesAndLeaders { get; set; }
+        public DbSet<LearningDaysAndTopicsForEmployee> LearningDaysAndTopicsForEmployee { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
@@ -219,6 +220,8 @@ namespace TELPA.Data
             modelBuilder.Entity<LeadersForLearnedTopic>()
                 .HasNoKey();
             modelBuilder.Entity<EmployeesAndLeaders>()
+                .HasNoKey();
+            modelBuilder.Entity<LearningDaysAndTopicsForEmployee>()
                 .HasNoKey();
         }
         #endregion

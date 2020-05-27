@@ -185,7 +185,7 @@ namespace TELPA.Controllers
 
         [HttpGet]
         [Route("get/all/employeesForLeader/{leaderId}")]
-        public IActionResult getemployeesForLeader(int leaderId)  // Grazina zemesniu lygiu employees pagal lyderio lygi
+        public IActionResult getEmployeesForLeader(int leaderId)  // Grazina zemesniu lygiu employees pagal lyderio lygi
         {
             IList<Employee> employees = db.Employees.FromSqlInterpolated(
                 $@"
