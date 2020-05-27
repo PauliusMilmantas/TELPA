@@ -3,40 +3,49 @@
     <h1>Manage Recommendations</h1>
 
     <div class="background-box">
+
+      <div [hidden]="hideMessageBox" class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Recommendations were updated.
+      </div>
+
       <div class="form-group">
         <label for="for-who">For Who</label>
-        <select class="form-control" id="for-who" required (change)="onForWhoChange($event.target.value)">
-          <option>Myself</option>
-          <option>Bob</option>
-          <option>Rob</option>
-          <option>Tod</option>
+        <select class="form-control" id="for-who" (change)="onForWhoChange()"
+                [(ngModel)]="employeeToRecommendId" name="employeeId" #employeeId="ngModel">
+          <option [value]="null">(None)</option>
+          <option [value]="user['id']">Myself</option>
+          <option *ngFor="let employee of employees" [value]="employee['id']">{{employee['name']}}</option>
         </select>
       </div>
 
-      <div class="dual-list">
-        <div class="form-group">
-          <label for="available">Available</label>
-          <select class="custom-select" id="available" size="10">
-            <option value="1">Math</option>
-            <option value="2">C++</option>
-            <option value="3">Java</option>
-          </select>
+      <form [hidden]="hideForm">
+        <div class="dual-list">
+
+          <div class="form-group">
+            <label for="available">Available</label>
+            <select class="custom-select" id="available" size="15" (change)="onAvailableChange($event.target.value)"
+                    [(ngModel)]="selectedAvailableTopicId" name="selectedAvailable" #selectedAvailable="ngModel">
+              <option *ngFor="let topic of topics" [value]="topic['id']" [disabled]="topic['recommended']" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
+            </select>
+          </div>
+
+          <div class="button-group">
+            <button class="btn btn-success" [disabled]="selectedAvailableTopicId == null" (click)="onAdd()">Add</button>
+            <button class="btn btn-danger" [disabled]="selectedRecommendedTopicId == null" (click)="onRemove()">Remove</button>
+          </div>
+
+          <div class="form-group">
+            <label for="recommended">Recommended</label>
+            <select class="custom-select" id="recommended" size="15" (change)="onRecommendedChange($event.target.value)"
+                    [(ngModel)]="selectedRecommendedTopicId" name="selectedRecommended" #selectedRecommended="ngModel">
+              <option *ngFor="let topic of topics" [value]="topic['id']" [disabled]="!topic['recommended']" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
+            </select>
+          </div>
         </div>
 
-        <div class="button-group">
-          <button class="btn btn-success">Add</button>
-          <button class="btn btn-danger">Remove</button>
-        </div>
-
-        <div class="form-group">
-          <label for="recommended">Recommended</label>
-          <select class="custom-select" size="10" id="recommended">
-            <option value="1">Python</option>
-            <option value="2">Logic</option>
-            <option value="3">Probabilities</option>
-          </select>
-        </div>
-      </div>
+        <button (click)="onUpdate()" class="btn btn-success">Update</button>
+      </form>
     </div>
   </div>
 </div>

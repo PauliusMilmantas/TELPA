@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TELPA.Data;
 using TELPA.Models;
@@ -34,6 +36,30 @@ namespace TELPA.Controllers
             else
             {
                 return NotFound("GET: RecommendedTopic with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("getByEmployee/{employeeId}")]
+        public IActionResult getRecommendedTopicByEmployee(int employeeId)
+        {
+            IList<RecommendedTopic> allRecommendedTopics = db.RecommendedTopics.ToList<RecommendedTopic>();
+            IList<RecommendedTopic> recommendedTopics = new List<RecommendedTopic>();
+            foreach (RecommendedTopic topic in allRecommendedTopics)
+            {
+                if (topic.EmployeeId == employeeId)
+                {
+                    recommendedTopics.Add(topic);
+                }
+            }
+
+            if (recommendedTopics.Count != 0)
+            {
+                return Json(recommendedTopics);
+            }
+            else
+            {
+                return NotFound("GET: No topics associated to employee ID = " + employeeId + " not found.");
             }
         }
 
