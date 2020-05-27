@@ -155,7 +155,7 @@ insert into employees (
 values (
   1,
   'admin@telpa.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Adminas',
   null,
@@ -172,7 +172,7 @@ insert into employees (
 values (
   2,
   'jonas@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Jonas Jonaitis',
   1,
@@ -189,7 +189,7 @@ insert into employees (
 values (
   3,
   'tomas@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Tomas Tomaitis',
   1,
@@ -206,7 +206,7 @@ insert into employees (
 values (
   4,
   'ona@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Ona Onaitė',
   3,
@@ -223,7 +223,7 @@ insert into employees (
 values (
   5,
   'vytas@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Vytas Vytauskas',
   2,
@@ -240,7 +240,7 @@ insert into employees (
 values (
   6,
   'ignas@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Ignas Ignaitis',
   2,
@@ -257,7 +257,7 @@ insert into employees (
 values (
   7,
   'kazimieras@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Kazimieras Kazimieravas',
   2,
@@ -274,7 +274,7 @@ insert into employees (
 values (
   8,
   'birute@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Birutė Birutaitė',
   4,
@@ -291,7 +291,7 @@ insert into employees (
 values (
   9,
   'olegas@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Olegas Olegauskas',
   3,
@@ -308,7 +308,7 @@ insert into employees (
 values (
   10,
   'vladimiras@gmail.com',
-  'admin',
+  'oV9kgFiyFg6AITdi3W+NUy29cZIEeUBSiva4x39xnbI=',
   null,
   'Vladimiras Vladimauskas',
   4,
