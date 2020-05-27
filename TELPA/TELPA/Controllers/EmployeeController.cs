@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -18,6 +19,7 @@ namespace TELPA.Controllers
             this.db = db;
         }
 
+        [Logged]
         [HttpGet("ping")]
         public IActionResult Ping()
         {

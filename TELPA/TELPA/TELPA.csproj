@@ -46,10 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TELPA.Extensions.Logic\TELPA.Extensions.Logic.csproj">
-      <Private>true</Private>
-      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

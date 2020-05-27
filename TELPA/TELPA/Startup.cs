@@ -14,6 +14,7 @@ using TELPA.Components;
 using Microsoft.Extensions.Options;
 using TELPA.Data;
 using TELPA.Constants;
+using System.Collections.Generic;
 
 namespace TELPA
 {
@@ -58,21 +59,26 @@ namespace TELPA
             //services.AddSingleton<ISessionService, SessionService>();
             //services.AddScoped<IAuthorizationService, AuthorizationService>();
 
-            foreach (var serviceConfig in config.Services)
+            List<Type> superTypes = config.Services.Select<ServiceConfig, Type>(s => null).ToList();
+            List<Type> subTypes = config.Services.Select<ServiceConfig, Type>(s => null).ToList();
+
+            for (var i = 0; i < config.Services.Count;++i)
             {
-                if (serviceConfig.Scope == "Singleton")
+                var serviceConfig = config.Services[i];
+                Type superType = Type.GetType(serviceConfig.Interface);
+                Type subType = Type.GetType(serviceConfig.Implementation);
+                if (superType != null)
                 {
-                    services.AddSingleton(Type.GetType(serviceConfig.Interface), Type.GetType(serviceConfig.Implementation));
+                    superTypes[i] = superType;
+                    System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Interface);
                 }
-                else if (serviceConfig.Scope == "Scoped")
+                if (subType != null)
                 {
-                    services.AddScoped(Type.GetType(serviceConfig.Interface), Type.GetType(serviceConfig.Implementation));
-                }
-                else if (serviceConfig.Scope == "Transient")
-                {
-                    services.AddTransient(Type.GetType(serviceConfig.Interface), Type.GetType(serviceConfig.Implementation));
+                    subTypes[i] = subType;
+                    System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Implementation);
                 }
             }
+
             //Assembly[] assemblies = new Assembly[] { Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "TELPA.Extensions.Logic.dll") };
             Assembly[] assemblies =
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory)
@@ -83,10 +89,51 @@ namespace TELPA
             System.Diagnostics.Debug.WriteLine("Extensions: " + string.Join<Assembly>(", ", assemblies));
             foreach (var assembly in assemblies)
             {
+                for (var i = 0; i < config.Services.Count; ++i)
+                {
+                    var serviceConfig = config.Services[i];
+                    Type superType = assembly.GetType(serviceConfig.Interface);
+                    Type subType = assembly.GetType(serviceConfig.Implementation);
+                    if (superType != null)
+                    {
+                        superTypes[i] = superType;
+                        System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Interface);
+                    }
+                    if (subType != null)
+                    {
+                        subTypes[i] = subType;
+                        System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Implementation);
+                    }
+                }
+
+
                 services.AddControllers().AddApplicationPart(assembly).AddControllersAsServices();
                 //services.AddControllers().PartManager.ApplicationParts.Add(new AssemblyPart(assembly));
             }
-            //var t = typeof(TELPA.Extensions.Logic.Controllers.SimpleController);
+
+            for (var i = 0; i < config.Services.Count; ++i)
+            {
+                var serviceConfig = config.Services[i];
+                Type superType = superTypes[i];
+                Type subType = subTypes[i];
+                if (superType == null || subType == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Service pair of " + serviceConfig.Interface + " and " + serviceConfig.Implementation + " not found.");
+                    continue;
+                }
+                if (serviceConfig.Scope == "Singleton")
+                {
+                    services.AddSingleton(superType, subType);
+                }
+                else if (serviceConfig.Scope == "Scoped")
+                {
+                    services.AddScoped(superType, subType);
+                }
+                else if (serviceConfig.Scope == "Transient")
+                {
+                    services.AddTransient(superType, subType);
+                }
+            }
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
