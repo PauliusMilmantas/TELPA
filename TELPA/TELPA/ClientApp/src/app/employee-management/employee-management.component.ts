@@ -317,13 +317,15 @@ export class EmployeeManagementComponent implements OnInit {
     this.employeeId = employeeId;
     this.leaderId = leaderId;
     this.modalService.close(id);
-    this.employeeToEdit['leaderId'] = leaderId;
     console.log("newLeader: ", this.newLeader);
     console.log("employee edit", this.employeeToEdit);
     if (this.employeeToEdit['id'] != this.newLeader['leaderId']) {
+      this.employeeToEdit['leaderId'] = leaderId;
+      console.log("editinamo employee id", this.employeeToEdit['id']);
       this.httpClient.put('api/employee/update', this.employeeToEdit).subscribe(
         (val) => {
           console.log("PUT call successful value returned in body", val);
+          this.employeeUpdated();
         },
         response => {
           console.log("PUT call in error", response);
@@ -334,6 +336,12 @@ export class EmployeeManagementComponent implements OnInit {
       );
     }
     else console.log("editint negalima");
+  }
+
+  employeeUpdated() {
+    this.getBackendData();
+    this.getLeaderData();
+    this.getSubordinateData();
   }
 
   getEmployee(id: number) {

@@ -139,12 +139,11 @@
   <input type="radio" name="check" value="leader-is-someone-else" (click)="leaderSelect(true)"/>Leader is someone else
   <div class="hidden" *ngIf="bool">
     Leader name:
-    <!--  <input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" /> -->
     <select name="selectLeader" [(ngModel)]="newAttribute.leaderName">
-      <option *ngFor="let FullLeaderData of fullLeaderData"
+      <option *ngFor="let EmployeeData of employeeData"
               id="newAttributeLeaderName"
-              value="{{ FullLeaderData.leaderName }}">
-        {{ FullLeaderData.leaderName }}
+              value="{{ EmployeeData.employeeName }}">
+        {{ EmployeeData.employeeName }}
       </option>
     </select>
   </div>
@@ -180,11 +179,11 @@
   <h1>Select new employee leader:</h1>
   <select name="selectLeader" [(ngModel)]="newAttribute.id">
     <option
-      *ngFor="let SubordinateData of subordinateData"
+      *ngFor="let EmployeeData of employeeData"
       id="newAttributeLeaderName"
-      value="{{ SubordinateData.id }}"
+      value="{{ EmployeeData.employeeId }}"
     >
-      {{ SubordinateData.name }}
+      {{ EmployeeData.employeeName }}
     </option>
   </select>
   <br />
