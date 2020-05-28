@@ -67,7 +67,6 @@ export class TopicNetworkComponent implements AfterViewInit {
                   });
                 }
               }
-              console.log(data);
               let width = (<HTMLElement>this.viewElement.nativeElement)
                 .offsetWidth;
               let height = (<HTMLElement>this.viewElement.nativeElement)
