@@ -89,81 +89,30 @@ export class LearningDaysComponent implements OnInit {
 
   // Requesting data from API
   getBackendData() {
-    var baseURL = location.origin;
-    this.learningDaysAll = [];
-
-    this.httpClient.get(baseURL + '/api/learningDayTopic/get/all').subscribe(
-      data => {
-        this.linkingData = data;
-      }
-    ).add(() => {
-      for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.learningDayId = this.linkingData[i]['learningDayId'];
-        this.topicId = this.linkingData[i]['topicId'];
-
-        var empId;
-        // Getting date
-        this.httpClient.get(baseURL + '/api/learningDay/get/' + this.learningDayId).subscribe((response) => {
-          this.dayDate = response['date'];
-          empId = response['employeeId'];
-        }).add(() => {
-            this.employeeIds.push(empId);
-            this.thread1.push(1);
-            this.dayDates.push(this.dayDate);
-            this.getDataForFE(1);
-
-            // Getting topic name
-            this.httpClient.get(baseURL + '/api/topic/get/' + this.topicId).subscribe((response) => {
-              this.topicName = response['name'];
-            }).add(() => {
-              this.thread2.push(1);
-              this.topicNames.push(this.topicName);
-              this.getDataForFE(1);
-            });
-        });
-      }
-    });
-  }
-
-  // Parsing data from API
-  getDataForFE(pageNumber) {
-
-    if (this.thread1.length == Object.keys(this.linkingData).length && this.thread1.length == Object.keys(this.linkingData).length
-      && this.topicNames.length == Object.keys(this.linkingData).length && this.dayDates.length == Object.keys(this.linkingData).length) {
-      this.thread1.push(1);
-      this.thread2.push(1);
-      for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        if (this.employeeIds[i] == this.currentEmployeeId) {
-          this.learningDaysAll.push(
-            {
-              'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
-              'topic': this.topicNames[i]
-            }
-          );
+    this.httpClient.get(location.origin + '/api/learningDay/get/learningDaysAndTopicsForEmployee/' + this.currentEmployeeId).subscribe(response => {
+      this.linkingData = response
+    }).add(() => {
+      this.learningDays = [];
+      for (var i = 4 * (this.pageCounter - 1); i < 3 * this.pageCounter + 1; i++) {
+        if (i <= this.linkingData.length) {
+          this.learningDays.push(this.linkingData[i]);
         }
       }
-    }
-
-    this.learningDays = [];
-    for (var i = 4 * (pageNumber - 1); i < 3 * pageNumber + 1; i++) {
-      if (i <= this.learningDaysAll.length) {
-        this.learningDays.push(this.learningDaysAll[i]);
-      }
-    }
+    });
   }
 
   //Control buttons
   changePageLeft() {
     if (this.pageCounter >= 2) {
       this.pageCounter -= 1;
-      this.getDataForFE(this.pageCounter);
+      this.getBackendData();
     }
   }
 
   changePageRight() {
     if (this.learningDays.length == 4) {
       this.pageCounter += 1;
-      this.getDataForFE(this.pageCounter);
+      this.getBackendData();
     }
   }
 
