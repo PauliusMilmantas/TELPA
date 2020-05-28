@@ -5,7 +5,7 @@
     <div class="background-box">
 
       <div [hidden]="hideMessageBox" class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <a (click)="hideMessageBox = true" class="close" aria-label="close">&times;</a>
         <strong>Success!</strong> Recommendations were updated.
       </div>
 
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <button (click)="onUpdate()" class="btn btn-success">Update</button>
+        <button (click)="onUpdate()" [disabled]="topicIdsToAdd.length == 0 && topicIdsToRemove == 0" class="btn btn-success">Update</button>
       </form>
     </div>
   </div>
