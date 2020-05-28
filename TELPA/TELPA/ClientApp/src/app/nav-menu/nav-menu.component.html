@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">TELPA</a>
+      <a class="navbar-brand" [routerLink]="['/homepage']">TELPA</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -21,31 +21,40 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link" [routerLink]="['/']">Home</a>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/employee-management']"
+              >Employee management</a
+            >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/employee-management']">Employee management</a>
+            <a class="nav-link" [routerLink]="['/employee-tree']"
+              >Employee tree</a
+            >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/employee-tree']">Employee tree</a>
+            <a class="nav-link" [routerLink]="['/topic-network']"
+              >Topic network</a
+            >
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle"
-               data-toggle="dropdown"
-               href="#"
-               role="button"
-               aria-haspopup="true"
-               aria-expanded="false">Topic</a>
+            <a
+              class="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Topic</a
+            >
             <div class="dropdown-menu">
               <a class="dropdown-item" [routerLink]="['/topic-add']">Add</a>
               <a class="dropdown-item" [routerLink]="['/topic-edit']">Edit</a>
             </div>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/recommendations']">Recommendations</a>
+            <a class="nav-link" [routerLink]="['/recommendations']"
+              >Recommendations</a
+            >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/statistics']">Statistics</a>
@@ -61,6 +70,14 @@
               <a class="dropdown-item" [routerLink]="['/limits-add']">Add</a>
               <a class="dropdown-item" [routerLink]="['/limits-edit']">Edit</a>
             </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active">{{ (me | async).name }}</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="onLogOut()" class="nav-link">Log out</a>
           </li>
         </ul>
       </div>

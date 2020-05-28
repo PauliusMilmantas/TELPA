@@ -1,7 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Castle.Core.Internal;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -68,6 +71,24 @@ namespace TELPA.Controllers
         {
             if (limit != null)
             {
+                var result = db.CheckBool.FromSqlInterpolated(
+                    $@"
+                    select
+                      1 checkBool
+                    from
+                      limits lim
+                    where
+                      lim.employeeId = {limit.EmployeeId} and
+                      ({DateTime.Parse(limit.StartDate)} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate) or
+                      {DateTime.Parse(limit.EndDate)} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate))")
+                    .ToList<CheckBool>();
+
+                if (!result.IsNullOrEmpty())
+                    return Json(Forbid("Limit period overlaps with another!"));
+
+                if (DateTime.Parse(limit.StartDate) > DateTime.Parse(limit.EndDate))
+                    return Json(Forbid("Incorrect limit period specified!"));
+
                 db.Limits.Add(limit);
                 db.SaveChanges();
                 return Json(Ok("Limit created"));
