@@ -12,39 +12,42 @@ export class LearningDaysComponent implements OnInit {
 
   constructor(private httpClient: HttpClient, private modalService: ModalService) { }
 
-    //POST Register learning day
-    post_topic;
-    post_date;
-    post_comment;
+  //POST Register learning day
+  post_topic;
+  post_date;
+  post_comment;
+  post_topic_id //set with http get
 
-    //Modal window content
-    topicDescription;
-    comment;
+  dayToAdd = {
+    date: null,
+    comment: null,
+    employeeId: null,
+  }
 
-    userId;
+  linkToAdd = {
+    learningDayId: null,
+    topicId: null
+  }
 
-    //Not parsed
-    linkingData;
+  //Modal window content
+  topicDescription;
+  comment;
 
-    //Parsed
-    learningDayId;
-    topicId;
-    dayDate;
-    topicName;
+  //Not parsed
+  linkingData;
 
-    //Parsed arrays
-    C = [];
-    topicNames = [];
-    employeeIds = [];
+  //Parsed
+  learningDayId;
+  topicId;
+  dayDate;
+  topicName;
 
-    //Thread status
-    thread1 = [];
-    thread2 = [];
+  //Parsed arrays
+  topicNames = [];
+  employeeIds = [];
 
   // Loading static data
   learningDaysAll = TrainingDayList;
-
-  dayDates = [];
 
   // Front end
   pageCounter = 1;
@@ -52,8 +55,10 @@ export class LearningDaysComponent implements OnInit {
   // Data to be displayed
   learningDays = [];
 
+  // Current user
   currentEmployeeId;
 
+  // For modal window
   topics = [];
 
   ngOnInit() {
@@ -71,99 +76,77 @@ export class LearningDaysComponent implements OnInit {
   }
 
   submit_learning_day() {
-    var post_topic_id;
 
     this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
       for (var i = 0; i < Object.keys(response).length; i++) {
-        if (response[i]['name'] == this.post_topic) {
-          post_topic_id = response[i]['id'];
+        if (response[i].name == this.post_topic) {
+          this.post_topic_id = response[i].id
         }
       }
     }).add(() => {
-      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/' + this.currentEmployeeId + '/1/' + post_topic_id).subscribe(response2 => {
+
+      this.dayToAdd.date = this.post_date
+      this.dayToAdd.comment = this.post_comment
+      this.dayToAdd.employeeId = this.currentEmployeeId
+
+      var post_response;
+
+      // Posting learning day
+      this.httpClient.post(location.origin + '/api/learningDay/create', this.dayToAdd).subscribe(rsp => {
+        post_response = rsp
       }).add(() => {
-        this.closeModal('custom-modal-4');
+        if (post_response.value == 'LearningDay created') {
+          var learning_day_id
+
+          /// Getting posted learning day ID
+          this.httpClient.get(location.origin + '/api/learningDay/get/all').subscribe(resp => {
+            for (var i = 0; i < Object.keys(resp).length; i++) {
+              console.log(resp[i]);
+              if (resp[i]["date"].split("T")[0] == this.post_date) {
+                learning_day_id = resp[i]['id']
+              }
+            }
+          }).add(() => {
+            this.linkToAdd.learningDayId = learning_day_id
+            this.linkToAdd.topicId = this.post_topic_id
+
+            this.httpClient.post(location.origin + '/api/learningDayTopic/create', this.linkToAdd).subscribe(rst => {
+              console.log(rst);
+            });
+          });
+        } else {
+          alert(post_response.value);
+        }
       });
     });
   }
 
   // Requesting data from API
   getBackendData() {
-    var baseURL = location.origin;
-    this.learningDaysAll = [];
-
-    this.httpClient.get(baseURL + '/api/learningDayTopic/get/all').subscribe(
-      data => {
-        this.linkingData = data;
-      }
-    ).add(() => {
-      for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        this.learningDayId = this.linkingData[i]['learningDayId'];
-        this.topicId = this.linkingData[i]['topicId'];
-
-        var empId;
-        // Getting date
-        this.httpClient.get(baseURL + '/api/learningDay/get/' + this.learningDayId).subscribe((response) => {
-          this.dayDate = response['date'];
-          empId = response['employeeId'];
-        }).add(() => {
-            this.employeeIds.push(empId);
-            this.thread1.push(1);
-            this.dayDates.push(this.dayDate);
-            this.getDataForFE(1);
-
-            // Getting topic name
-            this.httpClient.get(baseURL + '/api/topic/get/' + this.topicId).subscribe((response) => {
-              this.topicName = response['name'];
-            }).add(() => {
-              this.thread2.push(1);
-              this.topicNames.push(this.topicName);
-              this.getDataForFE(1);
-            });
-        });
-      }
-    });
-  }
-
-  // Parsing data from API
-  getDataForFE(pageNumber) {
-
-    if (this.thread1.length == Object.keys(this.linkingData).length && this.thread1.length == Object.keys(this.linkingData).length
-      && this.topicNames.length == Object.keys(this.linkingData).length && this.dayDates.length == Object.keys(this.linkingData).length) {
-      this.thread1.push(1);
-      this.thread2.push(1);
-      for (var i = 0; i < Object.keys(this.linkingData).length; i++) {
-        if (this.employeeIds[i] == this.currentEmployeeId) {
-          this.learningDaysAll.push(
-            {
-              'date': this.dayDates[i].split("T")[0] + " " + this.dayDates[i].split("T")[1],
-              'topic': this.topicNames[i]
-            }
-          );
+    this.httpClient.get(location.origin + '/api/learningDay/get/learningDaysAndTopicsForEmployee/' + this.currentEmployeeId).subscribe(response => {
+      this.linkingData = response
+    }).add(() => {
+      this.learningDays = [];
+      for (var i = 4 * (this.pageCounter - 1); i < 3 * this.pageCounter + 1; i++) {
+        if (i <= this.linkingData.length) {
+          this.learningDays.push(this.linkingData[i]);
         }
       }
-    }
-
-    this.learningDays = [];
-    for (var i = 4 * (pageNumber - 1); i < 3 * pageNumber + 1; i++) {
-      if (i <= this.learningDaysAll.length) {
-        this.learningDays.push(this.learningDaysAll[i]);
-      }
-    }
+    });
   }
 
   //Control buttons
   changePageLeft() {
     if (this.pageCounter >= 2) {
       this.pageCounter -= 1;
-      this.getDataForFE(this.pageCounter);
+      this.getBackendData();
     }
   }
 
   changePageRight() {
     if (this.learningDays.length == 4) {
       this.pageCounter += 1;
-      this.getDataForFE(this.pageCounter);
+      this.getBackendData();
     }
   }
 
