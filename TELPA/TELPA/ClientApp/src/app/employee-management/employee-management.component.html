@@ -2,7 +2,8 @@
   <div class="employee-management">
     <div class="front">
       <div class="buttons">
-        <h3 *ngIf="!hasSubordinates">Oops, it looks like you don't have any subordinates yet!</h3>
+        <h3 *ngIf="isLoading">Loading your subordinates data...</h3>
+        <h3 *ngIf="!hasSubordinates && !isLoading">Oops, it looks like you don't have any subordinates yet!</h3>
         <h1>
           <button
             type="button"
@@ -38,7 +39,6 @@
           <td>{{ EmployeeData.employeeEmail }}</td>
           <td>{{ EmployeeData.leaderName }}</td>
           <td>
-            <!--      <div class="editLeader" *ngIf="EmployeeData != null" (click)="getEmployee(EmployeeData.employeeId); openEditModal(EmployeeData.employeeId, EmployeeData.employeeName, EmployeeData.leaderId, 'edit-leader')">-->
             <button
               type="button"
               class="edit-btn"
@@ -54,18 +54,7 @@
             >
               <h5>Edit</h5>
             </button>
-            <!--            </div>-->
           </td>
-
-          <!--
-          <td>
-            <select name="editLeader" [(ngModel)]="EmployeeData.leaderName" #editLeader="ngModel" (change)="onLeaderChange($event.target.value)" [value]="EmployeeData.leaderName" selected="EmployeeData.leaderName">
-              <option *ngFor="let FullLeaderData of fullLeaderData">
-                {{EmployeeData.leaderName}}
-              </option>
-            </select>
-          </td>
-  -->
         </tr>
       </table>
     </div>
@@ -92,15 +81,6 @@
       >
     </select>
   </div>
-  <!--  <div class="teamSelected" (click)="selectTeam(0); closeModal('selectTeam')">
-    <h4>Show all</h4>
-  </div>
-  <ng-container class="teamName" *ngFor="let SubordinateData of subordinateData">
-    <div class="teamSelected" *ngIf="SubordinateData != null" (click)="selectTeam(SubordinateData.id); closeModal('selectTeam')">
-      <h4>{{SubordinateData.name}}</h4>
-    </div>
-  </ng-container>
--->
   <button
     type="button"
     class="btn-success mdlBtn"
@@ -139,12 +119,11 @@
   <input type="radio" name="check" value="leader-is-someone-else" (click)="leaderSelect(true)"/>Leader is someone else
   <div class="hidden" *ngIf="bool">
     Leader name:
-    <!--  <input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" /> -->
     <select name="selectLeader" [(ngModel)]="newAttribute.leaderName">
-      <option *ngFor="let FullLeaderData of fullLeaderData"
+      <option *ngFor="let EmployeeData of employeeData"
               id="newAttributeLeaderName"
-              value="{{ FullLeaderData.leaderName }}">
-        {{ FullLeaderData.leaderName }}
+              value="{{ EmployeeData.employeeName }}">
+        {{ EmployeeData.employeeName }}
       </option>
     </select>
   </div>
@@ -180,11 +159,11 @@
   <h1>Select new employee leader:</h1>
   <select name="selectLeader" [(ngModel)]="newAttribute.id">
     <option
-      *ngFor="let SubordinateData of subordinateData"
+      *ngFor="let EmployeeData of employeeData"
       id="newAttributeLeaderName"
-      value="{{ SubordinateData.id }}"
+      value="{{ EmployeeData.employeeId }}"
     >
-      {{ SubordinateData.name }}
+      {{ EmployeeData.employeeName }}
     </option>
   </select>
   <br />
@@ -199,3 +178,22 @@
     Save Changes
   </button>
 </jw-modal>
+
+<div class="modal fade" id="badEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div style="background-color: white; color: black;" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Error!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The edit that you just tried to make cannot be done because employee cannot be a subordinate of his subordinate.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
