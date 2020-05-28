@@ -2,12 +2,14 @@
   <div class="employee-management">
     <div class="front">
       <div class="buttons">
+        <h3 *ngIf="!hasSubordinates">Oops, it looks like you don't have any subordinates yet!</h3>
         <h1>
           <button
             type="button"
             value="Select Team"
             class="select-team-btn"
             (click)="openModal('selectTeam')"
+            *ngIf="hasSubordinates"
           >
             Select Team
           </button>
@@ -23,7 +25,7 @@
           </button>
         </h1>
       </div>
-      <table class="employee-table">
+      <table class="employee-table" *ngIf="hasSubordinates">
         <tr>
           <th>Name</th>
           <th>Email</th>
