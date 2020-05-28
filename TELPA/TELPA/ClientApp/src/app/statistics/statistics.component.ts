@@ -53,6 +53,10 @@ export class StatisticsComponent implements OnInit {
   }
 
   getData(index) {
+    this.employees = null;
+    this.teams = null;
+    this.completed = null;
+    this.scheduled = null;
     if (index == 0 || index == 1) {
       this.selectedTopicId = null;
       this.apiTopics = [];

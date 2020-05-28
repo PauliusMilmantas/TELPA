@@ -3,9 +3,10 @@
 
     <h1>Statistics</h1>
 
-    <button *ngFor="let category of categories; let i = index" type="button" class="btn btn-primary" (click)="onCategoryClick(i)" [disabled]="category['disabled']">{{category['name']}}</button>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <button *ngFor="let category of categories; let i = index" type="button" class="btn btn-primary" (click)="onCategoryClick(i)" [disabled]="category['disabled']">{{category['name']}}</button>
+    </div>
 
-    
     <div class="background-box" [hidden]="!categories[0]['disabled']">
 
       <div class="form-group">
@@ -69,37 +70,37 @@
     </div>
 
 
-  <div class="background-box" [hidden]="!categories[2]['disabled']">
+    <div class="background-box" [hidden]="!categories[2]['disabled']">
 
-    <div class="form-group">
-      <label for="selectLeader">Select Leader</label>
-      <select class="form-control" id="selectLeader" (change)="onCompletedLeaderChange()"
-              [(ngModel)]="selectedLeaderId" name="id" #id="ngModel">
-        <option [value]="null">(None)</option>
-        <option *ngFor="let leader of leaders" [value]="leader['id']">{{leader['name']}}</option>
-      </select>
+      <div class="form-group">
+        <label for="selectLeader">Select Leader</label>
+        <select class="form-control" id="selectLeader" (change)="onCompletedLeaderChange()"
+                [(ngModel)]="selectedLeaderId" name="id" #id="ngModel">
+          <option [value]="null">(None)</option>
+          <option *ngFor="let leader of leaders" [value]="leader['id']">{{leader['name']}}</option>
+        </select>
+      </div>
+
+      <table class="table table-bordered" style="color: black;">
+        <thead class="thead-dark">
+          <tr>
+            <th (click)="sortCompleted('rowNo')">No.</th>
+            <th (click)="sortCompleted('employeeName')">Employee Name</th>
+            <th (click)="sortCompleted('topicName')">Topic Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let comp of completed">
+            <td>{{comp['rowNo']}}</td>
+            <td>{{comp['employeeName']}}</td>
+            <td>{{comp['topicName']}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <table class="table table-bordered" style="color: black;">
-      <thead class="thead-dark">
-        <tr>
-          <th (click)="sortCompleted('rowNo')">No.</th>
-          <th (click)="sortCompleted('employeeName')">Employee Name</th>
-          <th (click)="sortCompleted('topicName')">Topic Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let comp of completed">
-          <td>{{comp['rowNo']}}</td>
-          <td>{{comp['employeeName']}}</td>
-          <td>{{comp['topicName']}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
-
-  <div class="background-box" [hidden]="!categories[3]['disabled']">
+    <div class="background-box" [hidden]="!categories[3]['disabled']">
       <div class="form-group">
         <label for="selectLeader">Select Leader</label>
         <select class="form-control" id="selectLeader" (change)="onScheduledLeaderChange()"
@@ -109,25 +110,25 @@
         </select>
       </div>
 
-    <table class="table table-bordered" style="color: black;">
-      <thead class="thead-dark">
-        <tr>
-          <th (click)="sortScheduled('rowNo')">No.</th>
-          <th (click)="sortScheduled('employeeName')">Employee Name</th>
-          <th (click)="sortScheduled('topicName')">Topic Name</th>
-          <th (click)="sortScheduled('date')">Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let sched of scheduled">
-          <td>{{sched['rowNo']}}</td>
-          <td>{{sched['employeeName']}}</td>
-          <td>{{sched['topicName']}}</td>
-          <td>{{sched['date']}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <table class="table table-bordered" style="color: black;">
+        <thead class="thead-dark">
+          <tr>
+            <th (click)="sortScheduled('rowNo')">No.</th>
+            <th (click)="sortScheduled('employeeName')">Employee Name</th>
+            <th (click)="sortScheduled('topicName')">Topic Name</th>
+            <th (click)="sortScheduled('date')">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sched of scheduled">
+            <td>{{sched['rowNo']}}</td>
+            <td>{{sched['employeeName']}}</td>
+            <td>{{sched['topicName']}}</td>
+            <td>{{sched['date']}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
   </div>
 </div>

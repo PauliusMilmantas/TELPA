@@ -123,7 +123,11 @@ export class RecommendationsComponent implements OnInit {
     for (let i = 0; i < this.topics.length; i++) {
       this.updateTopics(this.topics[i]['id'], false);
     }
-
+    this.recommendedTopics = null;
+    for (let i = 0; i < this.topics.length; i++) {
+      this.topics[i]['recommended'] = false;
+      this.topics[i]['recommendedId'] = null
+    }
     this.httpClient.get(this.baseUrl + '/api/recommendedTopic/getByEmployee/' + this.employeeToRecommendId).subscribe(
       data => {
         this.recommendedTopics = data;
@@ -160,23 +164,22 @@ export class RecommendationsComponent implements OnInit {
 
   onAdd() {
     this.updateTopics(this.selectedAvailableTopicId, true);
-
     for (let i = 0; i < this.topics.length; i++) {
       if (this.selectedAvailableTopicId == this.topics[i]['id']) {
         if (this.topics[i]['recommendedId'] == null) {
           this.topicIdsToAdd.push(this.selectedAvailableTopicId);
         }
         else {
-          this.topicIdsToRemove.splice(this.topicIdsToAdd.indexOf(this.selectedAvailableTopicId), 1);
+          this.topicIdsToRemove.splice(this.topicIdsToRemove.indexOf(this.topics[i]['recommendedId']), 1);
         }
         break;
       }
     }
+    this.selectedAvailableTopicId = null;
   }
 
   onRemove() {
     this.updateTopics(this.selectedRecommendedTopicId, false);
-
     for (let i = 0; i < this.topics.length; i++) {
       if (this.selectedRecommendedTopicId == this.topics[i]['id']) {
         if (this.topics[i]['recommendedId'] != null) {
@@ -188,6 +191,8 @@ export class RecommendationsComponent implements OnInit {
         break;
       }
     }
+
+    this.selectedRecommendedTopicId = null;
   }
 
   onUpdate() {
@@ -255,8 +260,11 @@ export class RecommendationsComponent implements OnInit {
 
   checkIfDone() {
     if (this.doneCreate && this.doneDelete) {
-      this.hideMessageBox = false;
+      this.getRecommendedTopicsData();
       this.resetTopicIds();
+      this.selectedAvailableTopicId = null;
+      this.selectedRecommendedTopicId = null;
+      this.hideMessageBox = false;
     }
   }
 

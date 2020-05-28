@@ -19,7 +19,9 @@ export class LimitsAddComponent implements OnInit {
   selectedEmployeeId = null;
 
   hideForm = true;
-  hideMessageBox = true;
+  hideSuccessBox = true;
+  hideErrorBox = true;
+  errorMessage;
 
   limitToAdd = {
     employeeId: null,
@@ -54,6 +56,8 @@ export class LimitsAddComponent implements OnInit {
   }
 
   onForWhoChange() {
+    this.hideSuccessBox = true;
+    this.hideErrorBox = true;
     if (this.selectedEmployeeId != "null") {
       this.hideForm = false;
       this.limitToAdd['employeeId'] = this.selectedEmployeeId;
@@ -63,12 +67,19 @@ export class LimitsAddComponent implements OnInit {
   }
 
   onSubmit() {
+    this.hideSuccessBox = true;
+    this.hideErrorBox = true;
     this.httpClient.post(this.baseUrl + "/api/limit/create", this.limitToAdd
     ).subscribe(
       (val) => {
         console.log("POST call successful value returned in body", val);
-        this.hideMessageBox = false;
-        this.resetLimit(); 
+        if (val['statusCode'] == 200) {
+          this.hideSuccessBox = false;
+          this.resetLimit();
+        } else {
+          this.errorMessage = val['value'];
+          this.hideErrorBox = false;
+        }
       },
       response => {
         console.log("POST call in error", response);
@@ -81,7 +92,7 @@ export class LimitsAddComponent implements OnInit {
 
   resetLimit() {
     this.limitToAdd = {
-      employeeId: null,
+      employeeId: this.selectedEmployeeId,
       startDate: '',
       endDate: '',
       maxConsecutiveLearningDays: null,
