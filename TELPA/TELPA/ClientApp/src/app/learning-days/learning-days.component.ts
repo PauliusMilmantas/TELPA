@@ -80,7 +80,7 @@ export class LearningDaysComponent implements OnInit {
     this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
       for (var i = 0; i < Object.keys(response).length; i++) {
         if (response[i].name == this.post_topic) {
-          this.post_topic_id = i
+          this.post_topic_id = response[i].id
         }
       }
     }).add(() => {
