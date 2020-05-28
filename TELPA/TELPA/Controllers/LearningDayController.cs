@@ -96,7 +96,7 @@ namespace TELPA.Controllers
 
             if (!employee.Limits.IsNullOrEmpty())  // jei darbuotojas turi kazkokiu nustatytu apribojimu
             {
-                var result = db.CheckLearningDayForEmployee.FromSqlInterpolated(
+                var result = db.CheckBool.FromSqlInterpolated(
                     $@"
                     select
                       1 checkBool
@@ -105,14 +105,14 @@ namespace TELPA.Controllers
                     where
                       lim.employeeId = {employee.Id} and
                       {learningDay.Date} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate)")
-                    .ToList<CheckLearningDayForEmployee>();
+                    .ToList<CheckBool>();
 
                 if (result.IsNullOrEmpty()) 
                     return Json(Forbid("Learning day is not in allowed learning period of the employee!"));
 
                 if (!employee.LearningDays.IsNullOrEmpty())
                 {
-                    result = db.CheckLearningDayForEmployee.FromSqlInterpolated(
+                    result = db.CheckBool.FromSqlInterpolated(
                         $@"
                         select
 				          sum(che.checkBool) checkBool
@@ -135,7 +135,7 @@ namespace TELPA.Controllers
 					      group by
 					        lim.id,
 					        lim.maxTotalLearningDays) che")
-                        .ToList<CheckLearningDayForEmployee>();
+                        .ToList<CheckBool>();
 
                     if (result.First().checkBool != 0) 
                         return Json(Forbid("Max learning days reached!"));
