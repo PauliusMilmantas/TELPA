@@ -2,19 +2,133 @@
   <div class="container">
 
     <h1>Statistics</h1>
-
+    <!--
     <div class="background-box">
 
       <div class="form-group">
         <label for="selectTopic">Select Topic</label>
-        <select class="form-control" id="selectTopic" (change)="onTopicChange()"
+        <select class="form-control" id="selectTopic" (change)="onEmployeeTopicChange()"
                 [(ngModel)]="selectedTopicId" name="id" #id="ngModel">
           <option [value]="null">(None)</option>
           <option *ngFor="let topic of topics" [value]="topic['id']" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
         </select>
       </div>
 
+      <table class="table table-bordered" style="color: black;">
+        <thead class="thead-dark">
+          <tr>
+            <th (click)="sortEmployees('rowNo')">No.</th>
+            <th (click)="sortEmployees('name')">Name</th>
+            <th (click)="sortEmployees('leaderName')">Leader</th>
+            <th (click)="sortEmployees('date')">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{employee['rowNo']}}</td>
+            <td>{{employee['name']}}</td>
+            <td>{{employee['leaderName']}}</td>
+            <td>{{employee['date']}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <div class="background-box">
+
+      <div class="form-group">
+        <label for="selectTopic">Select Topic</label>
+        <select class="form-control" id="selectTopic" (change)="onTeamsTopicChange()"
+                [(ngModel)]="selectedTopicId" name="id" #id="ngModel">
+          <option [value]="null">(None)</option>
+          <option *ngFor="let topic of topics" [value]="topic['id']" [ngStyle]="{'font-weight': topic['level'] === 0 ? 'bold' : 'regular'}">{{'&ensp;'.repeat(topic['level']) + topic['index'] + '. ' + topic['name']}}</option>
+        </select>
+      </div>
+
+      <table class="table table-bordered" style="color: black;">
+        <thead class="thead-dark">
+          <tr>
+            <th (click)="sortTeams('rowNo')">No.</th>
+            <th (click)="sortTeams('leaderName')">Leader</th>
+            <th (click)="sortTeams('empCount')">Employee Count</th>
+            <th (click)="sortTeams('date')">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let team of teams">
+            <td>{{team['rowNo']}}</td>
+            <td>{{team['leaderName']}}</td>
+            <td>{{team['empCount']}}</td>
+            <td>{{team['date']}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  -->
+
+    <div class="background-box">
+
+      <div class="form-group">
+        <label for="selectLeader">Select Leader</label>
+        <select class="form-control" id="selectLeader" (change)="onCompletedLeaderChange()"
+                [(ngModel)]="selectedLeaderId" name="id" #id="ngModel">
+          <option [value]="null">(None)</option>
+          <option *ngFor="let leader of leaders" [value]="leader['id']">{{leader['name']}}</option>
+        </select>
+      </div>
+      <!--
+    <table class="table table-bordered" style="color: black;">
+      <thead class="thead-dark">
+        <tr>
+          <th (click)="sortCompleted('rowNo')">No.</th>
+          <th (click)="sortCompleted('leaderName')">Leader</th>
+          <th (click)="sortCompleted('empCount')">Employee Count</th>
+          <th (click)="sortCompleted('date')">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams">
+          <td>{{team['rowNo']}}</td>
+          <td>{{team['leaderName']}}</td>
+          <td>{{team['empCount']}}</td>
+          <td>{{team['date']}}</td>
+        </tr>
+      </tbody>
+    </table>-->
+    </div>
+
+
+    <div class="background-box">
+
+      <div class="form-group">
+        <label for="selectLeader">Select Leader</label>
+        <select class="form-control" id="selectLeader" (change)="onScheduledLeaderChange()"
+                [(ngModel)]="selectedLeaderId" name="id" #id="ngModel">
+          <option [value]="null">(None)</option>
+          <option *ngFor="let leader of leaders" [value]="leader['id']">{{leader['name']}}</option>
+        </select>
+      </div>
+      <!--
+    <table class="table table-bordered" style="color: black;">
+      <thead class="thead-dark">
+        <tr>
+          <th (click)="sortCompleted('rowNo')">No.</th>
+          <th (click)="sortCompleted('leaderName')">Leader</th>
+          <th (click)="sortCompleted('empCount')">Employee Count</th>
+          <th (click)="sortCompleted('date')">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams">
+          <td>{{team['rowNo']}}</td>
+          <td>{{team['leaderName']}}</td>
+          <td>{{team['empCount']}}</td>
+          <td>{{team['date']}}</td>
+        </tr>
+      </tbody>
+    </table>-->
+    </div>
+
   </div>
 </div>
 

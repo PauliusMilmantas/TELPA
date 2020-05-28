@@ -1,0 +1,41 @@
+<div style="color: black;">
+  <div class="container">
+    <h1>Edit Limits</h1>
+
+    <div class="background-box">
+      <div class="form-group">
+        <label for="for-who">For Who</label>
+        <select class="form-control" id="for-who" (change)="onForWhoChange()"
+                [(ngModel)]="selectedEmployeeId" name="employeeId" #employeeId="ngModel">
+          <option [value]="null">(Select)</option>
+          <option *ngFor="let employee of employees" [value]="employee['id']">{{employee['name']}}</option>
+        </select>
+      </div>
+
+      <div [hidden]="hideLimits">
+
+        <table class="table table-bordered" style="color: black;">
+          <thead class="thead-dark">
+            <tr>
+              <th (click)="sort('startDate')">Start Date</th>
+              <th (click)="sort('endDate')">End Date</th>
+              <th (click)="sort('maxConsecutiveLearningDays')">Max Consecutive Learning Days</th>
+              <th (click)="sort('maxTotalLearningDays')">Max Total Learning Days</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let limit of limits">
+              <td>{{limit['startDate']}}</td>
+              <td>{{limit['endDate']}}</td>
+              <td>{{limit['maxConsecutiveLearningDays']}}</td>
+              <td>{{limit['maxTotalLearningDays']}}</td>
+              <td><button class="btn btn-danger" (click)="onRemove(limit['id'])">Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

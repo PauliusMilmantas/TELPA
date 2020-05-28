@@ -21,11 +21,11 @@ export class LoginFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.authentication.isLoggedIn().subscribe((loggedIn: boolean) => {
-    //   if (loggedIn) {
-    //     this.router.navigate(["homepage"]);
-    //   }
-    // });
+    this.authentication.isLoggedIn().subscribe((loggedIn: boolean) => {
+      if (loggedIn) {
+        this.router.navigate(["homepage"]);
+      }
+    });
   }
 
   onLogin() {

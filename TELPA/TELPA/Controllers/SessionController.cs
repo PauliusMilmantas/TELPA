@@ -28,7 +28,7 @@ namespace TELPA.Controllers
         [HttpGet("ping")]
         public IActionResult Ping()
         {
-            return Ok("SessionController online");
+            return Json(Ok("SessionController online"));
         }
 
         [Authenticated]

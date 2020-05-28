@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TELPA", "TELPA\TELPA.csproj", "{2DAF2B7A-3A5E-413A-86E2-F72EAD28A8B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TELPA.Extensions.Logic", "TELPA.Extensions.Logic\TELPA.Extensions.Logic.csproj", "{26F8AB85-EDBA-4326-A107-CE4E4CB5AC61}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2DAF2B7A-3A5E-413A-86E2-F72EAD28A8B5} = {2DAF2B7A-3A5E-413A-86E2-F72EAD28A8B5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

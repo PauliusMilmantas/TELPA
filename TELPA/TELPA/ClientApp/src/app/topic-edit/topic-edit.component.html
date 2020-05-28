@@ -18,32 +18,52 @@
         </select>
       </div>
 
-        <form (ngSubmit)="onSubmit()" #addTopic="ngForm" [hidden]="hideForm">
+      <form (ngSubmit)="onSubmit()" #updateTopic="ngForm" [hidden]="hideForm">
 
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" required
-                   [(ngModel)]="topicToModify['name']" name="name" #name="ngModel" />
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" required
+                 [(ngModel)]="topicToModify['name']" name="name" #name="ngModel" />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description"
+                    [(ngModel)]="topicToModify['description']" name="description" #description="ngModel"></textarea>
+        </div>
+
+
+        <div class="form-group">
+          <label for="link">Links</label>
+          <div *ngFor="let link of topicLinksToModify; let i = index; trackBy: trackByFn">
+            <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (input)="onLinkChange($event.target.value, i)" [value]="topicLinksToModify[i]['link']" />
           </div>
+        </div>
 
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description"
-                      [(ngModel)]="topicToModify['description']" name="description" #description="ngModel"></textarea>
-          </div>
+        <button type="submit" class="btn btn-success" [disabled]="!updateTopic.form.valid">Update</button>
 
+      </form>
+    </div>
+  </div>
+</div>
 
-          <div class="form-group">
-            <label for="link">Links</label>
-            <div *ngFor="let link of topicLinksToModify; let i = index; trackBy: trackByFn">
-              <input [hidden]="isEmpty[i]" type="url" class="form-control link-field" (input)="onLinkChange($event.target.value, i)" [value]="topicLinksToModify[i]['link']" />
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Update</button>
-
-        </form>
+<div class="modal fade" id="optLockingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div style="background-color: white; color: black;" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Error!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The following topic has been already updated by another user. What do you want to do?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="overrideOptLock()">Override</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateOptLock()">Get updated</button>
       </div>
     </div>
+  </div>
 </div>
 

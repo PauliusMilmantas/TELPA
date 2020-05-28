@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using TELPA.Constants;
 using TELPA.Data;
 using TELPA.Entities;
 using TELPA.Models;
@@ -12,10 +14,12 @@ namespace TELPA.Controllers
     public class AccountController : Controller
     {
         private ApplicationDbContext db;
+        private IOptions<Config> config;
 
-        public AccountController(ApplicationDbContext db)
+        public AccountController(ApplicationDbContext db, IOptions<Config> config)
         {
             this.db = db;
+            this.config = config;
         }
 
         [HttpGet("ping")]
@@ -68,7 +72,7 @@ namespace TELPA.Controllers
                         Name = registerData.Name,
                         LeaderId = invite.InviterId
                     };
-                    employee.SetPasswordHash(registerData.Password);
+                    employee.SetPasswordHash(registerData.Password, config.Value.PasswordSalt);
 
                     db.Employees.Add(employee);
                     db.Invites.Remove(invite);

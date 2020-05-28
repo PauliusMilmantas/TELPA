@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using Castle.Core.Internal;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TELPA.Data;
@@ -38,6 +39,30 @@ namespace TELPA.Controllers
             else
             {
                 return NotFound("GET: Limit with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("getByEmployee/{employeeId}")]
+        public IActionResult getByEmployeeLimit(int employeeId)
+        {
+            IList<Limit> allLimits = db.Limits.ToList<Limit>();
+            IList<Limit> employeeLimits = new List<Limit>();
+            foreach (Limit lim in allLimits)
+            {
+                if (lim.EmployeeId == employeeId)
+                {
+                    employeeLimits.Add(lim);
+                }
+            }
+
+            if (employeeLimits.Count != 0)
+            {
+                return Json(employeeLimits);
+            }
+            else
+            {
+                return NotFound("GET: No limits associated to employee ID = " + employeeId + " was found.");
             }
         }
 

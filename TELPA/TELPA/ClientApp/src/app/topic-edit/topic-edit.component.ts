@@ -1,12 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-
+declare var $: any;
 @Component({
   selector: "app-topic-edit",
   templateUrl: "./topic-edit.component.html",
   styleUrls: ["./topic-edit.component.css"],
 })
 export class TopicEditComponent implements OnInit {
+
   baseUrl = location.origin;
 
   private apiTopics = [];
@@ -102,6 +103,7 @@ export class TopicEditComponent implements OnInit {
   }
 
   onTopicChange() {
+
     this.hideMessageBox = true;
     this.hideForm = true;
 
@@ -171,7 +173,6 @@ export class TopicEditComponent implements OnInit {
   }
 
   updateTopic() {
-    console.log(this.topicToModify);
     this.httpClient.put(this.baseUrl + "/api/topic/update", this.topicToModify
     ).subscribe(
       (val) => {
@@ -180,7 +181,7 @@ export class TopicEditComponent implements OnInit {
       },
       response => {
         console.log("PUT call in error", response);
-        this.topicUpdated();
+        $('#optLockingModal').modal();
       },
       () => {
         console.log("The PUT observable is now completed.");
@@ -240,9 +241,7 @@ export class TopicEditComponent implements OnInit {
       },
       response => {
         console.log("PUT call in error", response);
-        if (last) {
-          this.topicLinkUpdated();
-        }
+        $('#optLockingModal').modal();
       },
       () => {
         console.log("The PUT observable is now completed.");
@@ -333,5 +332,47 @@ export class TopicEditComponent implements OnInit {
 
   trackByFn(index: any, item: any) {
     return index;
+  }
+
+  overrideOptLock() {
+    this.httpClient.get(this.baseUrl + '/api/topic/get/' + this.topicToModify['id']).subscribe(
+      data => {
+        this.topicToModify =
+        {
+          id: this.topicToModify['id'],
+          name: this.topicToModify['name'],
+          description: this.topicToModify['description'],
+          parentTopicId: this.topicToModify['parentTopicId'],
+          version: data['version']
+        }
+      })
+      .add(() => {
+        this.httpClient
+          .get(
+            this.baseUrl + "/api/topicLink/getByTopic/" + this.topicToModify["id"]
+          )
+          .subscribe((data) => {
+            for (let i = 0; i < Object.keys(data).length; i++) {
+              this.isEmpty.push(false);
+              this.topicLinksToModify[i] = ({
+                id: data[i]['id'],
+                topicId: data[i]['topicId'],
+                link: this.topicLinksToModify[i]['link'],
+                version: data[i]['version']
+              });
+            }
+            this.onLinkChange(
+              this.topicLinksToModify[Object.keys(data).length - 1]['link'],
+              Object.keys(data).length - 1
+            );
+          })
+          .add(() => {
+            this.updateTopic();
+          });
+      });
+  }
+
+  updateOptLock() {
+    this.getTopicData();
   }
 }
