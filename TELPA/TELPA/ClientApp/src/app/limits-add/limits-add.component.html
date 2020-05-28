@@ -1,0 +1,54 @@
+<div style="color: black;">
+  <div class="container">
+    <h1>Add Limits</h1>
+
+    <div class="background-box">
+
+      <form (ngSubmit)="onSubmit()" #addLimit="ngForm">
+
+        <div [hidden]="hideMessageBox" class="alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> Limit has been added.
+        </div>
+
+        <div class="form-group">
+          <label for="for-who">For Who</label>
+          <select class="form-control" id="for-who" (change)="onForWhoChange()"
+                  [(ngModel)]="selectedEmployeeId" name="employeeId" #employeeId="ngModel">
+            <option [value]="null">(Select)</option>
+            <option *ngFor="let employee of employees" [value]="employee['id']">{{employee['name']}}</option>
+          </select>
+        </div>
+
+        <div [hidden]="hideForm">
+          <div class="form-group">
+            <label for="start-date">Start Date</label>
+            <input type="text" class="form-control" id="startDate" required
+                   [(ngModel)]="limitToAdd['startDate']" name="startDate" #startDate="ngModel" />
+          </div>
+
+          <div class="form-group">
+            <label for="start-date">End Date</label>
+            <input type="text" class="form-control" id="endDate" required
+                   [(ngModel)]="limitToAdd['endDate']" name="endDate" #endDate="ngModel" />
+          </div>
+
+          <div class="form-group">
+            <label for="start-date">Max Consecutive Learning Days</label>
+            <input type="text" class="form-control" id="maxConsecutiveLearningDays" required
+                   [(ngModel)]="limitToAdd['maxConsecutiveLearningDays']" name="maxConsecutiveLearningDays" #maxConsecutiveLearningDays="ngModel" />
+          </div>
+
+          <div class="form-group">
+            <label for="start-date">Max Total Learning Days</label>
+            <input type="text" class="form-control" id="maxTotalLearningDays" required
+                   [(ngModel)]="limitToAdd['maxTotalLearningDays']" name="maxTotalLearningDays" #maxTotalLearningDays="ngModel" />
+          </div>
+
+          <button type="submit" class="btn btn-success" [disabled]="!addLimit.form.valid">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

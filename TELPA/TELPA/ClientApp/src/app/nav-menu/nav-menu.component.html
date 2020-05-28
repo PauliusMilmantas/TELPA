@@ -50,6 +50,18 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/statistics']">Statistics</a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Limits</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/limits-add']">Add</a>
+              <a class="dropdown-item" [routerLink]="['/limits-edit']">Edit</a>
+            </div>
+          </li>
         </ul>
       </div>
     </div>

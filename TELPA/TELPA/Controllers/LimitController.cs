@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TELPA.Data;
 using TELPA.Models;
@@ -34,6 +36,30 @@ namespace TELPA.Controllers
             else
             {
                 return NotFound("GET: Limit with ID = " + id + " was not found.");
+            }
+        }
+
+        [HttpGet]
+        [Route("getByEmployee/{employeeId}")]
+        public IActionResult getByEmployeeLimit(int employeeId)
+        {
+            IList<Limit> allLimits = db.Limits.ToList<Limit>();
+            IList<Limit> employeeLimits = new List<Limit>();
+            foreach (Limit lim in allLimits)
+            {
+                if (lim.EmployeeId == employeeId)
+                {
+                    employeeLimits.Add(lim);
+                }
+            }
+
+            if (employeeLimits.Count != 0)
+            {
+                return Json(employeeLimits);
+            }
+            else
+            {
+                return NotFound("GET: No limits associated to employee ID = " + employeeId + " was found.");
             }
         }
 

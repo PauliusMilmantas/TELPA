@@ -18,7 +18,7 @@
         </select>
       </div>
 
-      <form (ngSubmit)="onSubmit()" #addTopic="ngForm" [hidden]="hideForm">
+      <form (ngSubmit)="onSubmit()" #updateTopic="ngForm" [hidden]="hideForm">
 
         <div class="form-group">
           <label for="name">Name</label>
@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!addTopic.form.valid">Update</button>
+        <button type="submit" class="btn btn-success" [disabled]="!updateTopic.form.valid">Update</button>
 
       </form>
     </div>
