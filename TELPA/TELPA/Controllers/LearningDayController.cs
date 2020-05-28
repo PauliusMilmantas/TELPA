@@ -108,7 +108,7 @@ namespace TELPA.Controllers
                     .ToList<CheckBool>();
 
                 if (result.IsNullOrEmpty()) 
-                    return Json(Forbid("Learning day is not in allowed learning period of the employee!"));
+                    return Json(BadRequest("Learning day is not in allowed learning period of the employee!"));
 
                 if (!employee.LearningDays.IsNullOrEmpty())
                 {
@@ -138,7 +138,7 @@ namespace TELPA.Controllers
                         .ToList<CheckBool>();
 
                     if (result.First().checkBool != 0) 
-                        return Json(Forbid("Max learning days reached!"));
+                        return Json(BadRequest("Max learning days reached!"));
                 }
             }
 
