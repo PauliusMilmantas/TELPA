@@ -307,6 +307,7 @@ export class TopicEditComponent implements OnInit {
   editDone() {
     this.hideMessageBox = false;
     this.getBackendData();
+    this.getTopicData();
   }
 
   onLinkChange(value, place) {
@@ -373,6 +374,7 @@ export class TopicEditComponent implements OnInit {
   }
 
   updateOptLock() {
+    this.getBackendData();
     this.getTopicData();
   }
 }

@@ -28,6 +28,7 @@ namespace TELPA.Data
         public DbSet<FutureLearningDaysForLeader> FutureLearningDaysForLeader { get; set; }
         public DbSet<EmployeesAndLeaders> EmployeesAndLeaders { get; set; }
         public DbSet<LearningDaysAndTopicsForEmployee> LearningDaysAndTopicsForEmployee { get; set; }
+        public DbSet<EmployeesAndLeadersForSupremeLeader> EmployeesAndLeadersForSupremeLeader { get; set; }
         public DbSet<CheckBool> CheckBool { get; set; }
 
         public ApplicationDbContext(
@@ -226,6 +227,8 @@ namespace TELPA.Data
             modelBuilder.Entity<EmployeesAndLeaders>()
                 .HasNoKey();
             modelBuilder.Entity<LearningDaysAndTopicsForEmployee>()
+                .HasNoKey();
+            modelBuilder.Entity<EmployeesAndLeadersForSupremeLeader>()
                 .HasNoKey();
             modelBuilder.Entity<CheckBool>()
                 .HasNoKey();

@@ -3,6 +3,12 @@
     <h1>Edit Limits</h1>
 
     <div class="background-box">
+
+      <div [hidden]="hideMessageBox" class="alert alert-success alert-dismissible">
+        <a (click)="hideMessageBox = true" class="close" aria-label="close">&times;</a>
+        <strong>Success!</strong> Limit has been removed.
+      </div>
+
       <div class="form-group">
         <label for="for-who">For Who</label>
         <select class="form-control" id="for-who" (change)="onForWhoChange()"

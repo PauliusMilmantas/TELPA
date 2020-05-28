@@ -48,6 +48,7 @@ export class LimitsEditComponent implements OnInit {
   }
 
   onForWhoChange() {
+    this.hideMessageBox = true;
     if (this.selectedEmployeeId != "null") {
       this.getLimitData();
     } else {
@@ -74,6 +75,7 @@ export class LimitsEditComponent implements OnInit {
       (val) => {
         console.log("DELETE call successful value returned in body", val);
         this.getLimitData();
+        this.hideMessageBox = false;
       },
       response => {
         console.log("DELETE call in error", response);
