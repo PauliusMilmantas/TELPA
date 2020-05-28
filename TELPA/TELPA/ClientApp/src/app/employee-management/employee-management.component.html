@@ -133,25 +133,29 @@
     [(ngModel)]="newAttribute.employeeEmail"
     name="newAttributeEmail"
   />
-  Leader name:
-  <!--<input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" />-->
-  <select name="selectLeader" [(ngModel)]="newAttribute.leaderName">
-    <option
-      *ngFor="let FullLeaderData of fullLeaderData"
-      id="newAttributeLeaderName"
-      value="{{ FullLeaderData.leaderName }}"
-    >
-      {{ FullLeaderData.leaderName }}
-    </option>
-  </select>
+  <input type="radio" name="check" value="i-am-leader" Checked (click)="leaderSelect(false)"/>I am leader
+  <input type="radio" name="check" value="leader-is-someone-else" (click)="leaderSelect(true)"/>Leader is someone else
+  <div class="hidden" *ngIf="bool">
+    Leader name:
+    <!--  <input class="form-control" type="text" id="newAttributeLeaderName" [(ngModel)]="newAttribute.leaderName" name="newAttributeLeaderName" /> -->
+    <select name="selectLeader" [(ngModel)]="newAttribute.leaderName">
+      <option *ngFor="let FullLeaderData of fullLeaderData"
+              id="newAttributeLeaderName"
+              value="{{ FullLeaderData.leaderName }}">
+        {{ FullLeaderData.leaderName }}
+      </option>
+    </select>
+  </div>
+  <br/><br/>
+  <div class="add-employee-buttons">
   <button
     type="button"
     class="btn btn-success mdlBtn"
     (click)="
       sendInvite(
         'addEmployee',
-        newAttribute.name,
-        newAttribute.email,
+        newAttribute.employeeName,
+        newAttribute.employeeEmail,
         newAttribute.leaderName
       )
     "
@@ -165,6 +169,7 @@
   >
     Cancel
   </button>
+  </div>
 </jw-modal>
 
 <jw-modal id="edit-leader">
