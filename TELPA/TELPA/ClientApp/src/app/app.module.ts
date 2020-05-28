@@ -38,6 +38,8 @@ import { EmployeeTreeComponent } from "./employee-tree/employee-tree.component";
 import { AccountAPIService } from "./api/account-api.service";
 import { TopicNetworkComponent } from "./topic-network/topic-network.component";
 import { StatisticsComponent } from "./statistics/statistics.component";
+import { LimitsAddComponent } from "./limits-add/limits-add.component";
+import { LimitsEditComponent } from "./limits-edit/limits-edit.component";
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { StatisticsComponent } from "./statistics/statistics.component";
     EmployeeTreeComponent,
     TopicNetworkComponent,
     StatisticsComponent,
+    LimitsAddComponent,
+    LimitsEditComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -80,6 +84,8 @@ import { StatisticsComponent } from "./statistics/statistics.component";
       { path: "employee-tree", component: EmployeeTreeComponent },
       { path: "topic-network", component: TopicNetworkComponent },
       { path: "statistics", component: StatisticsComponent },
+      { path: "limits-add", component: LimitsAddComponent },
+      { path: "limits-edit", component: LimitsEditComponent },
     ]),
   ],
   providers: [
