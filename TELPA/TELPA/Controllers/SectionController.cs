@@ -116,48 +116,31 @@ namespace TELPA.Controllers
         }
 
         [HttpGet]
-        [Route("get/futureLeadersForTopic/{topicId}")]
-        public IActionResult getFutureLeadersForTopic(int topicId)
+        [Route("get/learnedTopicsForLeader/{leaderId}")]
+        public IActionResult getLearnedTopicsForLeader(int leaderId)
         {
-            var result = db.LeadersForTopic.FromSqlInterpolated(
+            var result = db.LearnedTopicsForLeader.FromSqlInterpolated(
                 $@"
                 select
                   row_number()
                     over(
-	                  order by
-	                    lda.date) rowNo,
+                      order by
+                        emp.name) rowNo,
                   ldr.name leaderName,
-                  count(lda.employeeId) empCount,
-                  convert(varchar, lda.date, 23) date
+                  emp.name employeeName,
+                  tpc.name topicName
                 from
+                  employees ldr,
                   employees emp,
-                  (select
-	                emp.*
-                  from
-	                (select
-	                  emp_ldr_in.leaderId id
-	                from
-	                  employees emp_ldr_in
-	                where
-	                  emp_ldr_in.leaderId is not null
-	                group by
-	                  emp_ldr_in.leaderId) emp_ldr,
-		                employees emp
-	                where
-		                emp.id = emp_ldr.id) ldr,
-                  learningDays lda,
-                  learningDayTopics ldt
+                  learnedTopics lto,
+                  topics tpc
                 where
-                  emp.id = lda.employeeId and
-                  ldr.id = emp.LeaderId and
-                  lda.id = ldt.LearningDayId and
-				  lda.date > getDate() and
-                  ldt.topicId = {topicId}
-                group by
-                  ldr.name,
-                  lda.date
-                order by
-                  lda.date")
+                  ldr.id = {leaderId} and
+                  emp.leaderId = ldr.id and
+                  lto.employeeId = emp.id and
+                  tpc.id = lto.topicId
+				order by
+				  emp.name")
                 .ToList();
 
             if (result.Count != 0)
@@ -166,48 +149,44 @@ namespace TELPA.Controllers
             }
             else
             {
-                return NotFound("No future schedules found for topic ID = " + topicId);
+                return NotFound("No completed learnings found for leader ID = " + leaderId);
             }
         }
 
         [HttpGet]
-        [Route("get/leadersForLearnedTopic/{topicId}")]
-        public IActionResult getLeadersForLearnedTopic(int topicId)
+        [Route("get/futureLearningDaysForLeader/{leaderId}")]
+        public IActionResult getFutureLearningDaysForLeader(int leaderId)
         {
-            var result = db.LeadersForLearnedTopic.FromSqlInterpolated(
+            var result = db.FutureLearningDaysForLeader.FromSqlInterpolated(
                 $@"
                 select
                   row_number()
                     over(
-	                  order by
-	                    count(lto.employeeId) desc) rowNo,
+                      order by
+                        lda.date,
+                        tpc.name,
+                        emp.name) rowNo,
                   ldr.name leaderName,
-                  count(lto.employeeId) empCount
+                  emp.name employeeName,
+                  tpc.name topicName,
+                  convert(varchar, lda.date, 23) date
                 from
+                  employees ldr,
                   employees emp,
-                  (select
-	                emp.*
-                  from
-	                (select
-	                  emp_ldr_in.leaderId id
-	                from
-	                  employees emp_ldr_in
-	                where
-	                  emp_ldr_in.leaderId is not null
-	                group by
-	                  emp_ldr_in.leaderId) emp_ldr,
-		                employees emp
-	                where
-		                emp.id = emp_ldr.id) ldr,
-                  learnedTopics lto
+                  learningDays lda,
+                  learningDayTopics ldt,
+                  topics tpc
                 where
-                  emp.id = lto.employeeId and
-                  ldr.id = emp.LeaderId and
-                  lto.topicId = {topicId}
-                group by
-                  ldr.name
-				order by
-				  3 desc")
+                  ldr.id = {leaderId} and
+                  emp.leaderId = ldr.id and
+                  lda.employeeId = emp.id and
+                  ldt.learningDayId = lda.id and
+                  ldt.topicId = tpc.id and
+                  lda.date > GetDate()
+                order by
+                  lda.date,
+                  tpc.name,
+                  emp.name")
                 .ToList();
 
             if (result.Count != 0)
@@ -216,7 +195,7 @@ namespace TELPA.Controllers
             }
             else
             {
-                return NotFound("No completed learnings found for topic ID = " + topicId);
+                return NotFound("No future schedules found for leader ID = " + leaderId);
             }
         }
     }

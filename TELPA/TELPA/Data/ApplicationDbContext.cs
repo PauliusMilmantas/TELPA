@@ -24,9 +24,11 @@ namespace TELPA.Data
         public DbSet<Limit> Limits { get; set; }
         public DbSet<EmployeesForTopic> EmployeesForTopic { get; set; }
         public DbSet<LeadersForTopic> LeadersForTopic { get; set; }
-        public DbSet<LeadersForLearnedTopic> LeadersForLearnedTopic { get; set; }
+        public DbSet<LearnedTopicsForLeader> LearnedTopicsForLeader { get; set; }
+        public DbSet<FutureLearningDaysForLeader> FutureLearningDaysForLeader { get; set; }
         public DbSet<EmployeesAndLeaders> EmployeesAndLeaders { get; set; }
         public DbSet<LearningDaysAndTopicsForEmployee> LearningDaysAndTopicsForEmployee { get; set; }
+        public DbSet<CheckBool> CheckBool { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
@@ -217,12 +219,17 @@ namespace TELPA.Data
                 .HasNoKey();
             modelBuilder.Entity<LeadersForTopic>()
                 .HasNoKey();
-            modelBuilder.Entity<LeadersForLearnedTopic>()
+            modelBuilder.Entity<LearnedTopicsForLeader>()
+                .HasNoKey();
+            modelBuilder.Entity<FutureLearningDaysForLeader>()
                 .HasNoKey();
             modelBuilder.Entity<EmployeesAndLeaders>()
                 .HasNoKey();
             modelBuilder.Entity<LearningDaysAndTopicsForEmployee>()
                 .HasNoKey();
+            modelBuilder.Entity<CheckBool>()
+                .HasNoKey();
+
         }
         #endregion
     }
