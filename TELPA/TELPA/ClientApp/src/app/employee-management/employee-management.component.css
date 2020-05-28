@@ -27,7 +27,7 @@ td {
 .buttons {
   font-family: Arial;
   font-size: 17px;
-  border-bottom: 1px solid rgba(73, 114, 133, 0.6);
+/*  border-bottom: 1px solid rgba(73, 114, 133, 0.6);*/
   display: flex;
   justify-content: space-between;
   padding: 30px 40px;
