@@ -84,10 +84,10 @@ namespace TELPA.Controllers
                     .ToList<CheckBool>();
 
                 if (!result.IsNullOrEmpty())
-                    return Json(Forbid("Limit period overlaps with another!"));
+                    return Json(BadRequest("Limit period overlaps with another!"));
 
                 if (DateTime.Parse(limit.StartDate) > DateTime.Parse(limit.EndDate))
-                    return Json(Forbid("Incorrect limit period specified!"));
+                    return Json(BadRequest("Incorrect limit period specified!"));
 
                 db.Limits.Add(limit);
                 db.SaveChanges();
