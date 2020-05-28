@@ -92,11 +92,11 @@ export class EmployeeManagementComponent implements OnInit {
     console.log(location.origin);
     this.employeeDataAll = [];
     this.employeeData = [];
-    /*    this.sessionAPIService.me().subscribe((e) => {
+    this.sessionAPIService.me().subscribe((e) => {
           this.e = e;
         }).add(() => {
-          this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/' + this.e.id).subscribe(*/
-    this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders/').subscribe(
+          this.httpClient.get(location.origin + '/api/employee/get/employeesAndLeadersForSupremeLeader/' + this.e.id).subscribe(
+//    this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders/').subscribe(
       data => {
         this.linkingData = data;
       }).add(() => {
@@ -118,7 +118,7 @@ export class EmployeeManagementComponent implements OnInit {
         }
         console.log(this.employeeData);
       });
-    //    });
+    });
   }
   getBackendLeaderData() {
     this.leaderData = [];
@@ -173,7 +173,8 @@ export class EmployeeManagementComponent implements OnInit {
     this.sessionAPIService.me().subscribe((e) => {
       this.e = e;
     }).add(() => {
-      this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/leaders/' + this.e.id).subscribe(
+      //this.httpClient.get(location.origin + '/api/employee/get/all/employeesForLeader/leaders/' + this.e.id).subscribe(
+      this.httpClient.get(location.origin + '/api/employee/get/employeesForLeader/leaders/' + this.e.id).subscribe(
         data => {
           this.linkingData = data;
         }).add(() => {
