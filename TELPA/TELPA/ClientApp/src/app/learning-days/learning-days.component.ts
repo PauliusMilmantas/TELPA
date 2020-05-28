@@ -12,39 +12,42 @@ export class LearningDaysComponent implements OnInit {
 
   constructor(private httpClient: HttpClient, private modalService: ModalService) { }
 
-    //POST Register learning day
-    post_topic;
-    post_date;
-    post_comment;
+  //POST Register learning day
+  post_topic;
+  post_date;
+  post_comment;
+  post_topic_id //set with http get
 
-    //Modal window content
-    topicDescription;
-    comment;
+  dayToAdd = {
+    date: null,
+    comment: null,
+    employeeId: null,
+  }
 
-    userId;
+  linkToAdd = {
+    learningDayId: null,
+    topicId: null
+  }
 
-    //Not parsed
-    linkingData;
+  //Modal window content
+  topicDescription;
+  comment;
 
-    //Parsed
-    learningDayId;
-    topicId;
-    dayDate;
-    topicName;
+  //Not parsed
+  linkingData;
 
-    //Parsed arrays
-    C = [];
-    topicNames = [];
-    employeeIds = [];
+  //Parsed
+  learningDayId;
+  topicId;
+  dayDate;
+  topicName;
 
-    //Thread status
-    thread1 = [];
-    thread2 = [];
+  //Parsed arrays
+  topicNames = [];
+  employeeIds = [];
 
   // Loading static data
   learningDaysAll = TrainingDayList;
-
-  dayDates = [];
 
   // Front end
   pageCounter = 1;
@@ -52,8 +55,10 @@ export class LearningDaysComponent implements OnInit {
   // Data to be displayed
   learningDays = [];
 
+  // Current user
   currentEmployeeId;
 
+  // For modal window
   topics = [];
 
   ngOnInit() {
@@ -71,18 +76,43 @@ export class LearningDaysComponent implements OnInit {
   }
 
   submit_learning_day() {
-    var post_topic_id;
 
     this.httpClient.get(location.origin + '/api/topic/get/all').subscribe(response => {
       for (var i = 0; i < Object.keys(response).length; i++) {
-        if (response[i]['name'] == this.post_topic) {
-          post_topic_id = response[i]['id'];
+        if (response[i].name == this.post_topic) {
+          this.post_topic_id = i
         }
       }
     }).add(() => {
-      this.httpClient.get(location.origin + '/api/learningDay/createWithGET/' + this.post_date + '/' + this.post_comment + '/' + this.currentEmployeeId + '/1/' + post_topic_id).subscribe(response2 => {
+
+      this.dayToAdd.date = this.post_date
+      this.dayToAdd.comment = this.post_comment
+      this.dayToAdd.employeeId = this.currentEmployeeId
+
+      var post_response;
+
+      // Posting learning day
+      this.httpClient.post(location.origin + '/api/learningDay/create', this.dayToAdd).subscribe(rsp => {
+        post_response = rsp
       }).add(() => {
-        this.closeModal('custom-modal-4');
+        var learning_day_id
+
+        /// Getting posted learning day ID
+        this.httpClient.get(location.origin + '/api/learningDay/get/all').subscribe(resp => {
+          for (var i = 0; i < Object.keys(resp).length; i++) {
+            console.log(resp[i]);
+            if (resp[i]["date"].split("T")[0] == this.post_date) {
+              learning_day_id = resp[i]['id']
+            }
+          }
+        }).add(() => {
+          this.linkToAdd.learningDayId = learning_day_id
+          this.linkToAdd.topicId = this.post_topic_id
+
+          this.httpClient.post(location.origin + '/api/learningDayTopic/create', this.linkToAdd).subscribe(rst => {
+            console.log(rst);
+          });
+        });
       });
     });
   }

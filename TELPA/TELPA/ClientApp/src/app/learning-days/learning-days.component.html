@@ -5,12 +5,6 @@
 <br>
 <br>
 
-<!--
-
- (click)="openModal(LearningDay.topic, LearningDay.date, 'custom-modal-3')
-
--->
-
 <ng-container *ngFor="let LearningDaysAndTopicsForEmployee of learningDays">
   <div class="event confirmed" *ngIf="LearningDaysAndTopicsForEmployee != null" (click)="openModal(LearningDaysAndTopicsForEmployee.topicName, LearningDaysAndTopicsForEmployee.learningDayDate, 'custom-modal-3')">
     <div class="title" id="title">{{LearningDaysAndTopicsForEmployee.topicName}}</div>
