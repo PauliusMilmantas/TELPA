@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TELPA.Entities;
 
 namespace TELPA.Components
 {
-    interface IEmailService
+    public interface IEmailService
     {
-        public void SendEmail(string email);
+        public void SendEmail(EmailData emailData);
     }
 }

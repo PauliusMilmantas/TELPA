@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using TELPA.Components;
 using TELPA.Constants;
 using TELPA.Data;
 using TELPA.Entities;
@@ -15,11 +16,13 @@ namespace TELPA.Controllers
     {
         private ApplicationDbContext db;
         private IOptions<Config> config;
+        private IEmailService emailService;
 
-        public AccountController(ApplicationDbContext db, IOptions<Config> config)
+        public AccountController(ApplicationDbContext db, IOptions<Config> config, IEmailService emailService)
         {
             this.db = db;
             this.config = config;
+            this.emailService = emailService;
         }
 
         [HttpGet("ping")]
@@ -29,10 +32,16 @@ namespace TELPA.Controllers
         }
 
         [HttpPost("invite")]
-        public IActionResult Invite([FromBody] Invite invite)
+        public IActionResult Invite([FromBody] Invite inviteReq)
         {
-            if (invite != null)
+            var alphabet = "abcdefghifklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            if (inviteReq != null)
             {
+                var invite = new Invite()
+                {
+                    Email = inviteReq.Email,
+                    InviterId = inviteReq.InviterId
+                };
                 invite.ExpiryDate = DateTime.Now.AddDays(7);
                 using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
                 {
@@ -40,7 +49,7 @@ namespace TELPA.Controllers
                     {
                         byte[] randomData = new byte[32];
                         rng.GetBytes(randomData);
-                        string id = Convert.ToBase64String(randomData).Substring(0, 16);
+                        string id = string.Join("", Convert.ToBase64String(randomData).Where(c => alphabet.Contains(c)).ToList()).Substring(0, 16);
                         if (db.Invites.FirstOrDefault(e => e.Link == id) == null)
                         {
                             invite.Link = id;
@@ -50,11 +59,18 @@ namespace TELPA.Controllers
                 }
                 db.Invites.Add(invite);
                 db.SaveChanges();
+                this.emailService.SendEmail(
+                    new EmailData()
+                    {
+                        ReceiverAddress = invite.Email,
+                        Subject = "Invitation to TELPA",
+                        Body = "You have been invited to TELPA. Register using this link:\n" + this.config.Value.ServerURL + "register?link=" + invite.Link
+                    });
                 return Ok();
             }
             else
             {
-                return Json(NotFound("Invite failed"));
+                return NotFound(Json("Invite failed"));
             }
         }
 

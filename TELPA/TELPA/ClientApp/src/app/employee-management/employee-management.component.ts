@@ -16,9 +16,9 @@ import { Invite } from "../api/api-entities";
 })
 export class EmployeeManagementComponent implements OnInit {
   columns: string[];
-  private fieldArray: Array<any> = [];
-  private newAttribute: any = {};
-  private changeLeader: any = {};
+  fieldArray: Array<any> = [];
+  newAttribute: any = {};
+  changeLeader: any = {};
   //employee lentoms
   employeeDataAll = EmployeeDataList;
   employeeData = [];
@@ -397,12 +397,12 @@ export class EmployeeManagementComponent implements OnInit {
         console.log(name, email, leaderId);
         this.accountAPIService
           .invite(<Invite>{
-            id: null,
+            id: 0,
             email: email,
             inviterId: this.e.id,
-            expiryDate: null,
-            link: null,
-            version: null,
+            expiryDate: new Date(),
+            link: "",
+            version: 0,
           })
           .subscribe(
             (val) => {
