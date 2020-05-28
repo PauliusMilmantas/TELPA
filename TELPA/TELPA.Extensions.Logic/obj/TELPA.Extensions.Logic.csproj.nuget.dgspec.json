@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
+    "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
+    "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "projectUniqueName": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
         "projectName": "TELPA.Extensions.Logic",
-        "projectPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
-        "packagesPath": "C:\\Users\\Evaldas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
+        "projectPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\TELPA.Extensions.Logic.csproj",
+        "packagesPath": "C:\\Users\\arnas\\.nuget\\packages\\",
+        "outputPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA.Extensions.Logic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Evaldas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arnas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA\\TELPA.csproj": {
-                "projectPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA\\TELPA.csproj"
+              "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA\\TELPA.csproj": {
+                "projectPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA\\TELPA.csproj"
               }
             }
           }
@@ -84,24 +84,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA\\TELPA.csproj": {
+    "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA\\TELPA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA\\TELPA.csproj",
+        "projectUniqueName": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA\\TELPA.csproj",
         "projectName": "TELPA",
-        "projectPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA\\TELPA.csproj",
-        "packagesPath": "C:\\Users\\Evaldas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Evaldas\\Documents\\GitHub\\TELPA\\TELPA\\TELPA\\obj\\",
+        "projectPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA\\TELPA.csproj",
+        "packagesPath": "C:\\Users\\arnas\\.nuget\\packages\\",
+        "outputPath": "D:\\Desktop\\Arno\\Programming\\Java\\PSK\\TELPA\\TELPA\\TELPA\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Evaldas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arnas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -200,7 +200,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
