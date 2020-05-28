@@ -21,6 +21,7 @@ export class EmployeeManagementComponent implements OnInit {
   private newAttribute: any = {};
   private changeLeader: any = {};
   bool;
+  hasSubordinates;
   //employee lentoms
   employeeDataAll = EmployeeDataList;
   employeeData = [];
@@ -84,7 +85,6 @@ export class EmployeeManagementComponent implements OnInit {
   ngOnInit() {
     this.getBackendData();
     this.getLeaderData();
-    //this.getBackendLeaderData();
     this.getSubordinateData();
     this.bool = false;
   }
@@ -99,23 +99,30 @@ export class EmployeeManagementComponent implements OnInit {
 //    this.httpClient.get(location.origin + '/api/employee/get/all/employeesAndLeaders/').subscribe(
       data => {
         this.linkingData = data;
-      }).add(() => {
-        for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-          this.employeeId = this.linkingData[i]['employeeId'];
-          this.employeeName = this.linkingData[i]['employeeName'];
-          this.employeeEmail = this.linkingData[i]['employeeEmail'];
-          this.employeeRole = this.linkingData[i]['employeeRole'];
-          this.employeeLeaderId = this.linkingData[i]['leaderId'];
-          this.employeeLeaderName = this.linkingData[i]['leaderName'];
-          this.employeeData.push({
-            'employeeId': this.employeeId,
-            'employeeName': this.employeeName,
-            'employeeEmail': this.employeeEmail,
-            'employeeRole': this.employeeRole,
-            'leaderId': this.employeeLeaderId,
-            'leaderName': this.employeeLeaderName
-          });
-        }
+            }).add(() => {
+              if (this.linkingData[0] != null) {
+                this.hasSubordinates = true;
+                for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+                  this.employeeId = this.linkingData[i]['employeeId'];
+                  this.employeeName = this.linkingData[i]['employeeName'];
+                  this.employeeEmail = this.linkingData[i]['employeeEmail'];
+                  this.employeeRole = this.linkingData[i]['employeeRole'];
+                  this.employeeLeaderId = this.linkingData[i]['leaderId'];
+                  this.employeeLeaderName = this.linkingData[i]['leaderName'];
+                  this.employeeData.push({
+                    'employeeId': this.employeeId,
+                    'employeeName': this.employeeName,
+                    'employeeEmail': this.employeeEmail,
+                    'employeeRole': this.employeeRole,
+                    'leaderId': this.employeeLeaderId,
+                    'leaderName': this.employeeLeaderName
+                  });
+                }
+              }
+              else {
+                this.employeeData.push({ });
+                this.hasSubordinates = false;
+              }
         console.log(this.employeeData);
       });
     });
@@ -178,21 +185,24 @@ export class EmployeeManagementComponent implements OnInit {
         data => {
           this.linkingData = data;
         }).add(() => {
-          for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
-            this.subordinateId = this.linkingData[i]['id'];
-            this.subordinateName = this.linkingData[i]['name'];
-            this.subordinateEmail = this.linkingData[i]['email'];
-            this.subordinateRole = this.linkingData[i]['role'];
-            this.subordinateLeaderId = this.linkingData[i]['leaderId'];
+          if (this.linkingData[0] != null) {
+            for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
+              this.subordinateId = this.linkingData[i]['id'];
+              this.subordinateName = this.linkingData[i]['name'];
+              this.subordinateEmail = this.linkingData[i]['email'];
+              this.subordinateRole = this.linkingData[i]['role'];
+              this.subordinateLeaderId = this.linkingData[i]['leaderId'];
 
-            this.subordinateData.push({
-              'id': this.subordinateId,
-              'name': this.subordinateName,
-              'email': this.subordinateEmail,
-              'role': this.subordinateRole,
-              'leaderId': this.subordinateLeaderId
-            });
+              this.subordinateData.push({
+                'id': this.subordinateId,
+                'name': this.subordinateName,
+                'email': this.subordinateEmail,
+                'role': this.subordinateRole,
+                'leaderId': this.subordinateLeaderId
+              });
+            }
           }
+          else this.subordinateData.push({});
         });
       console.log("subordinate data:", this.subordinateData);
       console.log("session ID", this.e.id);
