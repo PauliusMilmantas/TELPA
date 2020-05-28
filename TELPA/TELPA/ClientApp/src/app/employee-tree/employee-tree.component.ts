@@ -61,7 +61,7 @@ export class EmployeeTreeComponent implements OnInit {
 
   getNodeStructure(leader: Employee) {
     let structure = {
-      innerHTML: `<h3>${leader.name}</h3><h4>${leader.email}</h4>`,
+      innerHTML: `<div style="white-space: nowrap;"><h3>${leader.name}</h3><h4>${leader.email}</h4></div>`,
       collapsed: true,
       collapsable: true,
       children: [],

@@ -69,3 +69,13 @@ C:\Projects\eclipse-workspace\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netco
 C:\Projects\eclipse-workspace\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.dll
 C:\Projects\eclipse-workspace\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.pdb
 C:\Projects\eclipse-workspace\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.csproj.CopyComplete
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.StaticWebAssets.xml
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Views.dll
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Views.pdb
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.exe
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.dll
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.pdb
+C:\Users\maciu\Documents\Programs\TELPA\TELPA\TELPA.Extensions.Logic\obj\Debug\netcoreapp3.1\TELPA.Extensions.Logic.csproj.CopyComplete

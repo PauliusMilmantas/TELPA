@@ -26,6 +26,7 @@ namespace TELPA.Controllers
             return Json(Ok("EmployeeController online"));
         }
 
+        [Logged]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult GetEmployee(int id)

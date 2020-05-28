@@ -31,6 +31,7 @@ namespace TELPA.Controllers
             return Json(Ok("SessionController online"));
         }
 
+        [Logged]
         [Authenticated]
         [HttpGet]
         [Route("me")]

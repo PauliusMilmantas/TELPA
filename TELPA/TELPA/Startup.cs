@@ -53,6 +53,7 @@ namespace TELPA
             services.AddAuthentication("NoOpAuthentication")
                 .AddScheme<NoOpAuthenticationOptions, NoOpAuthenticationHandler>("NoOpAuthentication", options => { });
             services.AddSingleton<IPostConfigureOptions<NoOpAuthenticationOptions>, NoOpAuthenticationPostConfigureOptions>();
+            services.AddHttpContextAccessor();
 
             //System.Diagnostics.Debug.WriteLine(Configuration.);
 
