@@ -1,4 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from "@angular/core";
 import * as d3 from "d3";
 import { TopicAPIService } from "../api/topic-api.service";
 import { SessionAPIService } from "../api/session-api.service";
@@ -14,14 +20,19 @@ import { HttpErrorResponse } from "@angular/common/http";
   templateUrl: "./topic-network.component.html",
   styleUrls: ["./topic-network.component.css"],
 })
-export class TopicNetworkComponent implements OnInit {
+export class TopicNetworkComponent implements AfterViewInit {
+  @ViewChild("viewElement", {
+    static: true,
+  })
+  viewElement: ElementRef;
+
   constructor(
     private topicAPI: TopicAPIService,
     private sessionAPI: SessionAPIService,
     private employeeAPI: EmployeeAPIService
   ) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     let types = ["learned", "recommended", "subtopic"];
     let color = (type: string) => {
       let lut = {
@@ -57,7 +68,14 @@ export class TopicNetworkComponent implements OnInit {
                 }
               }
               console.log(data);
-              this.chart(types, data, color);
+              let width = (<HTMLElement>this.viewElement.nativeElement)
+                .offsetWidth;
+              let height = (<HTMLElement>this.viewElement.nativeElement)
+                .offsetHeight;
+              let zoom = 0.75;
+              width = width * zoom;
+              height = height * zoom;
+              this.chart(width, height, types, data, color);
             },
             (err: HttpErrorResponse) => {}
           );
@@ -88,12 +106,6 @@ export class TopicNetworkComponent implements OnInit {
     if (leader.subordinates.length !== 0) {
       for (const e of leader.subordinates) {
         data = this.getDataStructure(e, data);
-        // for (const n of resData.nodes) {
-        //   data.nodes.push(n);
-        // }
-        // for (const l of resData.links) {
-        //   data.links.push(l);
-        // }
       }
     }
     return data;
@@ -130,10 +142,13 @@ export class TopicNetworkComponent implements OnInit {
     );
   }
 
-  chart = (types: string[], data: any, color: (type: string) => string) => {
-    let width = 800;
-    let height = 600;
-
+  chart = (
+    width: number,
+    height: number,
+    types: string[],
+    data: any,
+    color: (type: string) => string
+  ) => {
     const links = data.links.map((d) => Object.create(d));
     const nodes = data.nodes.map((d) => Object.create(d));
 

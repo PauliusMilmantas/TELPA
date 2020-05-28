@@ -67,7 +67,7 @@ import { StatisticsComponent } from "./statistics/statistics.component";
     FormsModule,
     ModalModule,
     RouterModule.forRoot([
-      { path: "", component: FrontPageComponent },
+      { path: "", component: LoginFormComponent },
       { path: "calendar", component: CalendarWindowComponent },
       { path: "homepage", component: HomePageComponent },
       { path: "register", component: RegistrationFormComponent },
