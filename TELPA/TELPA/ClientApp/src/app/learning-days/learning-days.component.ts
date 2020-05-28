@@ -95,24 +95,28 @@ export class LearningDaysComponent implements OnInit {
       this.httpClient.post(location.origin + '/api/learningDay/create', this.dayToAdd).subscribe(rsp => {
         post_response = rsp
       }).add(() => {
-        var learning_day_id
+        if (post_response.value == 'LearningDay created') {
+          var learning_day_id
 
-        /// Getting posted learning day ID
-        this.httpClient.get(location.origin + '/api/learningDay/get/all').subscribe(resp => {
-          for (var i = 0; i < Object.keys(resp).length; i++) {
-            console.log(resp[i]);
-            if (resp[i]["date"].split("T")[0] == this.post_date) {
-              learning_day_id = resp[i]['id']
+          /// Getting posted learning day ID
+          this.httpClient.get(location.origin + '/api/learningDay/get/all').subscribe(resp => {
+            for (var i = 0; i < Object.keys(resp).length; i++) {
+              console.log(resp[i]);
+              if (resp[i]["date"].split("T")[0] == this.post_date) {
+                learning_day_id = resp[i]['id']
+              }
             }
-          }
-        }).add(() => {
-          this.linkToAdd.learningDayId = learning_day_id
-          this.linkToAdd.topicId = this.post_topic_id
+          }).add(() => {
+            this.linkToAdd.learningDayId = learning_day_id
+            this.linkToAdd.topicId = this.post_topic_id
 
-          this.httpClient.post(location.origin + '/api/learningDayTopic/create', this.linkToAdd).subscribe(rst => {
-            console.log(rst);
+            this.httpClient.post(location.origin + '/api/learningDayTopic/create', this.linkToAdd).subscribe(rst => {
+              console.log(rst);
+            });
           });
-        });
+        } else {
+          alert(post_response.value);
+        }
       });
     });
   }
