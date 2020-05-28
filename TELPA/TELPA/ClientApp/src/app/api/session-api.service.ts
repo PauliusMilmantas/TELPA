@@ -25,7 +25,9 @@ export class SessionAPIService {
     return this.http.post(API_URL + "logOut", "{}");
   }
 
-  ping(): Observable<any> {
-    return this.http.get(API_URL + "ping");
+  ping(): Observable<HttpResponse<any>> {
+    return this.http.get(API_URL + "ping", {
+      observe: "response",
+    });
   }
 }

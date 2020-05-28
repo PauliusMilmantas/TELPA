@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using TELPA.Components;
 using Microsoft.Extensions.Options;
 using TELPA.Data;
+using TELPA.Constants;
+using System.Collections.Generic;
 
 namespace TELPA
 {
@@ -30,6 +32,9 @@ namespace TELPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<Config>(Configuration.GetSection("TELPAConfig"));
+            var config = Configuration.GetSection("TELPAConfig").Get<Config>();
+
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             if (connectionString.Contains("%CONTENT_ROOT%"))
             {
@@ -49,8 +54,30 @@ namespace TELPA
                 .AddScheme<NoOpAuthenticationOptions, NoOpAuthenticationHandler>("NoOpAuthentication", options => { });
             services.AddSingleton<IPostConfigureOptions<NoOpAuthenticationOptions>, NoOpAuthenticationPostConfigureOptions>();
 
-            services.AddSingleton<ISessionService, SessionService>();
-            services.AddScoped<IAuthorizationService, AuthorizationService>();
+            //System.Diagnostics.Debug.WriteLine(Configuration.);
+
+            //services.AddSingleton<ISessionService, SessionService>();
+            //services.AddScoped<IAuthorizationService, AuthorizationService>();
+
+            List<Type> superTypes = config.Services.Select<ServiceConfig, Type>(s => null).ToList();
+            List<Type> subTypes = config.Services.Select<ServiceConfig, Type>(s => null).ToList();
+
+            for (var i = 0; i < config.Services.Count;++i)
+            {
+                var serviceConfig = config.Services[i];
+                Type superType = Type.GetType(serviceConfig.Interface);
+                Type subType = Type.GetType(serviceConfig.Implementation);
+                if (superType != null)
+                {
+                    superTypes[i] = superType;
+                    System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Interface);
+                }
+                if (subType != null)
+                {
+                    subTypes[i] = subType;
+                    System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Implementation);
+                }
+            }
 
             //Assembly[] assemblies = new Assembly[] { Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "TELPA.Extensions.Logic.dll") };
             Assembly[] assemblies =
@@ -62,10 +89,51 @@ namespace TELPA
             System.Diagnostics.Debug.WriteLine("Extensions: " + string.Join<Assembly>(", ", assemblies));
             foreach (var assembly in assemblies)
             {
+                for (var i = 0; i < config.Services.Count; ++i)
+                {
+                    var serviceConfig = config.Services[i];
+                    Type superType = assembly.GetType(serviceConfig.Interface);
+                    Type subType = assembly.GetType(serviceConfig.Implementation);
+                    if (superType != null)
+                    {
+                        superTypes[i] = superType;
+                        System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Interface);
+                    }
+                    if (subType != null)
+                    {
+                        subTypes[i] = subType;
+                        System.Diagnostics.Debug.WriteLine("Found " + serviceConfig.Implementation);
+                    }
+                }
+
+
                 services.AddControllers().AddApplicationPart(assembly).AddControllersAsServices();
                 //services.AddControllers().PartManager.ApplicationParts.Add(new AssemblyPart(assembly));
             }
-            //var t = typeof(TELPA.Extensions.Logic.Controllers.SimpleController);
+
+            for (var i = 0; i < config.Services.Count; ++i)
+            {
+                var serviceConfig = config.Services[i];
+                Type superType = superTypes[i];
+                Type subType = subTypes[i];
+                if (superType == null || subType == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Service pair of " + serviceConfig.Interface + " and " + serviceConfig.Implementation + " not found.");
+                    continue;
+                }
+                if (serviceConfig.Scope == "Singleton")
+                {
+                    services.AddSingleton(superType, subType);
+                }
+                else if (serviceConfig.Scope == "Scoped")
+                {
+                    services.AddScoped(superType, subType);
+                }
+                else if (serviceConfig.Scope == "Transient")
+                {
+                    services.AddTransient(superType, subType);
+                }
+            }
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>

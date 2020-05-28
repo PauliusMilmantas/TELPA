@@ -35,8 +35,11 @@ import { RecommendedTopicAPIService } from "./api/recommended-topic-api.service"
 import { TopicAPIService } from "./api/topic-api.service";
 import { TopicLinkAPIService } from "./api/topic-link-api.service";
 import { EmployeeTreeComponent } from "./employee-tree/employee-tree.component";
-import { TreeComponent } from "./tree/tree.component";
 import { AccountAPIService } from "./api/account-api.service";
+import { TopicNetworkComponent } from "./topic-network/topic-network.component";
+import { StatisticsComponent } from "./statistics/statistics.component";
+import { LimitsAddComponent } from "./limits-add/limits-add.component";
+import { LimitsEditComponent } from "./limits-edit/limits-edit.component";
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { AccountAPIService } from "./api/account-api.service";
     TopicEditComponent,
     RecommendationsComponent,
     EmployeeTreeComponent,
-    TreeComponent,
+    TopicNetworkComponent,
+    StatisticsComponent,
+    LimitsAddComponent,
+    LimitsEditComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -65,7 +71,7 @@ import { AccountAPIService } from "./api/account-api.service";
     FormsModule,
     ModalModule,
     RouterModule.forRoot([
-      { path: "", component: FrontPageComponent },
+      { path: "", component: LoginFormComponent },
       { path: "calendar", component: CalendarWindowComponent },
       { path: "homepage", component: HomePageComponent },
       { path: "register", component: RegistrationFormComponent },
@@ -76,6 +82,10 @@ import { AccountAPIService } from "./api/account-api.service";
       { path: "topic-edit", component: TopicEditComponent },
       { path: "recommendations", component: RecommendationsComponent },
       { path: "employee-tree", component: EmployeeTreeComponent },
+      { path: "topic-network", component: TopicNetworkComponent },
+      { path: "statistics", component: StatisticsComponent },
+      { path: "limits-add", component: LimitsAddComponent },
+      { path: "limits-edit", component: LimitsEditComponent },
     ]),
   ],
   providers: [

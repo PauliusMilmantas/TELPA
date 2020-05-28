@@ -50,7 +50,7 @@ export class AuthenticationService {
 
   isLoggedIn(): Observable<boolean> {
     return this.sessionAPI.ping().pipe(
-      map((x) => !(x instanceof HttpErrorResponse)),
+      map((x) => x.ok),
       catchError((err: HttpErrorResponse) => of(false))
     );
   }

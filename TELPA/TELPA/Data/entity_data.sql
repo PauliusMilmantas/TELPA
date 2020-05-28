@@ -564,9 +564,9 @@ insert into learningDays (
   version)
 values (
   1,
-  '2020-04-20',
+  '2020-03-20',
   'Some intensive learning',
-  2,
+  6,
   0)
 
 insert into learningDays (
@@ -577,9 +577,9 @@ insert into learningDays (
   version)
 values (
   2,
-  '2020-04-20',
+  '2020-03-21',
   'Some intensive learning',
-  5,
+  6,
   0)
 
 insert into learningDays (
@@ -1568,6 +1568,50 @@ values (
   0)
 
 set identity_insert topicLinks off;
+
+
+
+
+
+
+
+set identity_insert limits on;
+
+insert into limits (
+  id,
+  employeeId,
+  startDate,
+  endDate,
+  maxConsecutiveLearningDays,
+  maxTotalLearningDays,
+  version)
+values (
+  1,
+  6,
+  '2020-04-01',
+  '2020-04-30',
+  5,
+  3,
+  0)
+
+insert into limits (
+  id,
+  employeeId,
+  startDate,
+  endDate,
+  maxConsecutiveLearningDays,
+  maxTotalLearningDays,
+  version)
+values (
+  2,
+  6,
+  '2020-03-01',
+  '2020-03-30',
+  5,
+  4,
+  0)
+
+set identity_insert limits off;
 
 
 

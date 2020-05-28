@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TELPA.Constants
 {
-    public static class Config
+    public class Config
     {
         //Pereinant ant serverio, reikės šitą pakeisti.
-        public static String localAddress = "https://localhost:44399/api/";
+        public string LocalApiAddress { get; set; }
         //Druska slaptažodžio maišai
-        public static String salt = "seJrnuYZVQmfBNP6rAKNuN==";
+        public string PasswordSalt { get; set; }
+        public List<ServiceConfig> Services { get; set; }
     }
 }
