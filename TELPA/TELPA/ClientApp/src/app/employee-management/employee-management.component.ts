@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { SessionAPIService } from '../api/session-api.service';
 import { Observable } from 'rxjs';
+//import { EmailService } from '';
 
 
 @Component({
@@ -77,7 +78,7 @@ export class EmployeeManagementComponent implements OnInit {
   mySession;
   e;
 
-  constructor(private modalService: ModalService, private httpClient: HttpClient, private sessionAPIService: SessionAPIService) { }
+  constructor(private modalService: ModalService, private httpClient: HttpClient, private sessionAPIService: SessionAPIService/*, private emailService: EmailService*/) { }
 
   ngOnInit() {
     this.getBackendData();

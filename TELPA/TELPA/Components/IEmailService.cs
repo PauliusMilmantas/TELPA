@@ -7,6 +7,6 @@ namespace TELPA.Components
 {
     interface IEmailService
     {
-        public string SendEmail(string email);
+        public void SendEmail(string email);
     }
 }
