@@ -19,6 +19,13 @@ export class StatisticsComponent implements OnInit {
   selectedTopicId = null;
   selectedLeaderId = null;
 
+  categories = [
+    { name: 'employees', disabled: true },
+    { name: 'teams', disabled: false },
+    { name: 'completed', disabled: false },
+    { name: 'scheduled', disabled: false }
+  ]
+
 
   employees;
   teams;
@@ -30,7 +37,32 @@ export class StatisticsComponent implements OnInit {
   constructor(private httpClient: HttpClient, private sessionAPIService: SessionAPIService) { }
 
   ngOnInit() {
-    this.getLeaderData();
+    this.getData(0);
+  }
+
+  onCategoryClick(index) {
+    for (let i = 0; i < this.categories.length; i++) {
+      if (i == index) {
+        this.categories[i]['disabled'] = true;
+      } else {
+        this.categories[i]['disabled'] = false;
+      }
+    }
+
+    this.getData(index);
+  }
+
+  getData(index) {
+    if (index == 0 || index == 1) {
+      this.selectedTopicId = null;
+      this.apiTopics = [];
+      this.topics = [];
+      this.getTopicData();
+    } else if (index == 2 || index == 3) {
+      this.selectedLeaderId = null;
+      this.teams = [];
+      this.getLeaderData();
+    }
   }
 
   getTopicData() {
@@ -79,7 +111,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   onEmployeeTopicChange() {
-    this.getEmployeesData();
+    if (this.selectedTopicId != "null") {
+      this.getEmployeesData();
+    } else {
+      this.employees = [];
+    }
   }
 
   getEmployeesData() {
@@ -103,7 +139,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   onTeamsTopicChange() {
-    this.getTeamsData();
+    if (this.selectedTopicId != "null") {
+      this.getTeamsData();
+    } else {
+      this.teams = [];
+    }
   }
 
   getTeamsData() {
@@ -141,12 +181,16 @@ export class StatisticsComponent implements OnInit {
   }
   
   onCompletedLeaderChange() {
-    this.getCompletedData();
+    if (this.selectedLeaderId != "null") {
+      this.getCompletedData();
+    } else {
+      this.completed = [];
+    }
   }
 
   getCompletedData() {
     this.completed = [];
-    this.httpClient.get(this.baseUrl + '/api/section/get/leadersForLearnedTopic/' + this.selectedLeaderId).subscribe(
+    this.httpClient.get(this.baseUrl + '/api/section/get/learnedTopicsForLeader/' + this.selectedLeaderId).subscribe(
       data => {
         this.completed = data;
       }
@@ -165,12 +209,16 @@ export class StatisticsComponent implements OnInit {
   }
 
   onScheduledLeaderChange() {
-    this.getScheduledData();
+    if (this.selectedLeaderId != "null") {
+      this.getScheduledData();
+    } else {
+      this.scheduled = [];
+    }
   }
 
   getScheduledData() {
     this.scheduled = [];
-    this.httpClient.get(this.baseUrl + '/api/section/get/futureLeadersForTopic/' + this.selectedLeaderId).subscribe(
+    this.httpClient.get(this.baseUrl + '/api/section/get/futureLearningDaysForLeader/' + this.selectedLeaderId).subscribe(
       data => {
         this.scheduled = data;
       }
