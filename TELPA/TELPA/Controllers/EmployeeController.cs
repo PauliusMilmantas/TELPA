@@ -227,14 +227,15 @@ namespace TELPA.Controllers
 				  sup_ldr.id = {supremeLeaderId}")
                 .ToList<EmployeesAndLeadersForSupremeLeader>();
 
-            if (result.Count != 0)
-            {
-                return Json(result);
-            }
-            else
-            {
-                return NotFound("No employees and leaders found under supreme leader ID = " + supremeLeaderId);
-            }
+            /*            if (result.Count != 0)
+                        {
+                            return Json(result);
+                        }
+                        else
+                        {
+                            return NotFound("No employees and leaders found under supreme leader ID = " + supremeLeaderId);
+                        }*/
+            return Json(result);
         }
 
         [HttpGet]
@@ -275,14 +276,15 @@ namespace TELPA.Controllers
 				  emp.id = ldr.id")
                 .ToList<Employee>();
 
-            if (leaders.Count != 0)
-            {
-                return Json(leaders);
-            }
-            else
-            {
-                return NotFound("No leaders found under supreme leader ID = " + supremeLeaderId);
-            }
+            /*            if (leaders.Count != 0)
+                        {
+                            return Json(leaders);
+                        }
+                        else
+                        {
+                            return NotFound("No leaders found under supreme leader ID = " + supremeLeaderId);
+                        }*/
+            return Json(leaders);
         }
 
         [HttpGet]

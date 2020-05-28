@@ -100,7 +100,7 @@ export class EmployeeManagementComponent implements OnInit {
       data => {
         this.linkingData = data;
             }).add(() => {
-              if (this.linkingData[0]['employeeId'] != null) {
+              if (this.linkingData[0] != null) {
                 this.hasSubordinates = true;
                 for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
                   this.employeeId = this.linkingData[i]['employeeId'];
@@ -119,7 +119,10 @@ export class EmployeeManagementComponent implements OnInit {
                   });
                 }
               }
-              else this.hasSubordinates = false;
+              else {
+                this.employeeData.push({ });
+                this.hasSubordinates = false;
+              }
         console.log(this.employeeData);
       });
     });
@@ -182,7 +185,7 @@ export class EmployeeManagementComponent implements OnInit {
         data => {
           this.linkingData = data;
         }).add(() => {
-          if (this.linkingData[0]['id'] != null) {
+          if (this.linkingData[0] != null) {
             for (let i = 0; i < Object.keys(this.linkingData).length; i++) {
               this.subordinateId = this.linkingData[i]['id'];
               this.subordinateName = this.linkingData[i]['name'];
@@ -199,6 +202,7 @@ export class EmployeeManagementComponent implements OnInit {
               });
             }
           }
+          else this.subordinateData.push({});
         });
       console.log("subordinate data:", this.subordinateData);
       console.log("session ID", this.e.id);
