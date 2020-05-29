@@ -5,7 +5,7 @@
     <div class="background-box">
 
       <div [hidden]="hideMessageBox" class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <a (click)="hideMessageBox = true" class="close" aria-label="close">&times;</a>
         <strong>Success!</strong> Topic has been updated.
       </div>
 

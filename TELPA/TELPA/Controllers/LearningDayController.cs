@@ -94,6 +94,20 @@ namespace TELPA.Controllers
         {
             Employee employee = db.Employees.Find(learningDay.EmployeeId);
 
+            IList<LearningDay> learningDayExisting = db.LearningDays.FromSqlInterpolated(
+                $@"
+                select
+                  lda.*
+				from
+				  learningDays lda
+				where
+				  lda.date = {learningDay.Date} and
+				  lda.employeeId = {employee.Id}")
+                .ToList<LearningDay>();
+
+            if (!learningDayExisting.IsNullOrEmpty())
+                return Json(BadRequest("Learning day already exists!"));
+
             if (!employee.Limits.IsNullOrEmpty())  // jei darbuotojas turi kazkokiu nustatytu apribojimu
             {
                 var result = db.CheckBool.FromSqlInterpolated(
@@ -108,7 +122,7 @@ namespace TELPA.Controllers
                     .ToList<CheckBool>();
 
                 if (result.IsNullOrEmpty()) 
-                    return Json(Forbid("Learning day is not in allowed learning period of the employee!"));
+                    return Json(BadRequest("Learning day is not in allowed learning period of the employee!"));
 
                 if (!employee.LearningDays.IsNullOrEmpty())
                 {
@@ -138,7 +152,51 @@ namespace TELPA.Controllers
                         .ToList<CheckBool>();
 
                     if (result.First().checkBool != 0) 
-                        return Json(Forbid("Max learning days reached!"));
+                        return Json(BadRequest("Max learning days reached!"));
+
+                    result = db.CheckBool.FromSqlInterpolated(
+                        $@"
+                        with groups(date, grp, maxDays) as (
+                          select
+                            lda.date,
+                            dateadd(
+	                          day,
+	                          -dense_rank()
+	                            over(
+		                          order by
+		                            lda.date), 
+                              lda.date) grp,
+	                          lim.maxConsecutiveLearningDays maxDays
+                          from
+                            learningDays lda,
+	                        limits lim
+                          where
+   	                        lim.employeeId = {employee.Id}  and
+	                        {learningDay.Date} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate) and
+	                        lda.employeeId = lim.employeeId and
+	                        lda.date between convert(datetime, lim.startDate) and convert(datetime, lim.endDate)
+                          group by
+                            lda.date,
+	                        lim.id,
+	                        lim.maxConsecutiveLearningDays)
+                        select
+                          case
+                            when count(date) = maxDays and
+	                          (convert(datetime, min(date)) - 1 = {learningDay.Date} or
+	                          convert(datetime, max(date)) + 1 = {learningDay.Date}) then
+	                          0
+	                        else 
+	                          1
+                          end checkBool
+                        from
+                          groups
+                        group by
+                          grp,
+                          maxDays")
+                        .ToList<CheckBool>();
+
+                    if (result.First().checkBool == 0)
+                        return Json(BadRequest("Max consecutive learning days reached!"));
                 }
             }
 

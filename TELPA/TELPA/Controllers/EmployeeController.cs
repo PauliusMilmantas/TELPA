@@ -186,11 +186,12 @@ namespace TELPA.Controllers
             }
         }
 
+        // Grazina visu zemesniu lygiu employees ir ju lyderius pagal virsiausio lyderio lygi
         [HttpGet]
-        [Route("get/all/employeesForLeader/{leaderId}")]
-        public IActionResult getEmployeesForLeader(int leaderId)  // Grazina zemesniu lygiu employees pagal lyderio lygi
+        [Route("get/employeesAndLeadersForSupremeLeader/{supremeLeaderId}")]
+        public IActionResult getEmployeesAndLeadersForSupremeLeader(int supremeLeaderId)  
         {
-            IList<Employee> employees = db.Employees.FromSqlInterpolated(
+            var result = db.EmployeesAndLeadersForSupremeLeader.FromSqlInterpolated(
                 $@"
                 with employees_rec as (
                   select
@@ -198,7 +199,7 @@ namespace TELPA.Controllers
                   from
                     employees emp_par
                   where
-                    emp_par.id = {leaderId}
+                    emp_par.id = {supremeLeaderId}
                   union all
                   select
                     emp_chi.*
@@ -208,25 +209,38 @@ namespace TELPA.Controllers
                   where
                     emp_rec.id = emp_chi.leaderId)
                 select
-                  emp_rec.*
+				  emp_rec.id employeeId,
+				  emp_rec.name employeeName,
+				  emp_rec.email employeeEmail,
+				  ldr.id leaderId,
+				  ldr.name leaderName,
+				  ldr.email leaderEmail,
+				  sup_ldr.id supremeLeaderId,
+				  sup_ldr.name supremeLeaderName,
+				  sup_ldr.email supremeLeaderEmail
                 from
-                  employees_rec emp_rec
+                  employees_rec emp_rec,
+				  employees ldr,
+				  employees sup_ldr
                 where 
-                  emp_rec.id <> {leaderId}")
-                .ToList<Employee>();
+                  emp_rec.id <> {supremeLeaderId} and
+				  ldr.id = emp_rec.leaderId and
+				  sup_ldr.id = {supremeLeaderId}")
+                .ToList<EmployeesAndLeadersForSupremeLeader>();
 
-            if (employees.Count != 0)
-            {
-                return Json(employees);
-            }
-            else
-            {
-                return NotFound("No employees found under leader ID = " + leaderId);
-            }
+            /*            if (result.Count != 0)
+                        {
+                            return Json(result);
+                        }
+                        else
+                        {
+                            return NotFound("No employees and leaders found under supreme leader ID = " + supremeLeaderId);
+                        }*/
+            return Json(result);
         }
 
         [HttpGet]
-        [Route("get/all/employeesForLeader/leaders/{supremeLeaderId}")]
+        [Route("get/employeesForLeader/leaders/{supremeLeaderId}")]
         public IActionResult getLeadersForSupremeLeader(int supremeLeaderId)  // Grazina visu zemesniu lygiu lyderius pagal lyderio lygi
         {
             IList<Employee> leaders = db.Employees.FromSqlInterpolated(
@@ -263,14 +277,15 @@ namespace TELPA.Controllers
 				  emp.id = ldr.id")
                 .ToList<Employee>();
 
-            if (leaders.Count != 0)
-            {
-                return Json(leaders);
-            }
-            else
-            {
-                return NotFound("No leaders found under leader ID = " + supremeLeaderId);
-            }
+            /*            if (leaders.Count != 0)
+                        {
+                            return Json(leaders);
+                        }
+                        else
+                        {
+                            return NotFound("No leaders found under supreme leader ID = " + supremeLeaderId);
+                        }*/
+            return Json(leaders);
         }
 
         [HttpGet]

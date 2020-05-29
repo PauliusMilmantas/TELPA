@@ -17,7 +17,6 @@ h4 {
   cursor: pointer;
   font-size: 17px;
 }
-
 h5 {
   font-size: 17px;
   color: #ffffff;
@@ -28,7 +27,7 @@ td {
 .buttons {
   font-family: Arial;
   font-size: 17px;
-  border-bottom: 1px solid rgba(73, 114, 133, 0.6);
+/*  border-bottom: 1px solid rgba(73, 114, 133, 0.6);*/
   display: flex;
   justify-content: space-between;
   padding: 30px 40px;
@@ -64,6 +63,12 @@ td {
 .edit-btn {
   background-color: darkgreen;
   width: 100px;
+  text-align: center;
+}
+
+.add-employee-btn {
+    justify-content: space-between;
+    display: flex;
 }
 
 .employee-table {
