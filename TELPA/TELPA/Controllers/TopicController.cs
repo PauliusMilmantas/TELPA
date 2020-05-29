@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -23,6 +24,8 @@ namespace TELPA.Controllers
             return Json(Ok("TopicController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all")]
         public IActionResult GetAll()
@@ -39,6 +42,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult GetTopic(int id)
@@ -55,6 +60,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/subtopics")]
         public IActionResult GetTopicSubtopics(int id)
@@ -71,6 +78,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/topicLinks")]
         public IActionResult GetTopicTopicLinks(int id)
@@ -87,6 +96,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/learnedTopics")]
         public IActionResult GetTopicLearnedTopics(int id)
@@ -103,6 +114,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/recommendedTopics")]
         public IActionResult GetTopicRecommendedTopics(int id)
@@ -119,6 +132,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/learningDayTopics")]
         public IActionResult GetTopicLearningDayTopics(int id)
@@ -135,6 +150,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [Route("get/last")]
         public IActionResult getLastTopicId()
         {
@@ -150,6 +167,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult CreateTopic([FromBody] Topic topic)
         {
@@ -165,6 +184,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult UpdateTopic([FromBody] Topic topic)
         {
@@ -180,6 +201,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult DeleteTopic(int id)

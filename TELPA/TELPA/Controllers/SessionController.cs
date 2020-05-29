@@ -31,6 +31,7 @@ namespace TELPA.Controllers
             return Json(Ok("SessionController online"));
         }
 
+        [Logged]
         [Authenticated]
         [HttpGet]
         [Route("me")]
@@ -48,6 +49,7 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
         [HttpPost]
         [Route("logIn")]
         public IActionResult LogIn([FromBody] LoginData loginData)
@@ -64,6 +66,7 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
         [HttpPost]
         [Route("logOut")]
         public IActionResult LogOut()

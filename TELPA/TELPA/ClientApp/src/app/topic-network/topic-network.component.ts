@@ -67,7 +67,6 @@ export class TopicNetworkComponent implements AfterViewInit {
                   });
                 }
               }
-              console.log(data);
               let width = (<HTMLElement>this.viewElement.nativeElement)
                 .offsetWidth;
               let height = (<HTMLElement>this.viewElement.nativeElement)
@@ -204,7 +203,7 @@ export class TopicNetworkComponent implements AfterViewInit {
 
     node
       .append("circle")
-      .attr("stroke", "white")
+      .attr("stroke", "#e6eaf0")
       .attr("stroke-width", 1.5)
       .attr("r", 5);
 
@@ -217,7 +216,7 @@ export class TopicNetworkComponent implements AfterViewInit {
       .clone(true)
       .lower()
       .attr("fill", "none")
-      .attr("stroke", "white")
+      .attr("stroke", "#e6eaf0")
       .attr("stroke-width", 3);
 
     simulation.on("tick", () => {
