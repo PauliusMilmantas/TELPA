@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -23,6 +24,8 @@ namespace TELPA.Controllers
             return Json(Ok("TopicLinkController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult getTopicLink(int id)
@@ -39,6 +42,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("getByTopic/{topicId}")]
         public IActionResult getByTopicLink(int topicId)
@@ -64,6 +69,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult createTopicLink([FromBody] TopicLink topicLink)
         {
@@ -79,6 +86,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult updateTopicLink([FromBody] TopicLink topicLink)
         {
@@ -94,6 +103,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteTopicLink(int id)

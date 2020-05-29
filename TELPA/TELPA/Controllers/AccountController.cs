@@ -31,6 +31,8 @@ namespace TELPA.Controllers
             return Json(Ok("AccountController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("invite")]
         public IActionResult Invite([FromBody] Invite inviteReq)
         {
@@ -74,6 +76,7 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterData registerData)
         {

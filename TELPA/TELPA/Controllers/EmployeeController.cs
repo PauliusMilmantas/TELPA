@@ -27,6 +27,7 @@ namespace TELPA.Controllers
         }
 
         [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult GetEmployee(int id)
@@ -43,6 +44,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/subordinates")]
         public IActionResult GetEmployeeSubordinates(int id)
@@ -59,6 +62,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/learnedTopics")]
         public IActionResult GetEmployeeLearnedTopics(int id)
@@ -75,6 +80,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/recommendedTopics")]
         public IActionResult GetEmployeeRecommendedTopics(int id)
@@ -91,6 +98,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/learningDays")]
         public IActionResult GetEmployeeLearningDays(int id)
@@ -107,6 +116,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/limits")]
         public IActionResult GetEmployeeLimits(int id)
@@ -123,6 +134,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/invites")]
         public IActionResult GetEmployeeInvites(int id)
@@ -139,6 +152,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all")]
         public IActionResult GetEmployees()
@@ -155,6 +170,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all/employeesAndLeaders")]
         public IActionResult getEmployeesAndLeaders()
@@ -187,6 +204,8 @@ namespace TELPA.Controllers
         }
 
         // Grazina visu zemesniu lygiu employees ir ju lyderius pagal virsiausio lyderio lygi
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/employeesAndLeadersForSupremeLeader/{supremeLeaderId}")]
         public IActionResult getEmployeesAndLeadersForSupremeLeader(int supremeLeaderId)  
@@ -239,6 +258,8 @@ namespace TELPA.Controllers
             return Json(result);
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/employeesForLeader/leaders/{supremeLeaderId}")]
         public IActionResult getLeadersForSupremeLeader(int supremeLeaderId)  // Grazina visu zemesniu lygiu lyderius pagal lyderio lygi
@@ -288,6 +309,8 @@ namespace TELPA.Controllers
             return Json(leaders);
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all/leaders")]
         public IActionResult getLeaders()
@@ -320,6 +343,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all/leaders/unassigned")]
         public IActionResult getUnassignedLeaders()
@@ -352,6 +377,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
@@ -367,6 +394,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult UpdateEmployee([FromBody] Employee employee)
         {
@@ -387,6 +416,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult DeleteEmployee(int id)

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -21,6 +22,8 @@ namespace TELPA.Controllers
             return Json(Ok("LearningDayLinkController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult getLearningDayLink(int id)
@@ -37,6 +40,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult createLearningDayLink([FromBody] LearningDayLink learningDayLink)
         {
@@ -52,6 +57,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult updateLearningDayLink([FromBody] LearningDayLink learningDayLink)
         {
@@ -67,6 +74,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteLearningDayLink(int id)

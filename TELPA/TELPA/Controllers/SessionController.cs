@@ -49,6 +49,7 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
         [HttpPost]
         [Route("logIn")]
         public IActionResult LogIn([FromBody] LoginData loginData)
@@ -65,6 +66,7 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
         [HttpPost]
         [Route("logOut")]
         public IActionResult LogOut()

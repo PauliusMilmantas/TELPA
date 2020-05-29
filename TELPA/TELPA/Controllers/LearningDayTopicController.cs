@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -23,6 +24,8 @@ namespace TELPA.Controllers
             return Json(Ok("LearningDayTopicController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult getLearningDayTopic(int id)
@@ -39,6 +42,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all")]
         public IActionResult getAllDays() {
@@ -54,6 +59,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult createLearningDayTopic([FromBody] LearningDayTopic learningDayTopic)
         {
@@ -69,6 +76,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult updateLearningDayTopic([FromBody] LearningDayTopic learningDayTopic)
         {
@@ -84,6 +93,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteLearningDayTopic(int id)
