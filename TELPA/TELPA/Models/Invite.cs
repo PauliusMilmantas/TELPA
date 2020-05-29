@@ -10,7 +10,7 @@ namespace TELPA.Models
     public class Invite : IVersionedEntity
     {
         [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TELPA.Data;
 using TELPA.Models;
+using TELPA.Components;
 
 namespace TELPA.Controllers
 {
@@ -26,6 +27,8 @@ namespace TELPA.Controllers
             return Json(Ok("LimitController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult getLimit(int id)
@@ -42,6 +45,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("getByEmployee/{employeeId}")]
         public IActionResult getByEmployeeLimit(int employeeId)
@@ -66,6 +71,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult createLimit([FromBody] Limit limit)
         {
@@ -101,6 +108,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult updateLimit([FromBody] Limit limit)
         {
@@ -116,6 +125,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteLimit(int id)

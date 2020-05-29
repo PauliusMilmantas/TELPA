@@ -4,6 +4,7 @@ using System.Linq;
 using Castle.Core.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -25,6 +26,8 @@ namespace TELPA.Controllers
             return Json(Ok("LearningDayController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult GetLearningDay(int id)
@@ -41,6 +44,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/learningDayTopics")]
         public IActionResult GetLearningDayLearningDayTopics(int id)
@@ -57,6 +62,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}/learningDayLinks")]
         public IActionResult GetLearningDayLearningDayLinks(int id)
@@ -73,6 +80,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all")]
         public IActionResult GetLearningDays()
@@ -89,6 +98,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult CreateLearningDay([FromBody] LearningDay learningDay)
         {
@@ -212,6 +223,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("createWithGET/{date}/{comment}/{employeeId}/{version}/{topicId}")]
         public IActionResult CreateWithGet(string date, string comment, string employeeId, string version, string topicId) {
@@ -237,6 +250,8 @@ namespace TELPA.Controllers
             return Json(Ok("Added"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult UpdateLearningDay([FromBody] LearningDay learningDay)
         {
@@ -252,6 +267,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult DeleteLearningDay(int id)
@@ -269,6 +286,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/learningDaysAndTopicsForEmployee/{employeeId}")]
         public IActionResult getLearningDaysAndTopicsForEmployee(int employeeId)

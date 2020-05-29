@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TELPA.Components;
 using TELPA.Data;
 
 namespace TELPA.Controllers
@@ -21,6 +22,8 @@ namespace TELPA.Controllers
             return Json(Ok("SectionController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/employeesForTopic/{topicId}")]
         public IActionResult getEmployeesForTopic(int topicId)
@@ -60,6 +63,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/leadersForTopic/{topicId}")]
         public IActionResult getLeadersForTopic(int topicId)
@@ -115,6 +120,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/learnedTopicsForLeader/{leaderId}")]
         public IActionResult getLearnedTopicsForLeader(int leaderId)
@@ -153,6 +160,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/futureLearningDaysForLeader/{leaderId}")]
         public IActionResult getFutureLearningDaysForLeader(int leaderId)
