@@ -1,2 +1,0 @@
-28 May 2020 02:11:53:
-    TELPA.Controllers.EmployeeController.Ping (TELPA) was called by 

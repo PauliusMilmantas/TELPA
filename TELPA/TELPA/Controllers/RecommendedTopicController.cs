@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -23,6 +24,8 @@ namespace TELPA.Controllers
             return Json(Ok("RecommendedTopicController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult getRecommendedTopic(int id)
@@ -39,6 +42,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("getByEmployee/{employeeId}")]
         public IActionResult getRecommendedTopicByEmployee(int employeeId)
@@ -63,6 +68,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult createRecommendedTopic([FromBody] RecommendedTopic recommendedTopic)
         {
@@ -78,6 +85,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult updateRecommendedTopic([FromBody] RecommendedTopic recommendedTopic)
         {
@@ -93,6 +102,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteRecommendedTopic(int id)

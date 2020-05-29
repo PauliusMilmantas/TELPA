@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -23,6 +24,8 @@ namespace TELPA.Controllers
             return Json(Ok("LearnedTopicController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult getLearnedTopic(int id)
@@ -39,6 +42,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/all")]
         public IActionResult getLearnedTopics()
@@ -55,6 +60,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult createLearnedTopic([FromBody] LearnedTopic learnedTopic)
         {
@@ -70,6 +77,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult updateLearnedTopic([FromBody] LearnedTopic learnedTopic)
         {
@@ -85,6 +94,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult deleteLearnedTopic(int id)

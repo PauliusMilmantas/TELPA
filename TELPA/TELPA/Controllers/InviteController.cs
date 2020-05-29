@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TELPA.Components;
 using TELPA.Data;
 using TELPA.Models;
 
@@ -22,6 +23,8 @@ namespace TELPA.Controllers
             return Json(Ok("InviteController online"));
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/{id}")]
         public IActionResult GetInvite(int id)
@@ -38,6 +41,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpGet]
         [Route("get/link/{id}")]
         public IActionResult GetInviteByLink(string id)
@@ -54,6 +59,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPost("create")]
         public IActionResult CreateInvite([FromBody] Invite invite)
         {
@@ -69,6 +76,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpPut("update")]
         public IActionResult UpdateInvite([FromBody] Invite invite)
         {
@@ -84,6 +93,8 @@ namespace TELPA.Controllers
             }
         }
 
+        [Logged]
+        [Authenticated]
         [HttpDelete]
         [Route("delete/{id}")]
         public IActionResult DeleteInvite(int id)

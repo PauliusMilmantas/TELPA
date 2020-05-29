@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -84,6 +84,10 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </ResolvedFileToPublish>
     </ItemGroup>
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(SolutionDir)\TELPA.Extensions.Logic\bin\Debug\netcoreapp3.1\TELPA.Extensions.Logic.dll&quot; &quot;$(TargetDir)TELPA.Extensions.Logic.dll&quot;" />
   </Target>
 
 </Project>
