@@ -414,36 +414,70 @@ export class EmployeeManagementComponent implements OnInit {
         this.e = e;
       })
       .add(() => {
-        for (let i = 0; i < this.fullLeaderData.length; i++) {
-          console.log(this.fullLeaderData[i]["leaderName"], this.leaderName);
-          if (this.fullLeaderData[i]["leaderName"] == this.leaderName) {
-            leaderId = this.fullLeaderData[i]["leaderId"];
-          }
-        }
-        this.newAttribute = {};
-        console.log(name, email, leaderId);
-        this.accountAPIService
-          .invite(<Invite>{
-            id: 0,
-            email: email,
-            inviterId: leaderId,
-            expiryDate: new Date(),
-            link: "",
-            version: 0,
-          })
-          .subscribe(
-            (val) => {
-              console.log("POST call successful value returned in body", val);
-            },
-            (response) => {
-              console.log("POST call in error", response);
-            },
-            () => {
-              console.log("The POST observable is now completed.");
+        if (leaderName != null) {
+          for (let i = 0; i < this.fullLeaderData.length; i++) {
+            console.log(this.fullLeaderData[i]["leaderName"], this.leaderName);
+            if (this.fullLeaderData[i]["leaderName"] == this.leaderName) {
+              leaderId = this.fullLeaderData[i]["leaderId"];
             }
-          );
+          }
+          this.newAttribute = {};
+          console.log(name, email, leaderId);
+          this.accountAPIService
+            .invite(<Invite>{
+              id: 0,
+              email: email,
+              inviterId: leaderId,
+              expiryDate: new Date(),
+              link: "",
+              version: 0,
+            })
+            .subscribe(
+              (val) => {
+                console.log("POST call successful value returned in body", val);
+              },
+              (response) => {
+                console.log("POST call in error", response);
+              },
+              () => {
+                console.log("The POST observable is now completed.");
+              }
+            );
 
-        this.modalService.close(id);
+          this.modalService.close(id);
+        }
+        else {
+          for (let i = 0; i < this.fullLeaderData.length; i++) {
+            console.log(this.fullLeaderData[i]["leaderName"], this.leaderName);
+            if (this.fullLeaderData[i]["leaderName"] == this.leaderName) {
+              leaderId = this.fullLeaderData[i]["leaderId"];
+            }
+          }
+          this.newAttribute = {};
+          console.log(name, email, leaderId);
+          this.accountAPIService
+            .invite(<Invite>{
+              id: 0,
+              email: email,
+              inviterId: this.e.id,
+              expiryDate: new Date(),
+              link: "",
+              version: 0,
+            })
+            .subscribe(
+              (val) => {
+                console.log("POST call successful value returned in body", val);
+              },
+              (response) => {
+                console.log("POST call in error", response);
+              },
+              () => {
+                console.log("The POST observable is now completed.");
+              }
+            );
+
+          this.modalService.close(id);
+        }
       });
   }
 
