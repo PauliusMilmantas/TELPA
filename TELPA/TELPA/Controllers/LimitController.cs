@@ -80,7 +80,9 @@ namespace TELPA.Controllers
                     where
                       lim.employeeId = {limit.EmployeeId} and
                       ({DateTime.Parse(limit.StartDate)} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate) or
-                      {DateTime.Parse(limit.EndDate)} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate))")
+                      {DateTime.Parse(limit.EndDate)} between convert(datetime, lim.startDate) and convert(datetime, lim.endDate)) or
+                      convert(datetime, lim.startDate) between {DateTime.Parse(limit.StartDate)} and {DateTime.Parse(limit.EndDate)} or
+                      convert(datetime, lim.endDate) between {DateTime.Parse(limit.StartDate)} and {DateTime.Parse(limit.EndDate)}")
                     .ToList<CheckBool>();
 
                 if (!result.IsNullOrEmpty())
